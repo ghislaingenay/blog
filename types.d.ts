@@ -14,7 +14,7 @@ enum Language {
   FRENCH = "fr",
 }
 
-interface Post {
+interface PostMeta {
   id: string;
   title: string;
   topic: PostTopic[];
@@ -27,3 +27,21 @@ interface Post {
   series: string;
   language: Language;
 }
+
+interface Post {
+  meta: PostMeta;
+  content: ReactElement<any, string | JSXElementConstructor<any>>;
+}
+
+interface TreeData {
+  path: string;
+  mode?: string;
+  type?: string;
+  sha?: string;
+  size?: number;
+  url?: string;
+}
+
+type Filetree = {
+  tree: TreeData[];
+};
