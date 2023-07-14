@@ -6,11 +6,12 @@ type PostTopic =
   | "DEVOPS"
   | "DATABASES"
   | "BIG DATA"
-  | "OTHERS";
+  | "OTHERS"
+  | "PERSONAL";
 
 enum Language {
-  ENGLISH = "ENGLISH",
-  FRENCH = "FRENCH",
+  ENGLISH = "en",
+  FRENCH = "fr",
 }
 
 interface Post {
