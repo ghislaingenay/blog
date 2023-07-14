@@ -1,15 +1,7 @@
 import { getPostById } from "@/lib/api/post-api";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import PostItem from "./PostItem";
-
-export interface PostProps {
-  params: {
-    postId: string;
-  };
-}
-
-// inside fetch('', {next: {revalidate: 60}})
+import { PostProps } from "../page";
 
 export async function generateMetadata({
   params: { postId },
@@ -22,8 +14,8 @@ export async function generateMetadata({
 }
 
 export default async function Post({ params: { postId } }: PostProps) {
-  const postData = await await getPostById(postId);
-
-  if (!postData) notFound();
+  const postData = await getPostById(postId);
+  const isDevelopment = process.env.NODE_ENV === "development";
+  if (!postData || !isDevelopment) notFound();
   return <PostItem />;
 }

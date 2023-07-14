@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-slate-800">
         <Navbar />
-        {children}
+        <main className="prose prose-xl prose-slate mx-auto">{children}</main>
       </body>
     </html>
   );
