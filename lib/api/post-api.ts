@@ -1,8 +1,8 @@
-export const getPostById = async (id: string) => {
+export const getPostById = async (id: string): Promise<Post> => {
   const searchParams = new URLSearchParams({ postId: id });
   const res = await fetch(
     `https://jsonplaceholder.typicode.com/posts?${searchParams}`
   );
-  const post = await res.json();
+  const post: Post = await res.json();
   return post;
 };
