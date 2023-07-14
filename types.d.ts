@@ -14,7 +14,7 @@ enum Language {
 }
 
 interface Post {
-  postId: string;
+  id: string;
   title: string;
   topic: PostTopic[];
   subTopic: string[];
