@@ -1,4 +1,7 @@
 import { compileMDX } from "next-mdx-remote/rsc";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeHighlight from "rehype-highlight/lib";
+import rehypeSlug from "rehype-slug";
 const HEADERS_GITHUB = {
   Accept: "application/vnd.github+json",
   Authorization: `Bearer ${process.env.GITHUB_API_TOKEN}`,
@@ -20,6 +23,16 @@ export const getPostByName = async (
   if (/^404[:]/.test(rawMDX)) throw new Error("Failed to fetch post");
   const { frontmatter, content } = await compileMDX<Omit<PostMeta, "id">>({
     source: rawMDX,
+    options: {
+      parseFrontmatter: true,
+      mdxOptions: {
+        rehypePlugins: [
+          [rehypeAutolinkHeadings, { behavior: "wrap" }],
+          rehypeHighlight,
+          rehypeSlug,
+        ],
+      },
+    },
   });
   const id = fileName.replace(/\.mdx$/, "");
   const postObj: Post = { meta: { ...frontmatter, id }, content };
