@@ -17,6 +17,16 @@ const nextConfig = {
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   // Optionally, add any other Next.js config below
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "raw.githubusercontent.com",
+        port: "",
+        pathname: "/ghislaingenay/blog-posts/master/images/**",
+      },
+    ],
+  },
 };
 
 module.exports = withMDX(nextConfig);
