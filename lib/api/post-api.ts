@@ -1,4 +1,4 @@
-import { Video } from "@components/Video";
+import { Video, CustomImage } from "@components";
 import { SerializeOptions } from "next-mdx-remote/dist/types";
 import { compileMDX } from "next-mdx-remote/rsc";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -10,7 +10,7 @@ const HEADERS_GITHUB = {
   "X-GitHub-Api-Version": "2022-11-28",
 };
 
-const COMPONENTS_MDX = { Video };
+const COMPONENTS_MDX = { Video, CustomImage };
 const OPTIONS_MDX: SerializeOptions = {
   parseFrontmatter: true,
   mdxOptions: {
