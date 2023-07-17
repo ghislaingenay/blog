@@ -10,7 +10,6 @@ export default async function Home() {
     return <p className="mt-10 text-center">Sorry, no posts available.</p>;
   }
   return (
-    // <section className="mt-6 mx-auto max-w-2xl">
     <section className="my-10 mx-auto">
       <ul className="list-none p-0">
         {posts.map((post, index) => (

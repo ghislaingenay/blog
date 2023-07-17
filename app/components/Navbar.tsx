@@ -14,7 +14,7 @@ export default function Navbar() {
     <If condition={shouldShowGlobalNavbar}>
       <Then>
         <nav className="fixed z-10 flex bg-slate-200 top-0 items-center h-16 w-full drop-shadow-lg">
-          <div className="container mx-auto">
+          <div className="container mx-auto w-1/2 px-5">
             <p>Yes</p>
           </div>
         </nav>
