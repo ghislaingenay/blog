@@ -31,3 +31,10 @@ code {
   padding: 2rem !important;
   border-radius: 2rem !important;
 }
+
+.main {
+  min-height: 100dvh;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}

@@ -22,11 +22,10 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-slate-200 pb-10">
         <Navbar />
-        <main className="container mx-auto prose prose-xl w-1/2 prose-slate">
-          {/* <main className="container mx-auto min-h-screen items-center prose prose-xl prose-slate bg-slate-400"> */}
-          {/* <main className="flex min-h-screen items-center prose prose-xl prose-slate mx-auto"> */}
+        <main className="container mx-auto prose prose-xl w-full sm:w-3/4 md:w-1/2 prose-slate">
           {children}
         </main>
+        {/* <footer>Hey</footer> */}
       </body>
     </html>
   );
