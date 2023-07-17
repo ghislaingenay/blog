@@ -1,4 +1,5 @@
 import { CustomImage, Video } from "@components";
+import { Language } from "@interfaces/global.interface";
 import { SerializeOptions } from "next-mdx-remote/dist/types";
 import { compileMDX } from "next-mdx-remote/rsc";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -63,7 +64,6 @@ export const getPostsMeta = async (): Promise<PostMeta[] | undefined> => {
     headers: HEADERS_GITHUB,
   });
   const englishFileTree: Filetree = await englishRes.json();
-  console.log("fl", englishFileTree);
   const filesArray = englishFileTree.tree
     .map((treeObject) => treeObject.path)
     .filter((path) => path.endsWith(".mdx"));

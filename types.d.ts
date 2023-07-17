@@ -13,11 +13,6 @@ type PostTopic =
   | "OTHERS"
   | "PERSONAL";
 
-enum Language {
-  ENGLISH = "en",
-  FRENCH = "fr",
-}
-
 interface PostMeta {
   id: string;
   title: string;
@@ -28,7 +23,7 @@ interface PostMeta {
   updatedAt: string;
   readTime: string;
   keywords: string[]; // seo purpose
-  language: Language;
+  language: "en" | "fr" | string;
   tags: string[]; //inside the app
 }
 
