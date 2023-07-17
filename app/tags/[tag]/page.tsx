@@ -1,3 +1,4 @@
+import PostItem from "@app/components/PostItem";
 import { REVALIDATION_PERIOD } from "@constants/global.const";
 import { capitalize, createMetaData } from "@functions";
 import { getPostsMeta } from "@lib-api/post-api";
@@ -9,14 +10,13 @@ export interface TagProps {
 }
 
 export const revalidate = REVALIDATION_PERIOD;
-export const dynamic = "force-dynamic";
 
-export async function generateStaticParams() {
-  const posts = await getPostsMeta(); //deduped!
-  if (!posts) return [];
-  const tags = new Set(posts.map((post) => post.tags).flat());
-  return Array.from(tags).map((tag) => ({ tag }));
-}
+// export async function generateStaticParams() {
+//   const posts = await getPostsMeta(); //deduped!
+//   if (!posts) return [];
+//   const tags = new Set(posts.map((post) => post.tags).flat());
+//   return Array.from(tags).map((tag) => ({ tag }));
+// }
 
 export function generateMetadata({ params: { tag } }: TagProps) {
   return createMetaData({ title: `Posts about ${tag}` });
@@ -37,7 +37,7 @@ export default async function TagList({ params: { tag } }: TagProps) {
         <>
           <div className="flex flex-col gap-4">
             {tagPosts.map((post, index) => (
-              <div key={index}>{post.title}</div>
+              <PostItem key={index} post={post} tagPost />
             ))}
           </div>
         </>

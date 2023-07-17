@@ -8,7 +8,6 @@ import { notFound } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
 
 export const revalidate = REVALIDATION_PERIOD;
-export const dynamic = "force-dynamic";
 
 export interface PostProps {
   params: {
