@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 };
 
 export const GLOBAL_CLASS_CONTAINER = "container flex mx-auto w-full";
+const BODY_CLASS = "bg-slate-400 h-screen";
 
 export default function RootLayout({
   children,
@@ -22,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-slate-400 h-screen">
+      <body className={BODY_CLASS}>
         <Navbar />
         <main className={GLOBAL_CLASS_CONTAINER}>
           {/* <main className="container mx-auto min-h-screen items-center prose prose-xl prose-slate bg-slate-400"> */}
