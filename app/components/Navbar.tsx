@@ -21,7 +21,7 @@ export default function Navbar() {
         <div className="h-16" />
       </Then>
       <Else>
-        <p>Non</p>
+        <nav className="flex top-0 items-center h-16 w-full" />
       </Else>
     </If>
   );

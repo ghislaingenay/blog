@@ -5,6 +5,7 @@ import "highlight.js/styles/github-dark.css";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { FaArrowLeft } from "react-icons/fa";
 
 export const revalidate = REVALIDATION_PERIOD;
 export const dynamic = "force-dynamic";
@@ -47,7 +48,12 @@ export default async function Post({ params: { postId } }: PostProps) {
 
   return (
     <>
-      <h2>{title}</h2>
+      <div className="flex">
+        <Link href={"/"}>
+          <FaArrowLeft className="border-4 p-1 my-auto border-black text-black text-5xl rounded-full items-center mr-4" />
+        </Link>
+        <h2 className="text-2xl my-auto">{title}</h2>
+      </div>
       <article>{content}</article>
       <section>
         <h3>Related</h3>
