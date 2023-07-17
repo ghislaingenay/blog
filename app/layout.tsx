@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   The main goal is to share my knowledge and experience with the community.",
 };
 
+export const GLOBAL_CLASS_CONTAINER = "container mx-auto w-full";
+
 export default function RootLayout({
   children,
 }: {
@@ -20,9 +22,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-slate-800">
+      <body className="bg-slate-400">
         <Navbar />
-        <main className="prose prose-xl prose-slate mx-auto">{children}</main>
+        <main className={GLOBAL_CLASS_CONTAINER}>
+          {/* <main className="container mx-auto min-h-screen items-center prose prose-xl prose-slate bg-slate-400"> */}
+          {/* <main className="flex min-h-screen items-center prose prose-xl prose-slate mx-auto"> */}
+          {children}
+        </main>
       </body>
     </html>
   );
