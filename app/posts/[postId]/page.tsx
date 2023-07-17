@@ -1,11 +1,13 @@
-import { getPostByName } from "@/lib/api/post-api";
-import { createMetaData } from "@/lib/functions";
+import { REVALIDATION_PERIOD } from "@constants/global.const";
+import { createMetaData, parseTag } from "@functions";
+import { getPostByName } from "@lib-api/post-api";
 import "highlight.js/styles/github-dark.css";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-export const revalidate = 0; //Come back here and change
+export const revalidate = REVALIDATION_PERIOD;
+export const dynamic = "force-dynamic";
 
 export interface PostProps {
   params: {
@@ -34,21 +36,22 @@ export async function generateMetadata({
 
 export default async function Post({ params: { postId } }: PostProps) {
   const post = await getPostByName(`${postId}.mdx`); //deduped
-  if (!post) notFound();
+  if (!post) return notFound();
   const { meta, content } = post;
-  const { title, description, tags } = meta;
+  const { title, tags } = meta;
   const tagList = tags.map((tag, index) => (
     <Link key={index} href={`/tags/${tag}`}>
-      {tag}
+      {parseTag(tag)}
     </Link>
   ));
+
   return (
     <>
-      <h2>Title</h2>
-      <article>content</article>
+      <h2>{title}</h2>
+      <article>{content}</article>
       <section>
         <h3>Related</h3>
-        <div className="flex flex-row gap-4">{tags}</div>
+        <div className="flex flex-row gap-4">{tagList}</div>
       </section>
     </>
   );

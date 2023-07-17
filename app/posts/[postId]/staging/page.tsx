@@ -1,13 +1,14 @@
-import { getPostByName } from "@/lib/api/post-api";
-import { createMetaData } from "@/lib/functions";
+import { createMetaData, parseTag } from "@functions";
+import { getPostByName } from "@lib-api/post-api";
 import { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PostProps } from "../page";
 
 export async function generateMetadata({
   params: { postId },
 }: PostProps): Promise<Metadata> {
-  const post = await getPostByName(postId);
+  const post = await getPostByName(`${postId}.mdx`);
   if (!post) {
     return { title: "Post Not Found" };
   }
@@ -17,8 +18,26 @@ export async function generateMetadata({
 }
 
 export default async function Post({ params: { postId } }: PostProps) {
-  const postData = await getPostByName(postId);
+  if (process.env.NODE_ENV !== "development") notFound();
+  const post = await getPostByName(`${postId}.mdx`);
   const isDevelopment = process.env.NODE_ENV === "development";
-  if (!postData || !isDevelopment) notFound();
-  return <div />;
+  if (!post || !isDevelopment) notFound();
+  const { meta, content } = post;
+  const { title, tags } = meta;
+  const tagList = tags.map((tag, index) => (
+    <Link key={index} href={`/tags/${tag}`}>
+      {parseTag(tag)}
+    </Link>
+  ));
+
+  return (
+    <>
+      <h2>{title}</h2>
+      <article>{content}</article>
+      <section>
+        <h3>Related</h3>
+        <div className="flex flex-row gap-4">{tagList}</div>
+      </section>
+    </>
+  );
 }

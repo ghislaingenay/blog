@@ -50,7 +50,7 @@ export async function getPostByName(
   }
 }
 ////////////////////////////////////////////////////////////////////////////
-export const getPostsMeta = async (): Promise<PostMeta[] | undefined> => {
+export async function getPostsMeta(): Promise<PostMeta[] | undefined> {
   try {
     const res = await fetch(
       "https://api.github.com/repos/ghislaingenay/blog-posts/git/trees/master?recursive=1",
@@ -85,4 +85,4 @@ export const getPostsMeta = async (): Promise<PostMeta[] | undefined> => {
   } catch (err: any) {
     throw new Error(err);
   }
-};
+}
