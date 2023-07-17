@@ -1,3 +1,7 @@
+type Prettify<T> = {
+  [K in keyof T]: T[K];
+} & {};
+
 type PostTopic =
   | "DATA SCIENCE"
   | "WEB DEVELOPMENT"
@@ -26,6 +30,7 @@ interface PostMeta {
   keywords: string[];
   series: string;
   language: Language;
+  seoTags: string[];
 }
 
 interface Post {

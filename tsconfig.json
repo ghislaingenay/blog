@@ -24,6 +24,8 @@
     "paths": {
       "@/*": ["./*"],
       "@app/*": ["./app/*"],
+      "@api/*": ["./app/api/*"],
+      "@functions": ["./lib/functions/index"],
       "@components": ["./app/components/index"],
       "@lib-api/*": ["./lib/api/*"],
       "@constants/*": ["./lib/constants/*"]
