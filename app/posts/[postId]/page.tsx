@@ -1,4 +1,5 @@
 import { getPostByName } from "@/lib/api/post-api";
+import { createMetaData } from "@/lib/functions";
 import "highlight.js/styles/github-dark.css";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -28,17 +29,17 @@ export async function generateMetadata({
   }
   const { meta } = post;
   const { title, description, keywords } = meta;
-  return { title: "Post", description: "post.title", keywords: "post.title" };
+  return createMetaData({ title, description, keywords });
 }
 
 export default async function Post({ params: { postId } }: PostProps) {
   const post = await getPostByName(`${postId}.mdx`); //deduped
   if (!post) notFound();
   const { meta, content } = post;
-  const { title, description, keywords } = meta;
-  const tags = keywords.map((keyword, index) => (
-    <Link key={index} href={`/tags/${keyword}`}>
-      {keyword}
+  const { title, description, tags } = meta;
+  const tagList = tags.map((tag, index) => (
+    <Link key={index} href={`/tags/${tag}`}>
+      {tag}
     </Link>
   ));
   return (

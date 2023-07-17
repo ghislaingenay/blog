@@ -27,10 +27,10 @@ interface PostMeta {
   createdAt: string;
   updatedAt: string;
   readTime: string;
-  keywords: string[];
+  keywords: string[]; // seo purpose
   series: string;
   language: Language;
-  seoTags: string[];
+  tags: string[]; //inside the app
 }
 
 interface Post {
