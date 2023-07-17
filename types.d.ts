@@ -28,7 +28,6 @@ interface PostMeta {
   updatedAt: string;
   readTime: string;
   keywords: string[]; // seo purpose
-  series: string;
   language: Language;
   tags: string[]; //inside the app
 }

@@ -1,4 +1,4 @@
-import { Video, CustomImage } from "@components";
+import { CustomImage, Video } from "@components";
 import { SerializeOptions } from "next-mdx-remote/dist/types";
 import { compileMDX } from "next-mdx-remote/rsc";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -47,7 +47,7 @@ export const getPostByName = async (
 ////////////////////////////////////////////////////////////////////////////
 export const getPostsMeta = async (): Promise<PostMeta[] | undefined> => {
   const res = await fetch(
-    "https://api.github.com/repos/ghislaingenay/blog-posts/git/trees/master/?recursive=1",
+    "https://api.github.com/repos/ghislaingenay/blog-posts/git/trees/master?recursive=1",
     {
       headers: HEADERS_GITHUB,
     }
@@ -63,6 +63,7 @@ export const getPostsMeta = async (): Promise<PostMeta[] | undefined> => {
     headers: HEADERS_GITHUB,
   });
   const englishFileTree: Filetree = await englishRes.json();
+  console.log("fl", englishFileTree);
   const filesArray = englishFileTree.tree
     .map((treeObject) => treeObject.path)
     .filter((path) => path.endsWith(".mdx"));
