@@ -14,11 +14,13 @@ export default function Navbar() {
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      const scrollTotal =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = document.documentElement.clientHeight;
+
+      const scrollTotal = scrollHeight - clientHeight;
+      if (scrollTotal === 0) return setArticleCompletion(0);
       const scrollPercentage = (window.scrollY / scrollTotal) * 100;
-      setArticleCompletion(scrollPercentage);
+      return setArticleCompletion(scrollPercentage);
     });
   }, []);
 
