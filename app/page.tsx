@@ -11,7 +11,7 @@ export default async function Home() {
   return (
     <section className="my-10 mx-auto grid grid-cols-5 lg:grid-cols-4 gap-5">
       <div className="col-span-5 lg:col-span-1 border-black border h-[100px]" />
-      <ul className="col-span-5 list-none p-0 lg:col-span-3">
+      <ul className="col-span-5 list-none p-0 lg:col-span-3 m-0">
         {posts.map((post) => (
           <PostItem key={post.id} post={post} />
         ))}
