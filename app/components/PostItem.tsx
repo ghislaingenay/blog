@@ -38,7 +38,7 @@ export default function PostItem({ post, tagPost }: PostItemProps) {
         }}
       >
         <div className="border border-slate-400 rounded-lg shadow-md p-2 sm:p-10 min-h-[15rem] grid grid-cols-8 gap-x-4">
-          <div className="col-span-8 md:col-span-4 lg:col-span-1 max-h-max lg:max-h-[100px] mb-3 md:mb-0 place-self-center">
+          <div className="col-span-8 md:col-span-4 lg:col-span-2 max-h-full mb-3 md:mb-0 place-self-center">
             <Image
               src={image}
               width={450}
@@ -47,7 +47,7 @@ export default function PostItem({ post, tagPost }: PostItemProps) {
               className="rounded-lg p-0 m-0"
             />
           </div>
-          <div className="col-span-8 md:col-span-4 lg:col-span-7 max-h-max border border-red-600">
+          <div className="col-span-8 md:col-span-4 lg:col-span-6 max-h-full">
             <p className="text-sm mt-0 text-red-400">{topic}</p>
             <h3 className="p-0 mt-0 text-lg overflow-ellipsis">{title}</h3>
           </div>
