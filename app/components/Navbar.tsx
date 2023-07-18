@@ -35,7 +35,7 @@ export default function Navbar() {
     <If condition={shouldShowGlobalNavbar}>
       <Then>
         <nav className="fixed z-10 flex bg-slate-200 top-0 items-center h-16 w-full drop-shadow-lg">
-          <div className="container mx-auto w-[100%] sm:w-[90%] md:w-[80%] lg:w-[70%] px-5 sm:px-0 ">
+          <div className="container mx-auto w-full sm:w-[600px] md:w-[728px] lg:w-[984px] xl:w-[1240px] 2xl:[1535px] px-5 sm:px-0">
             <Link href={"/"}>
               <FaHome className="text-2xl" />
             </Link>

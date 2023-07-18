@@ -20,7 +20,7 @@ module.exports = {
       typography: {
         DEFAULT: {
           css: {
-            maxWidth: "100%",
+            maxWidth: "100%", // Block the prose to be a full width and change container siwe directly in container
           },
         },
       },
