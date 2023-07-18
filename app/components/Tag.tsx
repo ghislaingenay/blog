@@ -30,7 +30,7 @@ export const Tag = ({
   const isClickable = onTagClicked ? true : false;
 
   const initialClasses =
-    "text-white w-auto px-3 py-1 mr-1 text-xs font-medium text-bold rounded-full";
+    "text-white w-auto px-3 py-1 mr-1 text-xs font-medium text-bold rounded-full text-xs sm:text-sm";
   const classes = `${initialClasses} ${className} ${colorList[color]}`;
   return (
     <button

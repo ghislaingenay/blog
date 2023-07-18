@@ -37,8 +37,8 @@ export default function PostItem({ post, tagPost }: PostItemProps) {
           ...linkStyle,
         }}
       >
-        <div className="border border-slate-400 rounded-lg shadow-md p-2 sm:p-10 min-h-[15rem] grid grid-cols-8 gap-x-4">
-          <div className="col-span-8 md:col-span-4 lg:col-span-2 max-h-full mb-3 md:mb-0 place-self-center">
+        <div className="border border-slate-400 rounded-2xl shadow-md p-5 sm:p-5 min-h-[10rem] grid grid-cols-8 gap-x-4 gap-y-2">
+          <div className="col-span-8 md:col-span-4 lg:col-span-2 max-h-full mb-3 md:mb-0 place-self-center h-full">
             <Image
               src={image}
               width={450}
@@ -48,23 +48,23 @@ export default function PostItem({ post, tagPost }: PostItemProps) {
             />
           </div>
           <div className="col-span-8 md:col-span-4 lg:col-span-6 max-h-full">
-            <p className="text-sm mt-0 text-red-400">{topic}</p>
-            <h3 className="p-0 mt-0 text-lg overflow-ellipsis">{title}</h3>
-          </div>
-
-          <p className="col-span-8 md:col-span-6 text-start text-base my-auto">
-            {tags.map((tag, index) => (
-              <Tag color="gray" key={index}>
-                {tag}
-              </Tag>
-            ))}
-          </p>
-          <p className="hidden md:inline md:col-span-2 text-end text-base py-1">
-            <div className="flex justify-end gap-x-2">
-              <FaClock className="my-auto italic" />
-              <p className="m-0 p-0 italic">{readTime}</p>
+            <p className="text-xs sm:text-sm mt-0 text-red-600">{topic}</p>
+            <div className="w-full border border-spacing-0.5 mb-2 opacity-50 border-stone-500" />
+            <h3 className="p-0 mt-0 text-base sm:text-lg max-h-max">{title}</h3>
+            <p className="col-span-8 md:col-span-6 text-start text-base my-auto">
+              {tags.map((tag, index) => (
+                <Tag color="gray" key={index}>
+                  {tag}
+                </Tag>
+              ))}
+            </p>
+            <div className="hidden md:inline md:col-span-2 text-end text-base py-1">
+              <div className="flex justify-start gap-2 my-4">
+                <FaClock className="my-auto italic" />
+                <p className="m-0 p-0 italic text-xs">{readTime}</p>
+              </div>
             </div>
-          </p>
+          </div>
         </div>
       </Link>
     </li>
