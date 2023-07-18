@@ -1,3 +1,7 @@
+type Prettify<T> = {
+  [K in keyof T]: T[K];
+} & {};
+
 type PostTopic =
   | "DATA SCIENCE"
   | "WEB DEVELOPMENT"
@@ -9,11 +13,6 @@ type PostTopic =
   | "OTHERS"
   | "PERSONAL";
 
-enum Language {
-  ENGLISH = "en",
-  FRENCH = "fr",
-}
-
 interface PostMeta {
   id: string;
   title: string;
@@ -23,9 +22,10 @@ interface PostMeta {
   createdAt: string;
   updatedAt: string;
   readTime: string;
-  keywords: string[];
-  series: string;
-  language: Language;
+  keywords: string[]; // seo purpose
+  language: "en" | "fr" | string;
+  tags: string[]; //inside the app
+  image: string;
 }
 
 interface Post {

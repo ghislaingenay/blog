@@ -20,9 +20,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-slate-800">
+      <body className="bg-slate-100 pb-10">
         <Navbar />
-        <main className="prose prose-xl prose-slate mx-auto">{children}</main>
+        <main className="container mx-auto w-full sm:w-[600px] md:w-[728px] lg:w-[984px] xl:w-[1240px] 2xl:[1535px] px-5 sm:px-0 prose prose-xl prose-slate">
+          {children}
+        </main>
+        {/* <footer>Hey</footer> */}
       </body>
     </html>
   );

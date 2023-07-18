@@ -1,21 +1,43 @@
-import { getPostById } from "@/lib/api/post-api";
+import { createMetaData, parseTag } from "@functions";
+import { getPostByName } from "@lib-api/post-api";
 import { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PostProps } from "../page";
 
 export async function generateMetadata({
   params: { postId },
 }: PostProps): Promise<Metadata> {
-  const post = await getPostById(postId);
+  const post = await getPostByName(`${postId}.mdx`);
   if (!post) {
     return { title: "Post Not Found" };
   }
-  return { title: "Post", description: "post.title", keywords: "post.title" };
+  const { meta } = post;
+  const { title, description, keywords } = meta;
+  return createMetaData({ title, description, keywords });
 }
 
 export default async function Post({ params: { postId } }: PostProps) {
-  const postData = await getPostById(postId);
+  if (process.env.NODE_ENV !== "development") notFound();
+  const post = await getPostByName(`${postId}.mdx`);
   const isDevelopment = process.env.NODE_ENV === "development";
-  if (!postData || !isDevelopment) notFound();
-  return <PostItem />;
+  if (!post || !isDevelopment) notFound();
+  const { meta, content } = post;
+  const { title, tags } = meta;
+  const tagList = tags.map((tag, index) => (
+    <Link key={index} href={`/tags/${tag}`}>
+      {parseTag(tag)}
+    </Link>
+  ));
+
+  return (
+    <>
+      <h2>{title}</h2>
+      <article>{content}</article>
+      <section>
+        <h3>Related</h3>
+        <div className="flex flex-row gap-4">{tagList}</div>
+      </section>
+    </>
+  );
 }

@@ -1,6 +1,4 @@
-"use client";
-
-export default function SearchBar() {
+export default function Searchbar() {
   return (
     <div className="relative">
       <input type="text" placeholder="Search" />
