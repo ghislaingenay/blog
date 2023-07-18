@@ -25,6 +25,7 @@ interface PostMeta {
   keywords: string[]; // seo purpose
   language: "en" | "fr" | string;
   tags: string[]; //inside the app
+  image: string;
 }
 
 interface Post {

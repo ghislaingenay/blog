@@ -23,7 +23,7 @@ export default function Navbar() {
   }, []);
 
   const LineScroll = ({ value }: { value: number }) => (
-    <div className="fixed z-10 top-0 left-0 w-full h-1 scroll-smooth">
+    <div className="fixed z-10 top-[4rem] left-0 w-full h-1 scroll-smooth">
       <div className="h-full bg-black" style={{ width: `${value}%` }} />
     </div>
   );
@@ -35,7 +35,7 @@ export default function Navbar() {
     <If condition={shouldShowGlobalNavbar}>
       <Then>
         <nav className="fixed z-10 flex bg-slate-200 top-0 items-center h-16 w-full drop-shadow-lg">
-          <div className="container mx-auto w-full sm:w-3/4 md:w-1/2 px-5">
+          <div className="container mx-auto w-full sm:w-3/4 md:w-1/2 px-5 sm:px-0">
             <Link href={"/"}>
               <FaHome className="text-2xl" />
             </Link>
