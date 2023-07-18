@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CSSProperties } from "react";
+import { FaClock } from "react-icons/fa";
 import { Tag } from "./Tag";
 
 interface PostItemProps {
@@ -13,7 +14,7 @@ const linkStyle: CSSProperties = {
 };
 
 export default function PostItem({ post, tagPost }: PostItemProps) {
-  const { title, topic, image, tags } = post;
+  const { title, topic, image, tags, readTime } = post;
 
   if (tagPost) {
     return (
@@ -36,29 +37,34 @@ export default function PostItem({ post, tagPost }: PostItemProps) {
           ...linkStyle,
         }}
       >
-        <div className="border border-slate-400 rounded-lg shadow-md p-10 min-h-[15rem] grid grid-cols-6 gap-x-4">
-          <div className="col-span-1 max-h-[100px]">
+        <div className="border border-slate-400 rounded-lg shadow-md p-2 sm:p-10 min-h-[15rem] grid grid-cols-8 gap-x-4">
+          <div className="col-span-8 md:col-span-4 lg:col-span-1 max-h-max lg:max-h-[100px] mb-3 md:mb-0 place-self-center">
             <Image
               src={image}
-              width={`${200}`}
-              height={`${200}`}
+              width={450}
+              height={450}
               alt={`Image for ${title} blog post`}
-              className="rounded-lg col-span-1 p-0 m-0"
+              className="rounded-lg p-0 m-0"
             />
           </div>
-          <div className="col-span-5 max-h-[100px]">
+          <div className="col-span-8 md:col-span-4 lg:col-span-7 max-h-max border border-red-600">
             <p className="text-sm mt-0 text-red-400">{topic}</p>
             <h3 className="p-0 mt-0 text-lg overflow-ellipsis">{title}</h3>
           </div>
 
-          <p className="col-span-3 text-start text-base">
+          <p className="col-span-8 md:col-span-6 text-start text-base my-auto">
             {tags.map((tag, index) => (
               <Tag color="gray" key={index}>
                 {tag}
               </Tag>
             ))}
           </p>
-          <p className="col-span-3 text-end text-base">Mine</p>
+          <p className="hidden md:inline md:col-span-2 text-end text-base py-1">
+            <div className="flex justify-end gap-x-2">
+              <FaClock className="my-auto italic" />
+              <p className="m-0 p-0 italic">{readTime}</p>
+            </div>
+          </p>
         </div>
       </Link>
     </li>
