@@ -31,7 +31,7 @@ export default function PostItem({ post, tag }: PostItemProps) {
           ...linkStyle,
         }}
       >
-        <div className="border border-slate-400 rounded-2xl shadow-md p-5 sm:p-5 min-h-[10rem] grid grid-cols-8 gap-x-4 gap-y-2">
+        <div className="rounded-2xl bg-slate-100 shadow-md p-5 sm:p-5 min-h-[10rem] grid grid-cols-8 gap-x-4 gap-y-2">
           <div className="col-span-8 md:col-span-4 lg:col-span-2 max-h-full mb-3 md:mb-0 place-self-center h-full">
             <Image
               src={image}
