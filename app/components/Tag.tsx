@@ -49,3 +49,9 @@ export const Tag = ({
     return <ButtonTag>{children}</ButtonTag>;
   }
 };
+
+export const TopicTag = ({ children }: { children: ReactNode }) => (
+  <Tag color="orange" className="font-bold text-base text-orange-200">
+    {children}
+  </Tag>
+);
