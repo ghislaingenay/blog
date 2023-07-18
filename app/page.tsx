@@ -11,8 +11,8 @@ export default async function Home() {
   return (
     <section className="my-10 mx-auto">
       <ul className="list-none p-0">
-        {posts.map((post, index) => (
-          <PostItem key={post.id} post={post} displayNumber={index} />
+        {posts.map((post) => (
+          <PostItem key={post.id} post={post} />
         ))}
       </ul>
     </section>
