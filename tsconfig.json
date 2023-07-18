@@ -29,6 +29,7 @@
       "@lib-api/*": ["./lib/api/*"],
       "@constants/*": ["./lib/constants/*"],
       "@interfaces/*": ["./lib/interfaces/*"],
+      "@hooks": ["./lib/hooks/index"],
       "@lib/*": ["./lib/*"]
     }
   },
