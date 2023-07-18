@@ -2,35 +2,29 @@ import Image from "next/image";
 import Link from "next/link";
 import { CSSProperties } from "react";
 import { FaClock } from "react-icons/fa";
-import { Tag } from "./Tag";
+import { Tag, TagProps } from "./Tag";
 
 interface PostItemProps {
   post: PostMeta;
-  tagPost?: boolean;
+  tag?: string;
 }
 
 const linkStyle: CSSProperties = {
   textDecoration: "none",
 };
 
-export default function PostItem({ post, tagPost }: PostItemProps) {
+export default function PostItem({ post, tag }: PostItemProps) {
   const { title, topic, image, tags, readTime } = post;
 
-  if (tagPost) {
-    return (
-      <Link
-        href={`/posts/${post.id}`}
-        style={{
-          ...linkStyle,
-        }}
-      >
-        <p className="p-0 mb-1 m-0">Hello - {title}</p>
-      </Link>
-    );
-  }
+  const haveTag = tag ? true : false;
+  const tagMatch = (tagValue: string) => haveTag && tag === tagValue;
+  const additionalTagProps = (tagValue: string): Partial<TagProps> =>
+    tagMatch(tagValue) ? { color: "green" } : { color: "gray" };
 
+  const changeOpacityTagClass = (tagValue: string) =>
+    tagMatch(tagValue) ? "" : "opacity-50";
   return (
-    <li className="m-0 p-0 mb-10">
+    <li className="m-0 p-0 mb-10 ">
       <Link
         href={`/posts/${post.id}`}
         style={{
@@ -53,7 +47,11 @@ export default function PostItem({ post, tagPost }: PostItemProps) {
             <h3 className="p-0 mt-0 text-base sm:text-lg max-h-max">{title}</h3>
             <p className="col-span-8 md:col-span-6 text-start text-base my-auto">
               {tags.map((tag, index) => (
-                <Tag color="gray" key={index}>
+                <Tag
+                  {...additionalTagProps(tag)}
+                  key={index}
+                  className={changeOpacityTagClass(tag)}
+                >
                   {tag}
                 </Tag>
               ))}

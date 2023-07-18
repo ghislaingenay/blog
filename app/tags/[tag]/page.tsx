@@ -35,11 +35,13 @@ export default async function TagList({ params: { tag } }: TagProps) {
     <div className="mt-10">
       {tagHavePosts ? (
         <>
-          <div className="flex flex-col gap-4">
-            {tagPosts.map((post, index) => (
-              <PostItem key={index} post={post} tagPost />
-            ))}
-          </div>
+          <section className="my-10 mx-auto">
+            <ul className="list-none p-0">
+              {posts.map((post) => (
+                <PostItem key={post.id} post={post} tag={tag} />
+              ))}
+            </ul>
+          </section>
         </>
       ) : (
         <>
