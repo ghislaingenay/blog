@@ -1,5 +1,5 @@
 import { getPostsMeta } from "@lib-api/post-api";
-import PostItem from "./components/PostItem";
+import PostItem from "../lib/components/posts/PostItem";
 
 export const revalidate = 20;
 
@@ -9,13 +9,15 @@ export default async function Home() {
     return <p className="mt-10 text-center">Sorry, no posts available.</p>;
   }
   return (
-    <section className="my-10 mx-auto grid grid-cols-5 lg:grid-cols-4 gap-5">
-      <div className="col-span-5 lg:col-span-1 border-black border h-[100px]" />
-      <ul className="col-span-5 list-none p-0 lg:col-span-3 m-0">
-        {posts.map((post) => (
-          <PostItem key={post.id} post={post} />
-        ))}
-      </ul>
-    </section>
+    <div className="grid grid-cols-5 lg:grid-cols-4 gap-x-5">
+      <section className="col-span-5 border border-black lg:col-span-1 p-0 m-0 h-20 sm:h-24 lg:h-full" />
+      <section className="col-span-5  lg:col-span-3 m-0">
+        <ul className="list-none p-0">
+          {posts.map((post) => (
+            <PostItem key={post.id} post={post} />
+          ))}
+        </ul>
+      </section>
+    </div>
   );
 }
