@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CSSProperties } from "react";
 import { FaClock } from "react-icons/fa";
-import { Tag, TagProps } from "../../../app/components/Tag";
+import { Tag, TagProps } from "../Tag";
 
 interface PostItemProps {
   post: PostMeta;
