@@ -1,4 +1,4 @@
-import { CustomImage, Video } from "@components";
+import { CustomImage, Video } from "@app/components";
 import { Language } from "@interfaces/global.interface";
 import { SerializeOptions } from "next-mdx-remote/dist/types";
 import { compileMDX } from "next-mdx-remote/rsc";
