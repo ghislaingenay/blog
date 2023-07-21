@@ -56,7 +56,7 @@ const NavIcon = ({
   return (
     <>
       <div
-        className={`${selectedItemClass} relative flex flex-wrap justify-center items-center my-auto hover:bg-slate-300 hover:bg-opacity-50 hover:rounded-xl mr-0 ml-3 md:ml-0 md:mr-3`}
+        className={`${selectedItemClass} relative flex flex-wrap justify-center items-center my-auto hover:bg-slate-300 hover:bg-opacity-50 hover:rounded-xl mr-0 ml-1 lg:ml-0 lg:mr-1`}
         onMouseOver={() => $(`#${idDisplay}`).removeClass("hidden")}
         onMouseOut={() => $(`#${idDisplay}`).addClass("hidden")}
       >
@@ -105,7 +105,7 @@ export default function Navbar() {
   const shouldNotShowNav = PATH_NAME_WITHOUT_NAV.includes(pathname);
   const noNav = useDeferredValue(shouldNotShowNav);
 
-  const isMobile = useWindowSize()[0] < 768;
+  const isMobile = useWindowSize()[0] < 1024;
 
   const [articleCompletion, setArticleCompletion] = useState(0);
   const percentage = useDeferredValue(articleCompletion);
@@ -180,16 +180,16 @@ export default function Navbar() {
         <Nav>
           <button
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-700 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-700 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
           >
             {iconSideBarMobile}
           </button>
           <div className="flex items-center">{mainNavElements}</div>
 
           <div
-            className={`${hiddenClass} w-full md:block md:w-auto absolute md:static text-end md:text-center right-0 right- top-12 `}
+            className={`${hiddenClass} w-full lg:block lg:w-auto absolute lg:static text-end lg:text-center right-0 right- top-12 `}
           >
-            <ul className="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">
+            <ul className="flex flex-col sm:w-[97%] sm:mx-auto font-medium mt-4 rounded-lg bg-gray-50 lg:flex-row lg:space-x-8 lg:mt-0 lg:border-0 lg:bg-transparent dark:bg-gray-800 lg:dark:bg-transparent dark:border-gray-700">
               {!isMobile &&
                 navElementsWithoutMain.map((element, index) => (
                   <li key={index}>{element}</li>
@@ -197,11 +197,12 @@ export default function Navbar() {
               {isMobile &&
                 [...pageNavSection].map((navField) => {
                   return (
-                    <NavBanner
-                      key={navField.id}
-                      currentPath={pathname}
-                      navField={navField}
-                    />
+                    <div key={navField.id}>
+                      <div className="my-0 md:my-2 ps-0 md:ps-[1.5%]">
+                        <NavBanner currentPath={pathname} navField={navField} />
+                      </div>
+                      <div className="border border-spacing-1 border-gray-200 max-w-[97%] border-opacity-0.5 mx-auto" />
+                    </div>
                   );
                 })}
               {isMobile && (
