@@ -14,7 +14,7 @@ export default async function Home() {
       <section className="col-span-5 lg:col-span-3 ">
         <div role="listbox">
           {posts.map((post) => (
-            <li key={post.id} className="list-none">
+            <li key={post.id} className="list-none mb-5">
               <PostItem post={post} />
             </li>
           ))}
