@@ -137,15 +137,9 @@ export default function Navbar() {
   }, [isMobile]);
 
   const iconSideBarMobile = openedSideBar ? (
-    <FaXing
-      className={`${ICON_CLASS_NAV} ${ICON_SIDE_BAR_ANIMATION_CLASS}`}
-      onClick={() => setIsSideBarOpen(false)}
-    />
+    <FaXing className={`${ICON_CLASS_NAV} ${ICON_SIDE_BAR_ANIMATION_CLASS}`} />
   ) : (
-    <FaBars
-      className={`${ICON_CLASS_NAV} ${ICON_SIDE_BAR_ANIMATION_CLASS}`}
-      onClick={() => setIsSideBarOpen(true)}
-    />
+    <FaBars className={`${ICON_CLASS_NAV} ${ICON_SIDE_BAR_ANIMATION_CLASS}`} />
   );
 
   const createNavSectionLinkIcon = (navSection: NavField[]) => {
@@ -183,7 +177,8 @@ export default function Navbar() {
         <Nav>
           <button
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-700 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-700 rounded-lg lg:hidden hover:bg-slate-300 hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            onClick={() => setIsSideBarOpen((prevValue) => !prevValue)}
           >
             {iconSideBarMobile}
           </button>
