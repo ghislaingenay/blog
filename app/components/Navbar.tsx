@@ -5,8 +5,98 @@ import $ from "jquery";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode, useDeferredValue, useEffect, useState } from "react";
-import { FaBars, FaGithub, FaHome, FaLinkedin, FaXing } from "react-icons/fa";
+import {
+  FaBars,
+  FaEnvelope,
+  FaGithub,
+  FaHome,
+  FaLinkedin,
+  FaXing,
+} from "react-icons/fa";
 import { Case, Default, Switch } from "react-if";
+
+interface NavField {
+  id: string;
+  type: "page" | "social" | "main"; // main is the elemment always displayed
+  children: JSX.Element;
+  link: string;
+  label: string;
+}
+
+interface NavDisplay {
+  navField: NavField;
+  currentPath: string;
+}
+
+const matchPath = (link: string, currentPath: string) => {
+  if (link === currentPath && link === "/") return true;
+  if (link !== "/" && new RegExp(link, "gi").test(currentPath)) return true;
+  return false;
+};
+
+const selectColorTextHover = (samePath: boolean) =>
+  samePath ? "text-blue-600" : "text-gray-700";
+const checkSocialType = (navField: NavField) => navField.type === "social";
+
+const NavBanner = ({ navField, currentPath }: NavDisplay) => {
+  const { children, label, link, id } = navField;
+  const haveSamePath = matchPath(link, currentPath);
+  const selectedItemClass = selectColorTextHover(haveSamePath);
+  console.log({ haveSamePath, id, currentPath, selectedItemClass });
+  const isSocial = checkSocialType(navField);
+
+  if (isSocial) return <button id={navField.id}>{children}</button>;
+  return (
+    <li key={id}>
+      <Link
+        href={link}
+        className={`block py-2 pl-3 pr-4 text-gray-900 text-start rounded hover:bg-gray-300 md:hover:bg-transparent md:border-0  md:p-0`}
+      >
+        <p className={`${selectedItemClass} m-0 p-0`}>{label}</p>
+      </Link>
+    </li>
+  );
+};
+
+const NavIcon = ({
+  navField,
+  currentPath,
+}: {
+  navField: NavField;
+  currentPath: string;
+}) => {
+  const { children, label, link } = navField;
+  const haveSamePath = matchPath(link, currentPath);
+  const selectedItemClass = selectColorTextHover(haveSamePath);
+  const hiddenIfSocialPage = checkSocialType(navField) ? "hidden" : "";
+
+  const idDisplay = `display-${navField.id}`;
+
+  const TRIANGLE_CLASS =
+    "absolute left-[1.3rem] top-[2.35rem] border-l-[7.5px] border-l-transparent border-b-[10px] border-b-slate-500 opacity-0.5 border-r-[7.5px] border-r-transparent";
+
+  return (
+    <>
+      <div
+        className={`${selectedItemClass} relative flex flex-wrap justify-center items-center my-auto hover:bg-slate-300 hover:bg-opacity-50 hover:rounded-xl mr-0 ml-3 md:ml-0 md:mr-3`}
+        onMouseOver={() => $(`#${idDisplay}`).removeClass("hidden")}
+        onMouseOut={() => $(`#${idDisplay}`).addClass("hidden")}
+      >
+        <div id={idDisplay} className="hidden">
+          <div
+            className={`${hiddenIfSocialPage} absolute w-[90%] grid top-[2.75rem] left-[0.175rem] h-6 bg-slate-500 z-40 rounded-lg`}
+          >
+            <span className="text-[9px] font-bold text-white self-center text-center">
+              {label}
+            </span>
+          </div>
+          <div className={`${TRIANGLE_CLASS} ${hiddenIfSocialPage}`} />
+        </div>
+        <span className="p-4">{children}</span>
+      </div>
+    </>
+  );
+};
 
 const Nav = ({ children }: { children: ReactNode }) => {
   return (
@@ -21,106 +111,105 @@ const Nav = ({ children }: { children: ReactNode }) => {
   );
 };
 
-interface NavField {
-  id: string;
-  type: "page" | "social";
-  children: JSX.Element;
-  link: string;
-  label: string;
-}
+const LineScroll = ({ value }: { value: number }) => (
+  <div className="fixed z-10 top-[4rem] left-0 w-full h-1 scroll-smooth">
+    <div className="h-full bg-black" style={{ width: `${value}%` }} />
+  </div>
+);
 
 export default function Navbar() {
   const pathname = usePathname();
+  const PATH_NAME_WITHOUT_NAV = ["/signout", "/signin", "/signup"];
 
   const shouldShowGlobalNavbar = !pathname.startsWith("/posts");
+  const shouldNotShowNav = PATH_NAME_WITHOUT_NAV.includes(pathname);
+
   const [articleCompletion, setArticleCompletion] = useState(0);
   const isMobile = useWindowSize()[0] < 768;
 
+  const percentage = useDeferredValue(articleCompletion);
+  const isGlobalNav = useDeferredValue(shouldShowGlobalNavbar);
+  const noNav = useDeferredValue(shouldNotShowNav);
+  const ICON_CLASS = "text-2xl hover:opacity-70";
+  const ICON_SIDE_BAR_ANIMATION_CLASS =
+    "animate-rotate-x animate-ease-in-out animate-once animate-duration-300";
+  const ICON_ANIMATION = "hover:animate-wiggle hover:animate-infinite";
+
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      const scrollHeight = document.documentElement.scrollHeight;
-      const clientHeight = document.documentElement.clientHeight;
-
+      const { scrollHeight, clientHeight } = document.documentElement;
       const scrollTotal = scrollHeight - clientHeight;
-      if (scrollTotal === 0) return setArticleCompletion(0);
+      const userCanScrollPage = (scrollTotal: number) => scrollTotal > 0;
+      if (!userCanScrollPage(scrollTotal)) return setArticleCompletion(0);
       const scrollPercentage = (window.scrollY / scrollTotal) * 100;
       return setArticleCompletion(scrollPercentage);
     });
   }, []);
 
-  const LineScroll = ({ value }: { value: number }) => (
-    <div className="fixed z-10 top-[4rem] left-0 w-full h-1 scroll-smooth">
-      <div className="h-full bg-black" style={{ width: `${value}%` }} />
-    </div>
-  );
-
-  const percentage = useDeferredValue(articleCompletion);
-  const isGlobalNav = useDeferredValue(shouldShowGlobalNavbar);
-  const ICON_CLASS = "text-2xl hover:opacity-70";
-
-  const isGlobalNavMobile = isGlobalNav && isMobile;
-  const isGlobalNavDesktop = isGlobalNav && !isMobile;
-  const isNavPostMobile = !isGlobalNav && isMobile;
-  const isNavPostDesktop = !isGlobalNav && !isMobile;
-
-  const [selectedNavElement, setSelectedNavElement] = useState("home");
-
   useEffect(() => {
-    window.addEventListener("click", (e) => {
-      const target = e?.target as HTMLElement;
-      const id = target ? target?.id : undefined;
-      if (!id) return;
-      if (id === "home" || id === "bio") {
-        setSelectedNavElement(id);
-        const navElement = document.getElementById(id);
-        if (navElement) {
-          navElement.style.color = "orange";
-          navElement.style.borderBottom = "2px solid orange";
-        }
-      }
-    });
-  }, []);
+    console.log(isMobile);
+    if (!isMobile) setIsSideBarOpen(false);
+  }, [isMobile]);
 
-  const setNavElementColor = (id: string) => {
-    const navElement = document.getElementById(id);
-    setSelectedNavElement(id);
-    if (navElement) {
-      navElement.style.color = "orange";
-      navElement.style.borderBottom = "2px solid orange";
-    }
-  };
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+  const openedSideBar = useDeferredValue(isSideBarOpen);
 
-  const pageNavSection: NavField[] = [
+  const iconSideBarMobile = openedSideBar ? (
+    <FaXing
+      className={`${ICON_CLASS} ${ICON_SIDE_BAR_ANIMATION_CLASS}`}
+      onClick={() => setIsSideBarOpen(false)}
+    />
+  ) : (
+    <FaBars
+      className={`${ICON_CLASS} ${ICON_SIDE_BAR_ANIMATION_CLASS}`}
+      onClick={() => setIsSideBarOpen(true)}
+    />
+  );
+  const hiddenClass = !openedSideBar ? "hidden" : "block";
+
+  // left section of the navbar
+  const mainNavSection: NavField[] = [
     {
       id: "home",
-      type: "page",
+      type: "main",
       children: (
         <span className="my-auto p-0">
-          <FaHome
-            className={`${ICON_CLASS}`}
-            onClick={() => setNavElementColor("home")}
-          />
+          <FaHome className={`${ICON_CLASS} ${ICON_ANIMATION}`} />
         </span>
       ),
       link: "/",
-      label: "HOME PAGE",
+      label: "HOME",
     },
+    {
+      id: "contact",
+      type: "main",
+      children: (
+        <span className="my-auto p-0">
+          <FaEnvelope className={`${ICON_CLASS} ${ICON_ANIMATION}`} />
+        </span>
+      ),
+      link: "/contact-me",
+      label: "CONTACT",
+    },
+  ];
+
+  const pageNavSection: NavField[] = [
     {
       id: "bio",
       type: "page",
       children: (
         <p
-          className="font-bold hover:opacity-70 text-md m-0 p-0"
-          onClick={() => setNavElementColor("bio")}
+          className={`${ICON_ANIMATION} font-bold hover:opacity-70 text-md m-0 p-0`}
         >
           BIO
         </p>
       ),
       link: "/bio",
-      label: "MY BIO",
+      label: "BIO",
     },
   ];
 
+  // right section of the navbar
   const socialMediaNavSection: NavField[] = [
     {
       id: "github",
@@ -151,172 +240,84 @@ export default function Navbar() {
       label: "LINKEDIN",
     },
   ];
-  // if (!isNavApplied) return <></>; // return an arrow element non fixed to go bqck previous page router.back()
 
-  useEffect(() => {
-    if (isGlobalNavDesktop) {
-      [...pageNavSection].forEach(({ id }) => {
-        const navElement = document.getElementById(id);
-        const sameElement = id === selectedNavElement;
-        if (navElement && !sameElement) {
-          navElement.style.color = "black";
-          navElement.style.borderBottom = "none";
-        }
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedNavElement]);
+  const createNavSectionLinkIcon = (navSection: NavField[]) => {
+    return navSection.map((element) => {
+      const { link, children, id, type } = element;
+      const isSocial = type === "social";
+      const newChildren = isSocial ? (
+        <button id={id}>{children}</button>
+      ) : (
+        <Link href={link} id={id}>
+          {children}
+        </Link>
+      );
+      const navFielsProps = { ...element, children: newChildren };
+      return (
+        <NavIcon key={id} navField={navFielsProps} currentPath={pathname} />
+      );
+    });
+  };
 
-  const pageNavSectionElements = pageNavSection.map(
-    ({ link, children, id }) => (
-      <Link href={link} key={id} id={id} className="p-5">
-        {children}
-      </Link>
-    )
+  const mainNavElements = createNavSectionLinkIcon(mainNavSection);
+  const pageNavElements = createNavSectionLinkIcon(pageNavSection);
+  const socialMediaNavSectionElements = createNavSectionLinkIcon(
+    socialMediaNavSection
   );
 
-  const socialMediaNavSectionElements = socialMediaNavSection.map(
-    ({ children, id }) => (
-      <span key={id} className="p-5">
-        {children}
-      </span>
-    )
-  );
-
-  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
-
-  useEffect(() => {
-    if (isSideBarOpen) $("#logo-sidebar").removeClass("visible-sidebar");
-    else $("#logo-sidebar").addClass("visible-sidebar");
-  }, [isSideBarOpen]);
-  const sideBarIcon = isSideBarOpen ? (
-    <FaXing
-      className={`${ICON_CLASS} z-50`}
-      onClick={() => setIsSideBarOpen(false)}
-    />
-  ) : (
-    <FaBars
-      className={`${ICON_CLASS} z-50`}
-      onClick={() => setIsSideBarOpen(true)}
-    />
-  );
-
-  const sidebarNavElements = [
-    [...pageNavSectionElements].slice(1),
-    [...socialMediaNavSectionElements],
+  const navElementsWithoutMain = [
+    ...pageNavElements,
+    ...socialMediaNavSectionElements,
   ];
-
-  const classNameSidebar = isSideBarOpen ? "flex" : "hidden";
 
   return (
     <Switch>
       <Case condition={isGlobalNav}>
         <Nav>
-          <Link href="/">
-            <FaHome className={ICON_CLASS} />
-          </Link>
-
           <button
-            data-collapse-toggle="navbar-solid-bg"
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-            aria-controls="navbar-solid-bg"
-            aria-expanded="false"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-700 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
           >
-            <span className="sr-only">Open main menu</span>
-            <svg
-              className="w-5 h-5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 17 14"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              />
-            </svg>
+            {iconSideBarMobile}
           </button>
+          <div className="flex items-center">{mainNavElements}</div>
+
           <div
-            className="hidden w-full md:block md:w-auto"
-            id="navbar-solid-bg"
+            className={`${hiddenClass} w-full md:block md:w-auto absolute md:static text-end md:text-center right-0 right- top-12 `}
           >
             <ul className="flex flex-col font-medium mt-4 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent"
-                  aria-current="page"
-                >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Services
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Pricing
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Contact
-                </a>
-              </li>
+              {!isMobile &&
+                navElementsWithoutMain.map((element, index) => (
+                  <li key={index}>{element}</li>
+                ))}
+              {isMobile &&
+                [...pageNavSection].map((navField) => {
+                  return (
+                    <NavBanner
+                      key={navField.id}
+                      currentPath={pathname}
+                      navField={navField}
+                    />
+                  );
+                })}
+              {isMobile && (
+                <div className="grid grid-cols-6 sm:grid-cols-8 gap-2">
+                  {socialMediaNavSection.map((navField) => {
+                    return (
+                      <div key={navField.id} className="col-span-1 self-center">
+                        <NavIcon navField={navField} currentPath={pathname} />
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </ul>
           </div>
         </Nav>
+        <LineScroll value={percentage} />
       </Case>
-      <Case condition={isGlobalNavDesktop}>
-        <Nav>
-          <div className="grid grid-cols-2">
-            <div className="flex flex-wrap justify-start items-center w-full min-h-max col-span-1 lg:hidden">
-              {pageNavSectionElements}
-            </div>
-            <div className="flex flex-wrap items-center justify-end w-full min-h-max col-span-1">
-              {socialMediaNavSection.map(({ children, id }) => (
-                <span key={id} className="p-5">
-                  {children}
-                </span>
-              ))}
-            </div>
-          </div>
-          <LineScroll value={percentage} />
-        </Nav>
-      </Case>
-      <Case condition={isGlobalNavMobile}>
-        <Nav>
-          <div className="grid grid-cols-2">
-            <div className="flex flex-wrap justify-start items-center w-full min-h-max col-span-1">
-              {pageNavSectionElements[0]}
-            </div>
-            <div className="flex flex-wrap justify-end items-center w-full min-h-max col-span-1">
-              {sideBarIcon}
-            </div>
-          </div>
-          <LineScroll value={percentage} />
-        </Nav>
-      </Case>
-      <Case condition={isNavPostDesktop}></Case>
-      <Case condition={isNavPostMobile}></Case>
-
-      {/* <nav className="flex top-0 items-center h-16 w-full" /> */}
-      {/* <LineScroll value={percentage} /> */}
+      <Case condition={!isGlobalNav}></Case>
+      <Case condition={noNav}></Case>
       <Default></Default>
     </Switch>
   );
