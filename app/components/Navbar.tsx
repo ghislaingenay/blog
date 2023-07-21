@@ -1,42 +1,20 @@
 "use client";
 
+import {
+  ICON_CLASS_NAV,
+  mainNavSection,
+  pageNavSection,
+  socialMediaNavSection,
+} from "@constants/nav-menu";
+import { checkSocialType, matchPath, selectColorTextHover } from "@functions";
 import { useWindowSize } from "@hooks";
+import { NavDisplay, NavField } from "@interfaces/nav.interface";
 import $ from "jquery";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode, useDeferredValue, useEffect, useState } from "react";
-import {
-  FaBars,
-  FaEnvelope,
-  FaGithub,
-  FaHome,
-  FaLinkedin,
-  FaXing,
-} from "react-icons/fa";
+import { FaBars, FaXing } from "react-icons/fa";
 import { Case, Default, Switch } from "react-if";
-
-interface NavField {
-  id: string;
-  type: "page" | "social" | "main"; // main is the elemment always displayed
-  children: JSX.Element;
-  link: string;
-  label: string;
-}
-
-interface NavDisplay {
-  navField: NavField;
-  currentPath: string;
-}
-
-const matchPath = (link: string, currentPath: string) => {
-  if (link === currentPath && link === "/") return true;
-  if (link !== "/" && new RegExp(link, "gi").test(currentPath)) return true;
-  return false;
-};
-
-const selectColorTextHover = (samePath: boolean) =>
-  samePath ? "text-blue-600" : "text-gray-700";
-const checkSocialType = (navField: NavField) => navField.type === "social";
 
 const NavBanner = ({ navField, currentPath }: NavDisplay) => {
   const { children, label, link, id } = navField;
@@ -130,10 +108,9 @@ export default function Navbar() {
   const percentage = useDeferredValue(articleCompletion);
   const isGlobalNav = useDeferredValue(shouldShowGlobalNavbar);
   const noNav = useDeferredValue(shouldNotShowNav);
-  const ICON_CLASS = "text-2xl hover:opacity-70";
+
   const ICON_SIDE_BAR_ANIMATION_CLASS =
     "animate-rotate-x animate-ease-in-out animate-once animate-duration-300";
-  const ICON_ANIMATION = "hover:animate-wiggle hover:animate-infinite";
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -156,90 +133,16 @@ export default function Navbar() {
 
   const iconSideBarMobile = openedSideBar ? (
     <FaXing
-      className={`${ICON_CLASS} ${ICON_SIDE_BAR_ANIMATION_CLASS}`}
+      className={`${ICON_CLASS_NAV} ${ICON_SIDE_BAR_ANIMATION_CLASS}`}
       onClick={() => setIsSideBarOpen(false)}
     />
   ) : (
     <FaBars
-      className={`${ICON_CLASS} ${ICON_SIDE_BAR_ANIMATION_CLASS}`}
+      className={`${ICON_CLASS_NAV} ${ICON_SIDE_BAR_ANIMATION_CLASS}`}
       onClick={() => setIsSideBarOpen(true)}
     />
   );
   const hiddenClass = !openedSideBar ? "hidden" : "block";
-
-  // left section of the navbar
-  const mainNavSection: NavField[] = [
-    {
-      id: "home",
-      type: "main",
-      children: (
-        <span className="my-auto p-0">
-          <FaHome className={`${ICON_CLASS} ${ICON_ANIMATION}`} />
-        </span>
-      ),
-      link: "/",
-      label: "HOME",
-    },
-    {
-      id: "contact",
-      type: "main",
-      children: (
-        <span className="my-auto p-0">
-          <FaEnvelope className={`${ICON_CLASS} ${ICON_ANIMATION}`} />
-        </span>
-      ),
-      link: "/contact-me",
-      label: "CONTACT",
-    },
-  ];
-
-  const pageNavSection: NavField[] = [
-    {
-      id: "bio",
-      type: "page",
-      children: (
-        <p
-          className={`${ICON_ANIMATION} font-bold hover:opacity-70 text-md m-0 p-0`}
-        >
-          BIO
-        </p>
-      ),
-      link: "/bio",
-      label: "BIO",
-    },
-  ];
-
-  // right section of the navbar
-  const socialMediaNavSection: NavField[] = [
-    {
-      id: "github",
-      type: "social",
-      children: (
-        <FaGithub
-          className={`${ICON_CLASS} text-gray-700`}
-          onClick={() =>
-            window.open("https://github.com/ghislaingenay", "_blank")
-          }
-        />
-      ),
-      link: "https://github.com/ghislaingenay",
-      label: "GITHUB",
-    },
-    {
-      id: "linkedin",
-      type: "social",
-      children: (
-        <FaLinkedin
-          className={`${ICON_CLASS} text-blue-600`}
-          onClick={() =>
-            window.open("https://www.linkedin.com/in/ghislaingenay/", "_blank")
-          }
-        />
-      ),
-      link: "https://www.linkedin.com/in/ghislaingenay/",
-      label: "LINKEDIN",
-    },
-  ];
 
   const createNavSectionLinkIcon = (navSection: NavField[]) => {
     return navSection.map((element) => {
