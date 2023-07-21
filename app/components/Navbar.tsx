@@ -6,7 +6,7 @@ import {
   pageNavSection,
   socialMediaNavSection,
 } from "@constants/nav-menu";
-import { checkSocialType, matchPath, selectColorTextHover } from "@functions";
+import { checkSocialType, matchPath } from "@functions";
 import { useWindowSize } from "@hooks";
 import { NavDisplay, NavField } from "@interfaces/nav.interface";
 import $ from "jquery";
@@ -15,6 +15,9 @@ import { usePathname } from "next/navigation";
 import { ReactNode, useDeferredValue, useEffect, useState } from "react";
 import { FaBars, FaXing } from "react-icons/fa";
 import { Case, Default, Switch } from "react-if";
+
+const selectColorTextHover = (samePath: boolean) =>
+  samePath ? "text-blue-600" : "text-gray-700";
 
 const NavBanner = ({ navField, currentPath }: NavDisplay) => {
   const { children, label, link, id } = navField;

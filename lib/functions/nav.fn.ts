@@ -6,7 +6,5 @@ export const matchPath = (link: string, currentPath: string) => {
   return false;
 };
 
-export const selectColorTextHover = (samePath: boolean) =>
-  samePath ? "text-blue-600" : "text-gray-700";
 export const checkSocialType = (navField: NavField) =>
   navField.type === "social";
