@@ -19,11 +19,11 @@ export const Tag = ({
   color = "blue",
 }: TagProps) => {
   const colorList: Record<TagColor, string> = {
-    blue: `bg-blue-600`,
-    red: `bg-red-600`,
-    green: `bg-green-600`,
+    blue: `bg-blue-800`,
+    red: `bg-red-800`,
+    green: `bg-green-800`,
     orange: `bg-orange-600`,
-    gray: `bg-gray-600`,
+    gray: `bg-black opacity-70`,
   };
 
   const linkUrl = link ? link : "";
