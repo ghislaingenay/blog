@@ -184,38 +184,45 @@ export default function Navbar() {
           </button>
           <div className="flex items-center">{mainNavElements}</div>
 
-          <div
-            className={`${hiddenClass} w-full lg:block lg:w-auto absolute lg:static text-end lg:text-center right-0 top-12`}
-          >
-            <ul className="flex flex-col sm:w-[97%] sm:mx-auto font-medium mt-4 rounded-lg bg-gray-50 lg:flex-row lg:space-x-8 lg:mt-0 lg:border-0 lg:bg-transparent dark:bg-gray-800 lg:dark:bg-transparent dark:border-gray-700">
-              {!isMobile &&
-                navElementsWithoutMain.map((element, index) => (
-                  <li key={index}>{element}</li>
-                ))}
-              {isMobile &&
-                [...pageNavSection].map((navField) => {
-                  return (
-                    <div key={navField.id}>
-                      <div className="my-0 md:my-2 ps-0 md:ps-[1.5%]">
-                        <NavBanner currentPath={pathname} navField={navField} />
-                      </div>
-                      <div className="border border-spacing-1 border-gray-200 max-w-[97%] border-opacity-0.5 mx-auto" />
-                    </div>
-                  );
-                })}
-              {isMobile && (
-                <div className="grid grid-cols-6 sm:grid-cols-8 gap-2">
-                  {socialMediaNavSection.map((navField) => {
+          {isMobile ? (
+            <>
+              <div
+                className={`${hiddenClass} w-full lg:block lg:w-auto absolute lg:static text-end lg:text-center right-0 top-12`}
+              >
+                <ul className="flex flex-col sm:w-[97%] sm:mx-auto font-medium mt-4 rounded-lg bg-gray-50 lg:flex-row lg:space-x-8 lg:mt-0 lg:border-0 lg:bg-transparent dark:bg-gray-800 lg:dark:bg-transparent dark:border-gray-700">
+                  {[...pageNavSection].map((navField) => {
                     return (
-                      <div key={navField.id} className="col-span-1 self-center">
-                        <NavIcon navField={navField} currentPath={pathname} />
+                      <div key={navField.id}>
+                        <div className="my-0 md:my-2 ps-0 md:ps-[1.5%]">
+                          <NavBanner
+                            currentPath={pathname}
+                            navField={navField}
+                          />
+                        </div>
+                        <div className="border border-spacing-1 border-gray-200 max-w-[97%] border-opacity-0.5 mx-auto" />
                       </div>
                     );
                   })}
-                </div>
-              )}
-            </ul>
-          </div>
+                  <div className="grid grid-cols-6 sm:grid-cols-8 gap-2">
+                    {socialMediaNavSection.map((navField) => {
+                      return (
+                        <div
+                          key={navField.id}
+                          className="col-span-1 self-center"
+                        >
+                          <NavIcon navField={navField} currentPath={pathname} />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </ul>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex items-center">{navElementsWithoutMain}</div>
+            </>
+          )}
         </Nav>
         <LineScroll value={percentage} />
       </Case>
