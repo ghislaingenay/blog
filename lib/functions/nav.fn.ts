@@ -1,4 +1,4 @@
-import { NavField } from "@app/components/Navbar";
+import { NavField } from "@interfaces/nav.interface";
 
 export const matchPath = (link: string, currentPath: string) => {
   if (link === currentPath && link === "/") return true;

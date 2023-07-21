@@ -51,7 +51,7 @@ const NavIcon = ({
   const idDisplay = `display-${navField.id}`;
 
   const TRIANGLE_CLASS =
-    "absolute left-[1.3rem] top-[2.35rem] border-l-[7.5px] border-l-transparent border-b-[10px] border-b-slate-500 opacity-0.5 border-r-[7.5px] border-r-transparent";
+    "absolute left-[1.3rem] top-[2.75rem] border-l-[7.5px] border-l-transparent border-b-[10px] border-b-slate-500 opacity-0.5 border-r-[7.5px] border-r-transparent";
 
   return (
     <>
@@ -62,7 +62,7 @@ const NavIcon = ({
       >
         <div id={idDisplay} className="hidden">
           <div
-            className={`${hiddenIfSocialPage} absolute w-[90%] grid top-[2.75rem] left-[0.175rem] h-6 bg-slate-500 z-40 rounded-lg`}
+            className={`${hiddenIfSocialPage} absolute w-[90%] grid top-[3rem] left-[0.175rem] h-6 bg-slate-500 z-40 rounded-lg`}
           >
             <span className="text-[9px] font-bold text-white self-center text-center">
               {label}
@@ -100,14 +100,19 @@ export default function Navbar() {
   const PATH_NAME_WITHOUT_NAV = ["/signout", "/signin", "/signup"];
 
   const shouldShowGlobalNavbar = !pathname.startsWith("/posts");
-  const shouldNotShowNav = PATH_NAME_WITHOUT_NAV.includes(pathname);
+  const isGlobalNav = useDeferredValue(shouldShowGlobalNavbar);
 
-  const [articleCompletion, setArticleCompletion] = useState(0);
+  const shouldNotShowNav = PATH_NAME_WITHOUT_NAV.includes(pathname);
+  const noNav = useDeferredValue(shouldNotShowNav);
+
   const isMobile = useWindowSize()[0] < 768;
 
+  const [articleCompletion, setArticleCompletion] = useState(0);
   const percentage = useDeferredValue(articleCompletion);
-  const isGlobalNav = useDeferredValue(shouldShowGlobalNavbar);
-  const noNav = useDeferredValue(shouldNotShowNav);
+
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+  const openedSideBar = useDeferredValue(isSideBarOpen);
+  const hiddenClass = !openedSideBar ? "hidden" : "block";
 
   const ICON_SIDE_BAR_ANIMATION_CLASS =
     "animate-rotate-x animate-ease-in-out animate-once animate-duration-300";
@@ -128,9 +133,6 @@ export default function Navbar() {
     if (!isMobile) setIsSideBarOpen(false);
   }, [isMobile]);
 
-  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
-  const openedSideBar = useDeferredValue(isSideBarOpen);
-
   const iconSideBarMobile = openedSideBar ? (
     <FaXing
       className={`${ICON_CLASS_NAV} ${ICON_SIDE_BAR_ANIMATION_CLASS}`}
@@ -142,7 +144,6 @@ export default function Navbar() {
       onClick={() => setIsSideBarOpen(true)}
     />
   );
-  const hiddenClass = !openedSideBar ? "hidden" : "block";
 
   const createNavSectionLinkIcon = (navSection: NavField[]) => {
     return navSection.map((element) => {
