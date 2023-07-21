@@ -30,21 +30,25 @@ export default function PostItem({ post, tag }: PostItemProps) {
           ...LINK_STYLE,
         }}
       >
-        <div className=" bg-slate-100 shadow-md p-5 sm:p-5 min-h-[10rem] grid grid-cols-2 gap-x-4 gap-y-2">
-          <div className="col-span-2 md:col-span-1 max-h-full mb-3 md:mb-0 place-self-center h-full">
+        <div className=" bg-slate-100 shadow-md p-3 sm:p-5 min-h-[24rem] max-h-[28rem] md:h-[20rem] grid grid-cols-2 md:gap-y-2 md:gap-x-4">
+          <div className="col-span-2 md:col-span-1 md:mb-0 place-self-center w-[80%] md:w-full">
             <Image
               src={image}
               width={450}
               height={450}
               alt={`Image for ${title} blog post`}
-              className="rounded-lg p-0 m-0"
+              className="p-0 m-0"
             />
           </div>
-          <div className="col-span-2 md:col-span-1 max-h-full">
-            <TopicTag>{topic}</TopicTag>
-            <br />
-            <h3 className="p-0 mt-0 text-base sm:text-lg max-h-max">{title}</h3>
-            <p className="col-span-8 md:col-span-6 text-start text-base my-auto">
+          <div className="col-span-2 md:col-span-1">
+            <p className="text-left md:text-right p-0 m-0">
+              <TopicTag>{topic}</TopicTag>
+            </p>
+            <h3 className="p-0 mt-2 text-base sm:text-lg truncate line-clamp-2 md:line-clamp-3">
+              {title}
+            </h3>
+
+            <p className="col-span-8 md:col-span-6 text-start text-base mb-0">
               {tags.map((tag, index) => (
                 <Tag
                   {...additionalTagProps(tag)}
