@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CSSProperties } from "react";
-import { FaClock } from "react-icons/fa";
 import { Tag, TagProps, TopicTag } from "../Tag";
 
 interface PostItemProps {
@@ -10,7 +9,7 @@ interface PostItemProps {
 }
 
 export default function PostItem({ post, tag }: PostItemProps) {
-  const { title, topic, image, tags, readTime } = post;
+  const { title, topic, image, tags, createdAt } = post;
 
   const LINK_STYLE: CSSProperties = {
     textDecoration: "none",
@@ -87,7 +86,8 @@ export default function PostItem({ post, tag }: PostItemProps) {
             {/* Right Column */}
             <div className="flex flex-col">
               <span className="text-xs italic text-end">
-                <FaClock className="my-auto inline" /> {readTime}{" "}
+                {/* <FaClock className="my-auto inline" /> */}
+                {createdAt}{" "}
               </span>
             </div>
           </div>

@@ -80,7 +80,7 @@ export async function getPostsMeta(): Promise<PostMeta[] | undefined> {
     }
 
     return posts.sort((a, b) =>
-      a.createdAt.localeCompare(b.createdAt) ? -1 : 1
+      a.createdAt.localeCompare(b.createdAt) ? 1 : -1
     );
   } catch (err: any) {
     throw new Error(err);
