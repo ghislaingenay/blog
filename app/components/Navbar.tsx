@@ -166,10 +166,9 @@ export default function Navbar() {
     socialMediaNavSection
   );
 
-  const navElementsWithoutMain = [
-    ...pageNavElements,
-    ...socialMediaNavSectionElements,
-  ];
+  const mainNavElementsGlobal = isMobile
+    ? mainNavElements
+    : [...mainNavElements, ...pageNavElements];
 
   return (
     <Switch>
@@ -182,7 +181,7 @@ export default function Navbar() {
           >
             {iconSideBarMobile}
           </button>
-          <div className="flex items-center">{mainNavElements}</div>
+          <div className="flex items-center">{mainNavElementsGlobal}</div>
 
           {isMobile ? (
             <>
@@ -220,7 +219,9 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <div className="flex items-center">{navElementsWithoutMain}</div>
+              <div className="flex items-center">
+                {socialMediaNavSectionElements}
+              </div>
             </>
           )}
         </Nav>
