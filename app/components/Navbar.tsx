@@ -92,8 +92,18 @@ const Nav = ({ children }: { children: ReactNode }) => {
   );
 };
 
-const LineScroll = ({ value }: { value: number }) => (
-  <div className="fixed z-10 top-[4rem] left-0 w-full h-1 scroll-smooth">
+const LineScroll = ({
+  value,
+  top = false,
+}: {
+  value: number;
+  top?: boolean;
+}) => (
+  <div
+    className={`fixed z-10 ${
+      top ? "" : "top-[4rem]"
+    } left-0 w-full h-1 scroll-smooth`}
+  >
     <div className="h-full bg-black" style={{ width: `${value}%` }} />
   </div>
 );
@@ -227,7 +237,9 @@ export default function Navbar() {
         </Nav>
         <LineScroll value={percentage} />
       </Case>
-      <Case condition={!isGlobalNav}></Case>
+      <Case condition={!isGlobalNav}>
+        <LineScroll value={percentage} top />
+      </Case>
       <Case condition={noNav}></Case>
       <Default></Default>
     </Switch>
