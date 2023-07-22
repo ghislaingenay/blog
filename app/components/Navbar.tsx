@@ -100,8 +100,8 @@ const LineScroll = ({
   top?: boolean;
 }) => (
   <div
-    className={`fixed z-10 ${
-      top ? "" : "top-[4rem]"
+    className={`fixed ${
+      top ? "z-80" : "top-[4rem] z-10"
     } left-0 w-full h-1 scroll-smooth`}
   >
     <div className="h-full bg-black" style={{ width: `${value}%` }} />
@@ -151,6 +151,17 @@ export default function Navbar() {
   ) : (
     <FaBars className={`${ICON_CLASS_NAV} ${ICON_SIDE_BAR_ANIMATION_CLASS}`} />
   );
+
+  const [hasReachedText, setHasReachedText] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      const SCROLL_HEIGHT_REACHED_PX = 288;
+      const hasReachedText = window.scrollY > SCROLL_HEIGHT_REACHED_PX;
+      if (hasReachedText) return setHasReachedText(hasReachedText);
+      return setHasReachedText(false);
+    });
+  }, []);
 
   const createNavSectionLinkIcon = (navSection: NavField[]) => {
     return navSection.map((element) => {
@@ -238,6 +249,13 @@ export default function Navbar() {
         <LineScroll value={percentage} />
       </Case>
       <Case condition={!isGlobalNav}>
+        {/* {hasReachedText && (
+          <div className={`hidden `}>
+            <Nav>
+              <FaArrowLeft className="border-4 p-1 top-[50px] left-[50%] bg-slate-500  border-white text-white text-5xl rounded-full items-center" />
+            </Nav>
+          </div>
+        )} */}
         <LineScroll value={percentage} top />
       </Case>
       <Case condition={noNav}></Case>
