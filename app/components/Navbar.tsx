@@ -13,7 +13,7 @@ import $ from "jquery";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode, useDeferredValue, useEffect, useState } from "react";
-import { FaBars, FaXing } from "react-icons/fa";
+import { FaArrowLeft, FaBars, FaXing } from "react-icons/fa";
 import { Case, Default, Switch } from "react-if";
 
 const selectColorTextHover = (samePath: boolean) =>
@@ -153,15 +153,22 @@ export default function Navbar() {
   );
 
   const [hasReachedText, setHasReachedText] = useState(false);
+  const [titleText, setTitleText] = useState("");
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      const SCROLL_HEIGHT_REACHED_PX = 288;
-      const hasReachedText = window.scrollY > SCROLL_HEIGHT_REACHED_PX;
-      if (hasReachedText) return setHasReachedText(hasReachedText);
-      return setHasReachedText(false);
+      const titleElement = document.getElementById("title");
+      if (titleElement) {
+        setTitleText(titleElement.textContent || "");
+        const heightTitlePixels =
+          titleElement.getBoundingClientRect().height + 192;
+        const hasReachedText = window.scrollY > heightTitlePixels;
+        setHasReachedText(hasReachedText);
+      }
     });
   }, []);
+
+  const haveHiddenClass = hasReachedText ? "" : "hidden";
 
   const createNavSectionLinkIcon = (navSection: NavField[]) => {
     return navSection.map((element) => {
@@ -190,6 +197,8 @@ export default function Navbar() {
   const mainNavElementsGlobal = isMobile
     ? mainNavElements
     : [...mainNavElements, ...pageNavElements];
+
+  const isTopNav: any = hasReachedText ? { top: false } : { top: true };
 
   return (
     <Switch>
@@ -249,14 +258,20 @@ export default function Navbar() {
         <LineScroll value={percentage} />
       </Case>
       <Case condition={!isGlobalNav}>
-        {/* {hasReachedText && (
-          <div className={`hidden `}>
-            <Nav>
+        <div
+          id="block-nav"
+          className={`${haveHiddenClass} animate-fade animate-once animate-duration-200 animate-ease-in animate-alternate`}
+        >
+          <Nav>
+            <Link href={"/"}>
               <FaArrowLeft className="border-4 p-1 top-[50px] left-[50%] bg-slate-500  border-white text-white text-5xl rounded-full items-center" />
-            </Nav>
-          </div>
-        )} */}
-        <LineScroll value={percentage} top />
+            </Link>
+            <h2 className="m-0 w-[75%] font-bold text-lg truncate">
+              {titleText}
+            </h2>
+          </Nav>
+        </div>
+        <LineScroll value={percentage} {...isTopNav} />
       </Case>
       <Case condition={noNav}></Case>
       <Default></Default>
