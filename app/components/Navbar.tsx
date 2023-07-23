@@ -23,7 +23,6 @@ const NavBanner = ({ navField, currentPath }: NavDisplay) => {
   const { children, label, link, id } = navField;
   const haveSamePath = matchPath(link, currentPath);
   const selectedItemClass = selectColorTextHover(haveSamePath);
-  console.log({ haveSamePath, id, currentPath, selectedItemClass });
   const isSocial = checkSocialType(navField);
 
   if (isSocial) return <button id={navField.id}>{children}</button>;
@@ -142,7 +141,6 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    console.log(isMobile);
     if (!isMobile) setIsSideBarOpen(false);
   }, [isMobile]);
 
