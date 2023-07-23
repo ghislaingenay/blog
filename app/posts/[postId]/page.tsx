@@ -1,11 +1,12 @@
+import { Tag } from "@app/components/Tag";
 import { REVALIDATION_PERIOD } from "@constants/global.const";
-import { createMetaData, parseTag } from "@functions";
+import { createMetaData } from "@functions";
 import { getPostByName } from "@lib-api/post-api";
 import "highlight.js/styles/github-dark.css";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaCalendarDay, FaClock } from "react-icons/fa";
 
 export const revalidate = REVALIDATION_PERIOD;
 
@@ -38,24 +39,48 @@ export default async function Post({ params: { postId } }: PostProps) {
   const post = await getPostByName(`${postId}.mdx`); //deduped
   if (!post) return notFound();
   const { meta, content } = post;
-  const { title, tags } = meta;
+  const { title, tags, image, updatedAt, readTime } = meta;
   const tagList = tags.map((tag, index) => (
     <Link key={index} href={`/tags/${tag}`}>
-      {parseTag(tag)}
+      <Tag color="blue">{tag}</Tag>
     </Link>
   ));
 
   return (
     <>
-      <div className="flex">
-        <Link href={"/"}>
-          <FaArrowLeft className="border-4 p-1 my-auto border-black text-black text-5xl rounded-full items-center mr-4" />
-        </Link>
-        <h2 className="text-2xl my-auto">{title}</h2>
+      <div className="h-48" />
+      <div className="overflow-hidden">
+        <div className=" overflow-hidden absolute top-[-10%] left-[-25%] lg:left-[-5%] h-[14rem] w-[150%] overflow-x-hidden rounded-b-[80%] bg-blue-500 bg-gradient-to-b from-blue-400  to-orange-500">
+          {/* <Image
+          alt={`Image for post ${title}`}
+          width={650}
+          height={650}
+          src={image}
+          className="object-cover w-full h-full"
+        /> */}
+        </div>
       </div>
+      <h1
+        className="text-center text-xl sm:text-2xl md:text-3xl m-0"
+        id="title"
+      >
+        {title}
+      </h1>
+      <div className="grid grid-cols-2 px-5 gap-0 justify-items-center">
+        <p className="col-span-2 sm:col-span-1 my-1">
+          <FaClock className="my-auto text-xl inline mx-2 mb-1" />
+          <span className="italic font-medium">{readTime}</span>
+        </p>
+        <p className="col-span-2 sm:col-span-1 my-1">
+          <FaCalendarDay className="text-xl inline mx-2 mb-1" />
+          <span className="italic font-medium">{updatedAt}</span>
+        </p>
+      </div>
+      <div className="h-8" />
       <article>{content}</article>
+      <hr className="my-4" />
       <section>
-        <h3>Related</h3>
+        <h3 className="mt-0">Related</h3>
         <div className="flex flex-row gap-4">{tagList}</div>
       </section>
     </>
