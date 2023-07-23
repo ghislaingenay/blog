@@ -2,18 +2,6 @@ type Prettify<T> = {
   [K in keyof T]: T[K];
 } & {};
 
-enum PostTopic {
-  DATA_SCIENCE = "DATA SCIENCE",
-  WEB_DEVELOPMENT = "WEB DEVELOPMENT",
-  MACHINE_LEARNING = "MACHINE LEARNING",
-  DEEP_LEARNING = "DEEP LEARNING",
-  DEVOPS = "DEVOPS",
-  DATABASES = "DATABASES",
-  BIG_DATA = "BIG DATA",
-  OTHERS = "OTHERS",
-  PERSONAL = "PERSONAL",
-}
-
 interface PostMeta {
   id: string;
   title: string;
