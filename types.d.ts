@@ -16,7 +16,7 @@ type PostTopic =
 interface PostMeta {
   id: string;
   title: string;
-  topic: PostTopic[];
+  topic: PostTopic;
   subTopic: string[];
   description: string;
   createdAt: string;
