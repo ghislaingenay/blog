@@ -86,3 +86,16 @@ export async function getPostsMeta(): Promise<PostMeta[] | undefined> {
     throw new Error(err);
   }
 }
+/////////////////////////////////////
+export function getPostTopics(posts: PostMeta[]): PostTopicSearch[] {
+  const topics: PostTopicSearch[] = [];
+  for (const postElement of posts) {
+    const { topic } = postElement;
+    const foundIndex = topics.findIndex(
+      (topicElement) => topicElement.name === topic
+    );
+    if (foundIndex === -1) topics.push({ name: topic, count: 1 });
+    else topics[foundIndex].count++;
+  }
+  return topics;
+}

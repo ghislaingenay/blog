@@ -45,3 +45,8 @@ interface TreeData {
 type Filetree = {
   tree: TreeData[];
 };
+
+type PostTopicSearch = {
+  name: PostTopic;
+  count: number;
+};
