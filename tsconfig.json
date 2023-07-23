@@ -25,10 +25,12 @@
       "@app/*": ["./app/*"],
       "@api/*": ["./app/api/*"],
       "@functions": ["./lib/functions/index"],
-      "@components": ["./app/components/index"],
+      "@components/mdx": ["./app/components/mdx/index"],
+      "@components/*": ["./app/components/*"],
       "@lib-api/*": ["./lib/api/*"],
       "@constants/*": ["./lib/constants/*"],
       "@interfaces/*": ["./lib/interfaces/*"],
+      "@hooks": ["./lib/hooks/index"],
       "@lib/*": ["./lib/*"]
     }
   },

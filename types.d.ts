@@ -2,21 +2,22 @@ type Prettify<T> = {
   [K in keyof T]: T[K];
 } & {};
 
-type PostTopic =
-  | "DATA SCIENCE"
-  | "WEB DEVELOPMENT"
-  | "MACHINE LEARNING"
-  | "DEEP LEARNING"
-  | "DEVOPS"
-  | "DATABASES"
-  | "BIG DATA"
-  | "OTHERS"
-  | "PERSONAL";
+enum PostTopic {
+  DATA_SCIENCE = "DATA SCIENCE",
+  WEB_DEVELOPMENT = "WEB DEVELOPMENT",
+  MACHINE_LEARNING = "MACHINE LEARNING",
+  DEEP_LEARNING = "DEEP LEARNING",
+  DEVOPS = "DEVOPS",
+  DATABASES = "DATABASES",
+  BIG_DATA = "BIG DATA",
+  OTHERS = "OTHERS",
+  PERSONAL = "PERSONAL",
+}
 
 interface PostMeta {
   id: string;
   title: string;
-  topic: PostTopic[];
+  topic: PostTopic;
   subTopic: string[];
   description: string;
   createdAt: string;
@@ -44,4 +45,9 @@ interface TreeData {
 
 type Filetree = {
   tree: TreeData[];
+};
+
+type PostTopicSearch = {
+  name: PostTopic;
+  count: number;
 };

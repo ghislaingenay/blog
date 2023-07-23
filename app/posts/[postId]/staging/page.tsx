@@ -18,10 +18,9 @@ export async function generateMetadata({
 }
 
 export default async function Post({ params: { postId } }: PostProps) {
-  if (process.env.NODE_ENV !== "development") notFound();
+  if (process.env.NODE_ENV === "production") notFound();
   const post = await getPostByName(`${postId}.mdx`);
-  const isDevelopment = process.env.NODE_ENV === "development";
-  if (!post || !isDevelopment) notFound();
+  if (!post) notFound();
   const { meta, content } = post;
   const { title, tags } = meta;
   const tagList = tags.map((tag, index) => (

@@ -1,4 +1,4 @@
-import PostItem from "@app/components/PostItem";
+import PostItem from "@components/posts/PostItem";
 import { REVALIDATION_PERIOD } from "@constants/global.const";
 import { capitalize, createMetaData } from "@functions";
 import { getPostsMeta } from "@lib-api/post-api";

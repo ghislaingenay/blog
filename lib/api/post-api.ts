@@ -1,4 +1,4 @@
-import { CustomImage, Video } from "@components";
+import { CustomImage, Video } from "@components/mdx";
 import { Language } from "@interfaces/global.interface";
 import { SerializeOptions } from "next-mdx-remote/dist/types";
 import { compileMDX } from "next-mdx-remote/rsc";
@@ -80,9 +80,22 @@ export async function getPostsMeta(): Promise<PostMeta[] | undefined> {
     }
 
     return posts.sort((a, b) =>
-      a.createdAt.localeCompare(b.createdAt) ? -1 : 1
+      a.createdAt.localeCompare(b.createdAt) ? 1 : -1
     );
   } catch (err: any) {
     throw new Error(err);
   }
+}
+/////////////////////////////////////
+export function getPostTopics(posts: PostMeta[]): PostTopicSearch[] {
+  const topics: PostTopicSearch[] = [];
+  for (const postElement of posts) {
+    const { topic } = postElement;
+    const foundIndex = topics.findIndex(
+      (topicElement) => topicElement.name === topic
+    );
+    if (foundIndex === -1) topics.push({ name: topic, count: 1 });
+    else topics[foundIndex].count++;
+  }
+  return topics;
 }
