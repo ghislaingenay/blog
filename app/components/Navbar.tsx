@@ -264,7 +264,7 @@ export default function Navbar() {
             <Link href={"/"}>
               <FaArrowLeft className="border-4 p-1 top-[50px] left-[50%] bg-slate-500  border-white text-white text-5xl rounded-full items-center" />
             </Link>
-            <h2 className="m-0 w-[75%] font-bold text-lg truncate">
+            <h2 className="m-0 mx-auto w-8/12 text-center font-bold text-lg truncate">
               {titleText}
             </h2>
           </Nav>
