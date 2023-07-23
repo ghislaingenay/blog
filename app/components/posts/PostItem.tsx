@@ -26,6 +26,7 @@ export default function PostItem({ post, tag }: PostItemProps) {
   return (
     // <li className="border border-red-600">
     <Link
+      id={topic}
       href={`/posts/${post.id}`}
       style={{
         ...LINK_STYLE,
