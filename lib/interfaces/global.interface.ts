@@ -8,9 +8,6 @@ export enum Language {
 export enum PostTopic {
   DATA_SCIENCE = "DATA_SCIENCE",
   WEB_DEVELOPMENT = "WEB_DEVELOPMENT",
-  AI = "AI",
-  DEVOPS = "DEVOPS",
-  DATABASES = "DATABASES",
   OTHERS = "OTHERS",
   PERSONAL = "PERSONAL",
 }

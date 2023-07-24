@@ -14,7 +14,7 @@ export default async function Home() {
 
   return (
     <div className="grid grid-cols-5 lg:grid-cols-4 gap-3">
-      <section className="col-span-5 border lg:border-0 border-black lg:col-span-1 p-0 m-0 h-20 sm:h-24 lg:h-full">
+      <section className="col-span-5 lg:col-span-1 p-0 m-0 h-20 sm:h-24 lg:h-full">
         <TopicList topics={foundTopics} />
       </section>
       <section className="col-span-5 lg:col-span-3 ">

@@ -3,7 +3,7 @@
 import { DivProps, PostTopic } from "@interfaces/global.interface";
 import $ from "jquery";
 import { useCallback, useEffect, useState } from "react";
-import { BiCode } from "react-icons/bi";
+import { FaChartBar, FaCode, FaTags, FaUser } from "react-icons/fa";
 import { Tag } from "../Tag";
 
 type TopicListProps = {
@@ -14,6 +14,11 @@ interface TopicDivProps extends DivProps {
   children?: React.ReactNode;
   className: string;
   topic: string;
+}
+
+interface LiComponentProps {
+  name: PostTopic;
+  count: number;
 }
 
 export const TopicList = ({ topics }: TopicListProps) => {
@@ -48,19 +53,6 @@ export const TopicList = ({ topics }: TopicListProps) => {
       });
   }, []);
 
-  const LI_CLASS_LG =
-    "grid px-5 grid-cols-6 place-self-center justify-between items-center mb-1 py-2";
-
-  const topicIconsLg: Record<PostTopic, any> | any = {
-    [PostTopic.DATABASES]: "FaDatabase",
-    [PostTopic.DATA_SCIENCE]: "FaDatabase",
-    [PostTopic.AI]: "FaDatabase",
-    [PostTopic.WEB_DEVELOPMENT]: <BiCode />,
-    [PostTopic.PERSONAL]: "FaDatabase",
-    [PostTopic.OTHERS]: "FaDatabase",
-    [PostTopic.DEVOPS]: "FaDatabase",
-  };
-
   const topicKeys = Object.keys(PostTopic);
 
   useEffect(() => {
@@ -82,57 +74,89 @@ export const TopicList = ({ topics }: TopicListProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [generatedId]);
 
-  const setActivatedStyle = useCallback(
+  const setActivatedStyleLg = useCallback(
     (name: string) => {
+      const LI_CLASS_LG = "mb-1 py-2 px-4";
       if (name === selectedTopic) return `${LI_CLASS_LG} ${ACTIVE_LI_CLASS}`;
       else return `${LI_CLASS_LG}`;
     },
     [selectedTopic]
   );
 
+  const setActivatedStyleSmall = useCallback(
+    (name: string) => {
+      const LI_CLASS_SMALL =
+        "border shadow-xl border-gray-400 rounded-lg p-2 col-span-1";
+      if (name === selectedTopic) return `${LI_CLASS_SMALL} ${ACTIVE_LI_CLASS}`;
+      else return `${LI_CLASS_SMALL}`;
+    },
+    [selectedTopic]
+  );
+
+  const LargeLi = ({ name, count }: LiComponentProps) => (
+    <div className="hidden lg:grid grid-cols-6 place-self-center items-center">
+      <span className="col-span-5 text-sm font-bold m-0">
+        {addSpaceToTopicName(name)}{" "}
+      </span>
+      <small className="col-span-1">
+        <Tag color="gray">{count}</Tag>
+      </small>
+    </div>
+  );
+
+  const SmallLi = ({ name, count }: LiComponentProps) => {
+    const ICON_CLASS =
+      "text-4xl border-black border-2 rounded-full p-1 text-black mx-auto";
+    const topicIconsSm: Record<PostTopic, any> = {
+      [PostTopic.DATA_SCIENCE]: <FaChartBar className={ICON_CLASS} />,
+      [PostTopic.WEB_DEVELOPMENT]: <FaCode className={ICON_CLASS} />,
+      [PostTopic.PERSONAL]: <FaUser className={ICON_CLASS} />,
+      [PostTopic.OTHERS]: <FaTags className={ICON_CLASS} />,
+    };
+
+    const topicNameSm: Record<PostTopic, string> = {
+      [PostTopic.DATA_SCIENCE]: "DATA",
+      [PostTopic.WEB_DEVELOPMENT]: "WEB",
+      [PostTopic.PERSONAL]: "ABOUT ME",
+      [PostTopic.OTHERS]: "OTHERS",
+    };
+    return (
+      <div className="lg:hidden grid grid-cols-1 justify-self-center gap-1 relative">
+        <span className="absolute rounded-full left-[55%] top-[30%] text-[10px] bg-black py-[0.125rem] px-[0.35rem] font-bold text-white">
+          {count}
+        </span>
+        <span className="col-span-1">{topicIconsSm[name]}</span>
+        <span className="text-center font-bold text-bases col-span-1">
+          {topicNameSm[name]}
+        </span>
+      </div>
+    );
+  };
+
   return (
     <>
       {/* ----* Small screen *---- */}
-      <div className="grid lg:hidden grid-cols-3 sm:grid-cols-4 md:grid-cols-6">
-        {topics.map(({ name }) => (
-          <div
-            key={name}
-            id={`name-${name}`}
-            className="flex flex-wrap justify-between items-center"
-          >
-            {topicIconsLg[name] && (
-              <span className="col-span-1">{topicIconsLg[name]}</span>
-            )}
-          </div>
-        ))}
+      <div className="inline lg:hidden">
+        <div className="list-none grid grid-cols-4 gap-x-2" role="list">
+          {topicList.map(({ name, count, id }) => (
+            <li className={setActivatedStyleSmall(id)} key={name} id={id}>
+              <SmallLi {...{ name, count }} />
+            </li>
+          ))}
+        </div>
       </div>
 
       {/* --- Large screen --- */}
       <div className="hidden lg:block w-10/12 mx-auto">
-        <h3 className="text-center border border-b-black border-t-black border-l-0 border-r-0 py-1 mx-auto">
-          Main topics
+        <h3 className="text-center border border-b-gray border-t-gray border-l-0 border-r-0 py-1 mx-auto">
+          MAIN TOPICS
         </h3>
-        <div className="list-none block" role="list">
+        <div className="list-none" role="list">
           {topicList.map(({ name, count, id }) => {
             return (
               <>
-                <li className={setActivatedStyle(id)} key={name} id={id}>
-                  <span className="col-span-5 text-sm font-bold m-0">
-                    {addSpaceToTopicName(name)}{" "}
-                  </span>
-                  <small className="col-span-1">
-                    <Tag color="gray">{count}</Tag>
-                  </small>
-                </li>
-                <li
-                  className={setActivatedStyle("name-dfdg")}
-                  key={name}
-                  id="name-dfdg"
-                >
-                  <span className="col-span-5 text-sm font-bold m-0">Gt </span>
-                  <small className="col-span-1">
-                    <Tag color="gray">3</Tag>
-                  </small>
+                <li className={setActivatedStyleLg(id)} key={name} id={id}>
+                  <LargeLi {...{ name, count }} />
                 </li>
               </>
             );
