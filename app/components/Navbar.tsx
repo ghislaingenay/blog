@@ -13,7 +13,7 @@ import $ from "jquery";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode, useDeferredValue, useEffect, useState } from "react";
-import { FaArrowLeft, FaBars, FaXing } from "react-icons/fa";
+import { FaArrowLeft, FaBars, FaSearch, FaXing } from "react-icons/fa";
 import { Case, Default, Switch } from "react-if";
 
 const selectColorTextHover = (samePath: boolean) =>
@@ -173,7 +173,7 @@ export default function Navbar() {
       const { link, children, id, type } = element;
       const isSocial = type === "social";
       const newChildren = isSocial ? (
-        <button id={id}>{children}</button>
+        <div id={id}>{children}</div>
       ) : (
         <Link href={link} id={id}>
           {children}
@@ -192,11 +192,30 @@ export default function Navbar() {
     socialMediaNavSection
   );
 
-  const mainNavElementsGlobal = isMobile
-    ? mainNavElements
-    : [...mainNavElements, ...pageNavElements];
+  const querySection: NavField = {
+    id: "query",
+    label: "SEARCH",
+    link: "",
+    type: "social", // avoid to have a redirection link
+    children: <FaSearch className={`${ICON_CLASS_NAV} text-gray-700`} />,
+  };
 
-  const isTopNav: any = hasReachedText ? { top: false } : { top: true };
+  const queryElement = (
+    <div
+      onFocus={() => $("div#searchbar").removeClass("hidden")}
+      onBlur={() => $("div#searchbar").addClass("hidden")}
+    >
+      <NavIcon navField={querySection} currentPath={pathname} />
+    </div>
+  );
+
+  const mainElementsWithQuery = [...mainNavElements, queryElement];
+
+  const mainNavElementsGlobal = isMobile
+    ? mainElementsWithQuery
+    : [...mainElementsWithQuery, ...pageNavElements];
+
+  const isTopNav = hasReachedText ? { top: false } : { top: true };
 
   return (
     <Switch>
