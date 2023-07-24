@@ -50,10 +50,12 @@ export const Tag = ({
   }
 };
 
-const removeHyphensCharacter = (text: string) => text.replaceAll(/[-_]/gi, " ");
-
-export const TopicTag = ({ children }: { children: ReactNode }) => (
-  <Tag color="orange" className="font-bold text-base text-orange-200">
-    {removeHyphensCharacter(children as string)}
-  </Tag>
-);
+export const TopicTag = ({ children }: { children: ReactNode }) => {
+  const removeHyphensCharacter = (text: string) =>
+    text.replaceAll(/[-_]/gi, " ");
+  return (
+    <Tag color="orange" className="font-bold text-base text-orange-200">
+      {removeHyphensCharacter(children as string)}
+    </Tag>
+  );
+};
