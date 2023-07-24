@@ -25,7 +25,6 @@ export const TopicList = ({ topics }: TopicListProps) => {
   const topicList = topics.map((topic) => {
     return { ...topic, id: addNameStrToTopicName(topic.name) };
   });
-  console.log("tp", topics);
 
   const ACTIVE_LI_CLASS = "bg-slate-300 rounded-lg bg-opacity-0.5";
 
@@ -71,8 +70,6 @@ export const TopicList = ({ topics }: TopicListProps) => {
   useEffect(() => {
     const listId = generatedId?.split("+")[1];
     const topicKey = removeNameStrToTopicName(listId as string);
-    console.log("listId", listId, topicKey);
-    console.log("hhh", $(`a#WEB_DEVELOPMENT`).get());
     if (listId === selectedTopic) {
       topicKeys.forEach((topic) => {
         $(`a#${topic}`).removeClass("hidden");
