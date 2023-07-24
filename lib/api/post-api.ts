@@ -1,5 +1,5 @@
 import { CustomImage, Video } from "@components/mdx";
-import { Language } from "@interfaces/global.interface";
+import { Language, PostTopic } from "@interfaces/global.interface";
 import { SerializeOptions } from "next-mdx-remote/dist/types";
 import { compileMDX } from "next-mdx-remote/rsc";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -98,4 +98,16 @@ export function getPostTopics(posts: PostMeta[]): PostTopicSearch[] {
     else topics[foundIndex].count++;
   }
   return topics;
+}
+///////////////////////////////////
+export function sortPostsByTopic(
+  posts: PostMeta[]
+): Prettify<Record<Partial<keyof PostTopic>, PostMeta[]>> {
+  const sortedPosts = {} as ReturnType<typeof sortPostsByTopic>;
+  for (const post of posts) {
+    const { topic } = post;
+    if (!sortedPosts[topic]) sortedPosts[topic] = [post];
+    else sortedPosts[topic].push(post);
+  }
+  return sortedPosts;
 }
