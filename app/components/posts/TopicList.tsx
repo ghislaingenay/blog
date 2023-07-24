@@ -18,58 +18,25 @@ interface TopicDivProps extends DivProps {
 
 export const TopicList = ({ topics }: TopicListProps) => {
   const removeSpaceFromTopicName = (name: string) => name.replaceAll(" ", "_");
+  const addSpaceToTopicName = (name: string) => name.replaceAll("_", " ");
   const topicList = topics.map((topic) => {
     return { ...topic, name: removeSpaceFromTopicName(topic.name) };
   });
 
-  const activeClass = "bg-slate-300 rounded-lg bg-opacity-0.5 selected";
-  const changeTopic = (name: string) => {
-    console.log($(`#name-${name}`));
-    const isSelected = (name: string) =>
-      $(`#name-${name}`).hasClass("selected");
-    const findSelectedTopic = topicList.find(({ name }) => isSelected(name));
-
-    console.log({
-      findSelectedTopic,
-      result: !findSelectedTopic,
-      selected: isSelected(name),
-      name,
-    });
-    if (isSelected(name)) return $(`#name-${name}`).removeClass(activeClass);
-    if (!findSelectedTopic) return $(`#name-${name}`).addClass(activeClass);
-    if (findSelectedTopic) {
-      $(`#name-${findSelectedTopic.name}`).removeClass(activeClass);
-      return $(`#name-${name}`).addClass(activeClass);
-    }
-    return;
-  };
-
-  const DivTopic = ({ children, className, topic }: TopicDivProps) => {
-    const initialDivProps = (
-      name: string,
-      className: string
-    ): Omit<TopicDivProps, "topic"> => {
-      return {
-        key: name,
-        onClick: () => changeTopic(name),
-        className: className,
-      };
-    };
-    const name = topic;
-    return (
-      <>
-        <div {...initialDivProps(name, className)} key={name}>
-          {children}
-        </div>
-      </>
-    );
-  };
+  const ACTIVE_DIV_CLASS = "bg-slate-300 rounded-lg bg-opacity-0.5";
 
   const isSelected = (name: string) => name === selectedTopic;
   const generateId = (topicName: string) => `name-${topicName}`;
   const [selectedTopic, setSelectedTopic] = useState<string | undefined>(
     undefined
   );
+
+  // const idLink = idHTMLLiElement.replace("name-", "");
+  // console.log(idLink);
+  const changeDisplayData = (
+    isSelected: boolean,
+    idHTMLLiElement: string
+  ) => {};
 
   $("li")
     .off("click")
@@ -78,12 +45,13 @@ export const TopicList = ({ topics }: TopicListProps) => {
       const liElement = ($(this).parent("id") as any)
         .prevObject[0] as HTMLLIElement;
       const idHTMLLiElement = liElement.getAttribute("id") as string;
-      console.log({ idHTMLLiElement, sleected: isSelected(idHTMLLiElement) });
-      if (isSelected(idHTMLLiElement)) return setSelectedTopic(undefined);
-      setSelectedTopic(idHTMLLiElement);
+      const isSelectedElement = isSelected(idHTMLLiElement);
+      if (isSelectedElement) setSelectedTopic(undefined);
+      else setSelectedTopic(idHTMLLiElement);
+      changeDisplayData(isSelectedElement, idHTMLLiElement);
     });
 
-  const DIV_CLASS_LG =
+  const LI_CLASS_LG =
     "grid px-5 grid-cols-6 place-self-center justify-between items-center mb-1 py-2";
 
   const topicIcons: Record<PostTopic, any> | any = {
@@ -98,9 +66,8 @@ export const TopicList = ({ topics }: TopicListProps) => {
 
   const setActivatedStyle = useCallback(
     (topic: string) => {
-      if (selectedTopic === topic)
-        return `${DIV_CLASS_LG} bg-slate-300 rounded-lg bg-opacity-0.5 selected py-2`;
-      else return DIV_CLASS_LG;
+      if (selectedTopic === topic) return `${LI_CLASS_LG} ${ACTIVE_DIV_CLASS}`;
+      else return LI_CLASS_LG;
     },
     [selectedTopic]
   );
@@ -114,7 +81,6 @@ export const TopicList = ({ topics }: TopicListProps) => {
             key={name}
             id={`name-${name}`}
             className="flex flex-wrap justify-between items-center"
-            onClick={() => changeTopic(name)}
           >
             {topicIcons[name] && (
               <span className="col-span-1">{topicIcons[name]}</span>
@@ -124,11 +90,11 @@ export const TopicList = ({ topics }: TopicListProps) => {
       </div>
 
       {/* --- Large screen --- */}
-      <div className="hidden lg:block">
-        <h3 className="text-center border border-b-black border-t-black border-l-0 border-r-0 py-1 w-3/4 mx-auto">
+      <div className="hidden lg:block w-10/12 mx-auto">
+        <h3 className="text-center border border-b-black border-t-black border-l-0 border-r-0 py-1 mx-auto">
           Main topics
         </h3>
-        <ul className="list-none block">
+        <div className="list-none block" role="list">
           {topicList.map(({ name, count }) => (
             <li
               className={setActivatedStyle(generateId(name))}
@@ -141,7 +107,7 @@ export const TopicList = ({ topics }: TopicListProps) => {
               </small>
             </li>
           ))}
-        </ul>
+        </div>
       </div>
     </>
   );
