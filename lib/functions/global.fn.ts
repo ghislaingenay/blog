@@ -14,7 +14,8 @@ export const parseJS = (str: string): string => {
   return `${str.replace(/js$/g, "")} js`;
 };
 
-export const parseTag = (tag: string): string => {
+export const parseTag = (tag: string | number): string => {
+  if (typeof tag === "number") return String(tag); // could do parseTag(String(tag))
   const words = tag.split("-");
   return words.map((word) => parseJS(word).toUpperCase()).join(" ");
 };

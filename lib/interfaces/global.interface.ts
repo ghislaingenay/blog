@@ -1,3 +1,5 @@
+import { DetailedHTMLProps, HTMLAttributes } from "react";
+
 export enum Language {
   ENGLISH = "en",
   FRENCH = "fr",
@@ -12,3 +14,8 @@ export enum PostTopic {
   OTHERS = "OTHERS",
   PERSONAL = "PERSONAL",
 }
+
+export type DivProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+>;
