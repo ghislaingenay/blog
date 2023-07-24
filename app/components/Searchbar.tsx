@@ -63,6 +63,7 @@ export default function Searchbar({ posts }: SearchbarProps) {
     <div
       id="search-modal"
       tabIndex={-1}
+      aria-disabled="true"
       aria-hidden="true"
       className="fixed z-[1500] hidden w-full p-4 overflow-x-hidden overflow-y-auto inset-0 h-full max-h-full bg-slate-500 bg-opacity-80"
     >
