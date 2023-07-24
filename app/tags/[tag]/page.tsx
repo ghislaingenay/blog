@@ -32,10 +32,10 @@ export default async function TagList({ params: { tag } }: TagProps) {
   const tagHavePosts = tagPosts.length > 0;
 
   return (
-    <div className="mt-10">
+    <div>
       {tagHavePosts ? (
         <>
-          <section className="my-10 mx-auto">
+          <section className="mx-auto">
             <ul className="list-none p-0">
               {posts.map((post) => (
                 <li key={post.id}>
