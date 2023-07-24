@@ -2,6 +2,7 @@
 
 import { DivProps, PostTopic } from "@interfaces/global.interface";
 import $ from "jquery";
+import { useCallback, useState } from "react";
 import { BiCode } from "react-icons/bi";
 import { Tag } from "../Tag";
 
@@ -21,9 +22,9 @@ export const TopicList = ({ topics }: TopicListProps) => {
     return { ...topic, name: removeSpaceFromTopicName(topic.name) };
   });
 
+  const activeClass = "bg-slate-300 rounded-lg bg-opacity-0.5 selected";
   const changeTopic = (name: string) => {
     console.log($(`#name-${name}`));
-    const activeClass = "bg-slate-300 rounded-lg bg-opacity-0.5 selected";
     const isSelected = (name: string) =>
       $(`#name-${name}`).hasClass("selected");
     const findSelectedTopic = topicList.find(({ name }) => isSelected(name));
@@ -64,11 +65,26 @@ export const TopicList = ({ topics }: TopicListProps) => {
     );
   };
 
-  const createDivTopicPropsLgScreen = (topic: string): TopicDivProps => {
-    const DIV_CLASS_LG =
-      "grid px-5 grid-cols-6 place-self-center justify-between items-center";
-    return { className: DIV_CLASS_LG, topic };
-  };
+  const isSelected = (name: string) => name === selectedTopic;
+  const generateId = (topicName: string) => `name-${topicName}`;
+  const [selectedTopic, setSelectedTopic] = useState<string | undefined>(
+    undefined
+  );
+
+  $("li")
+    .off("click")
+    .on("click", function (e) {
+      e.stopPropagation();
+      const liElement = ($(this).parent("id") as any)
+        .prevObject[0] as HTMLLIElement;
+      const idHTMLLiElement = liElement.getAttribute("id") as string;
+      console.log({ idHTMLLiElement, sleected: isSelected(idHTMLLiElement) });
+      if (isSelected(idHTMLLiElement)) return setSelectedTopic(undefined);
+      setSelectedTopic(idHTMLLiElement);
+    });
+
+  const DIV_CLASS_LG =
+    "grid px-5 grid-cols-6 place-self-center justify-between items-center mb-1 py-2";
 
   const topicIcons: Record<PostTopic, any> | any = {
     [PostTopic.DATABASES]: "FaDatabase",
@@ -79,6 +95,15 @@ export const TopicList = ({ topics }: TopicListProps) => {
     [PostTopic.OTHERS]: "FaDatabase",
     [PostTopic.DEVOPS]: "FaDatabase",
   };
+
+  const setActivatedStyle = useCallback(
+    (topic: string) => {
+      if (selectedTopic === topic)
+        return `${DIV_CLASS_LG} bg-slate-300 rounded-lg bg-opacity-0.5 selected py-2`;
+      else return DIV_CLASS_LG;
+    },
+    [selectedTopic]
+  );
 
   return (
     <>
@@ -100,18 +125,23 @@ export const TopicList = ({ topics }: TopicListProps) => {
 
       {/* --- Large screen --- */}
       <div className="hidden lg:block">
-        {topicList.map(({ name, count }) => (
-          <DivTopic
-            {...createDivTopicPropsLgScreen(name)}
-            key={name}
-            id={`name-${name}`}
-          >
-            <p className="col-span-5 text-sm font-bold">{name} </p>
-            <span className="col-span-1">
-              <Tag color="gray">{count}</Tag>
-            </span>
-          </DivTopic>
-        ))}
+        <h3 className="text-center border border-b-black border-t-black border-l-0 border-r-0 py-1 w-3/4 mx-auto">
+          Main topics
+        </h3>
+        <ul className="list-none block">
+          {topicList.map(({ name, count }) => (
+            <li
+              className={setActivatedStyle(generateId(name))}
+              key={name}
+              id={generateId(name)}
+            >
+              <span className="col-span-5 text-sm font-bold m-0">{name} </span>
+              <small className="col-span-1">
+                <Tag color="gray">{count}</Tag>
+              </small>
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );
