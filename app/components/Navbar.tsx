@@ -200,20 +200,23 @@ export default function Navbar() {
     children: <FaSearch className={`${ICON_CLASS_NAV} text-gray-700`} />,
   };
 
-  const queryElement = (
-    <div
-      onFocus={() => $("div#searchbar").removeClass("hidden")}
-      onBlur={() => $("div#searchbar").addClass("hidden")}
-    >
-      <NavIcon navField={querySection} currentPath={pathname} />
-    </div>
-  );
+  const queryElement =
+    pathname === "/" ? (
+      <button
+        onClick={() => $("div#search-modal").removeClass("hidden")}
+        type="button"
+      >
+        <NavIcon navField={querySection} currentPath={pathname} />
+      </button>
+    ) : (
+      <></>
+    );
 
-  const mainElementsWithQuery = [...mainNavElements, queryElement];
+  const mainElementsWithQuery = [...mainNavElements, ...[queryElement]];
 
   const mainNavElementsGlobal = isMobile
     ? mainElementsWithQuery
-    : [...mainElementsWithQuery, ...pageNavElements];
+    : [...mainNavElements, ...pageNavElements, ...[queryElement]];
 
   const isTopNav = hasReachedText ? { top: false } : { top: true };
 
