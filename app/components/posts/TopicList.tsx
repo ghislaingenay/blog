@@ -31,11 +31,7 @@ export const TopicList = ({ topics }: TopicListProps) => {
   const [selectedTopic, setSelectedTopic] = useState<string | undefined>(
     undefined
   );
-  const isSelected = (name: string) => name === selectedTopic;
-  // const isSelected = (name: string) => $(`li#${name}`).hasClass("selected");
   const [generatedId, setGeneratedId] = useState<string | undefined>(undefined);
-
-  // const idLink = idHTMLLiElement.replace("name-", "");
 
   useEffect(() => {
     $("li")
