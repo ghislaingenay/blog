@@ -102,7 +102,7 @@ export function getPostTopics(posts: PostMeta[]): PostTopicSearch[] {
 ///////////////////////////////////
 export function sortPostsByTopic(
   posts: PostMeta[]
-): Prettify<Record<Partial<keyof PostTopic>, PostMeta[]>> {
+): Record<Partial<keyof PostTopic>, PostMeta[]> {
   const sortedPosts = {} as ReturnType<typeof sortPostsByTopic>;
   for (const post of posts) {
     const { topic } = post;
