@@ -15,7 +15,11 @@ export enum PostTopic {
   PERSONAL = "PERSONAL",
 }
 
-export type DivProps = DetailedHTMLProps<
-  HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
+type BaseHTMLProps<T extends HTMLElement> = DetailedHTMLProps<
+  HTMLAttributes<T>,
+  T
 >;
+
+export type DivProps = BaseHTMLProps<HTMLDivElement>;
+export type LiProps = BaseHTMLProps<HTMLLIElement>;
+export type UlProps = BaseHTMLProps<HTMLUListElement>;
