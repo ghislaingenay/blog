@@ -8,7 +8,8 @@ import {
 } from "@constants/nav-menu";
 import { checkSocialType, matchPath } from "@functions";
 import { useWindowSize } from "@hooks";
-import { NavDisplay, NavField } from "@interfaces/nav.interface";
+import { DivProps, LiProps } from "@interfaces/global.interface";
+import { NavField } from "@interfaces/nav.interface";
 import $ from "jquery";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -19,7 +20,12 @@ import { Case, Default, Switch } from "react-if";
 const selectColorTextHover = (samePath: boolean) =>
   samePath ? "text-blue-600" : "text-gray-700";
 
-const NavBanner = ({ navField, currentPath }: NavDisplay) => {
+interface NavBannerProps extends LiProps {
+  navField: NavField;
+  currentPath: string;
+}
+
+const NavBanner = ({ navField, currentPath, ...props }: NavBannerProps) => {
   const { children, label, link, id } = navField;
   const haveSamePath = matchPath(link, currentPath);
   const selectedItemClass = selectColorTextHover(haveSamePath);
@@ -27,7 +33,7 @@ const NavBanner = ({ navField, currentPath }: NavDisplay) => {
 
   if (isSocial) return <button id={navField.id}>{children}</button>;
   return (
-    <li key={id}>
+    <li key={id} {...props}>
       <Link
         href={link}
         className={`block py-2 pl-3 pr-4 text-gray-900 text-start rounded hover:bg-gray-300 md:hover:bg-transparent md:border-0  md:p-0`}
@@ -38,13 +44,12 @@ const NavBanner = ({ navField, currentPath }: NavDisplay) => {
   );
 };
 
-const NavIcon = ({
-  navField,
-  currentPath,
-}: {
+interface NavIconProps extends DivProps {
   navField: NavField;
   currentPath: string;
-}) => {
+}
+
+const NavIcon = ({ navField, currentPath, ...props }: NavIconProps) => {
   const { children, label, link } = navField;
   const haveSamePath = matchPath(link, currentPath);
   const selectedItemClass = selectColorTextHover(haveSamePath);
@@ -61,6 +66,7 @@ const NavIcon = ({
         className={`${selectedItemClass} relative flex flex-wrap justify-center items-center my-auto hover:bg-slate-300 hover:bg-opacity-50 hover:rounded-xl mr-0 ml-1 lg:ml-0 lg:mr-1`}
         onMouseOver={() => $(`#${idDisplay}`).removeClass("hidden")}
         onMouseOut={() => $(`#${idDisplay}`).addClass("hidden")}
+        {...props}
       >
         <div id={idDisplay} className="hidden">
           <div
@@ -181,7 +187,12 @@ export default function Navbar() {
       );
       const navFielsProps = { ...element, children: newChildren };
       return (
-        <NavIcon key={id} navField={navFielsProps} currentPath={pathname} />
+        <NavIcon
+          key={id}
+          navField={navFielsProps}
+          currentPath={pathname}
+          onClick={() => setIsSideBarOpen(false)}
+        />
       );
     });
   };
@@ -206,7 +217,11 @@ export default function Navbar() {
         onClick={() => $("div#search-modal").removeClass("hidden")}
         type="button"
       >
-        <NavIcon navField={querySection} currentPath={pathname} />
+        <NavIcon
+          navField={querySection}
+          currentPath={pathname}
+          onClick={() => setIsSideBarOpen(false)}
+        />
       </button>
     ) : (
       <></>
@@ -244,6 +259,7 @@ export default function Navbar() {
                       <div key={navField.id}>
                         <div className="my-0 md:my-2 ps-0 md:ps-[1.5%]">
                           <NavBanner
+                            onClick={() => setIsSideBarOpen(false)}
                             currentPath={pathname}
                             navField={navField}
                           />
@@ -259,7 +275,11 @@ export default function Navbar() {
                           key={navField.id}
                           className="col-span-1 self-center"
                         >
-                          <NavIcon navField={navField} currentPath={pathname} />
+                          <NavIcon
+                            navField={navField}
+                            currentPath={pathname}
+                            onClick={() => setIsSideBarOpen(false)}
+                          />
                         </div>
                       );
                     })}
