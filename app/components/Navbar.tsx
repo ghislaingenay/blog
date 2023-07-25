@@ -216,6 +216,7 @@ export default function Navbar() {
       <button
         onClick={() => $("div#search-modal").removeClass("hidden")}
         type="button"
+        key={querySection.id}
       >
         <NavIcon
           navField={querySection}
