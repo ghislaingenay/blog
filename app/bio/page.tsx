@@ -1,10 +1,17 @@
 import { ExternalIcon } from "@app/components/ExternalIcon";
+import { Tag } from "@app/components/Tag";
 import { LiProps } from "@interfaces/global.interface";
 import GhislainImage from "@public/ghislain.jpg";
 import dayjs from "dayjs";
 import Image from "next/image";
 import React from "react";
-import { FaGlobe, FaLinkedinIn, FaLocationArrow } from "react-icons/fa";
+import {
+  FaCalendarDay,
+  FaGlobe,
+  FaLinkedinIn,
+  FaLocationArrow,
+  FaStar,
+} from "react-icons/fa";
 
 interface Experience {
   title: string;
@@ -47,7 +54,11 @@ interface LanguageDisplay {
 }
 
 type ExperienceLayoutProps = {
-  experience: Experience;
+  experience: Prettify<Experience>;
+};
+
+type CourseLayoutProps = {
+  course: Prettify<CourseTaken>;
 };
 
 interface ITSkills {
@@ -90,10 +101,12 @@ export default function Bio() {
     {
       title: "Concepts",
       skills: [
+        "Git Version Control",
         "Agile",
         "Scrum",
         "TDD",
-        "Microservices / Monolith architecture",
+        "Microservices",
+        "Monolith",
       ],
     },
     {
@@ -146,8 +159,8 @@ export default function Bio() {
       prioritized: true,
       title: "Data Scientist with Python",
       description:
-        "Certification Course - Learn Python for data science and gain the career-building skills you need to succeed as a data scientist, \
-       from data manipulation to machine learning! In this track, you'll learn how this versatile language allows you to import, clean, manipulate, and visualize data",
+        "Certification Course - Learn Python for data science. \
+       From data manipulation to machine learning! In this track, you'll learn how this versatile language allows you to import, clean, manipulate, and visualize data",
       link: "https://www.datacamp.com/tracks/data-scientist-with-python",
       obtainedDate: new Date(2023, 4, 15),
       organization: "DataCamp",
@@ -194,6 +207,26 @@ export default function Bio() {
     },
   ];
 
+  const sortCourses = (courses: CourseTaken[]) => {
+    const prioritizedCourses = courses.filter((course) => course.prioritized);
+    const nonPrioritizedCourses = courses.filter(
+      (course) => !course.prioritized
+    );
+    const sortCoursesByDate = (courses: CourseTaken[]) => {
+      return courses.sort((a, b) => {
+        return dayjs(b.obtainedDate).diff(a.obtainedDate);
+      });
+    };
+
+    const finalCourses = [
+      ...sortCoursesByDate(prioritizedCourses),
+      ...sortCoursesByDate(nonPrioritizedCourses),
+    ];
+    return finalCourses;
+  };
+
+  const sortedCourses = sortCourses(courseListing);
+
   const languages: LanguageDisplay[] = [
     { language: "French", level: 5 },
     { language: "English", level: 4 },
@@ -202,28 +235,92 @@ export default function Bio() {
     { language: "Japanese", level: 2 },
     { language: "Thai", level: 1 },
   ];
-  const SpecialLi = ({ children }: LiProps) => <li className="">{children}</li>;
+  const SpecialLi = ({ children }: LiProps) => (
+    <li className="[&>*:last-child]:mb-2">{children}</li>
+  );
 
-  const Divider = ({ children }: { children: React.ReactNode }) => {
-    const haveChildren =
-      children !== undefined || children !== null || children !== "";
-    const dividerElement = haveChildren ? (
-      <div className="flex flex-row  gap-x-2 items-center">
-        <hr className="flex flex-auto border-black border-1 m-0 box-border my-auto" />
-        <h5 className="flex flex-shrink justify-center font-bold text-base">
-          {children}
-        </h5>
-        <hr className="flex flex-auto border-black border-1 m-0 box-border my-auto" />
-      </div>
-    ) : (
-      <hr className=" border-black border-1 m-0 box-border my-auto" />
+  const Divider = ({ children }: { children?: React.ReactNode }) => {
+    return (
+      <>
+        {children ? (
+          <div className="flex flex-row  gap-x-2 items-center my-2">
+            <hr className="flex flex-auto border-black border-1 m-0 box-border my-auto" />
+            <h5 className="flex flex-shrink justify-center font-bold text-base">
+              {children}
+            </h5>
+            <hr className="flex flex-auto border-black border-1 m-0 box-border my-auto" />
+          </div>
+        ) : (
+          <hr className=" border-black border-1 m-0 my-2" />
+        )}
+      </>
     );
-
-    return dividerElement;
   };
   function generateKey() {
-    return Math.random().toString(36).substr(2, 9);
+    return Math.random().toString(36).substring(2, 9);
   }
+
+  const Rating = ({ level }: { level: number }) => {
+    let range = [];
+    for (let i = 0; i < 5; i++) range.push(i);
+    const validStar = (
+      <svg
+        className="w-4 h-4 text-yellow-300"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        viewBox="0 0 22 20"
+      >
+        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+      </svg>
+    );
+    const emptyStar = (
+      <svg
+        className="w-4 h-4 text-gray-300 dark:text-gray-500"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        viewBox="0 0 22 20"
+      >
+        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+      </svg>
+    );
+    const validStarCount = 5 - (5 - level);
+
+    return (
+      <div className="flex items-center space-x-1">
+        {range.map((index) => {
+          if (index < validStarCount) {
+            return (
+              <svg
+                key={generateKey()}
+                className="w-4 h-4 text-yellow-300"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 22 20"
+              >
+                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+              </svg>
+            );
+          } else {
+            return (
+              <svg
+                key={generateKey()}
+                className="w-4 h-4 text-gray-300 dark:text-gray-500"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 22 20"
+              >
+                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+              </svg>
+            );
+          }
+        })}
+      </div>
+    );
+  };
 
   const experiences: Experience[] = [
     {
@@ -290,6 +387,45 @@ export default function Bio() {
       city: "Koh Phangan",
     },
   ];
+
+  const CourseLayout = ({ course }: CourseLayoutProps) => {
+    const { title, description, obtainedDate, organization, author } = course;
+    const formattedObtainedDate = dayjs(obtainedDate).format(DATE_FORMAT);
+    const isPrioritized = course.prioritized;
+    const prioritizedIcon = isPrioritized ? (
+      <FaStar className="inline pb-1 mr-1" />
+    ) : (
+      <></>
+    );
+
+    const authorDisplay = author ? (
+      <small className="text-black">by {author}</small>
+    ) : (
+      <></>
+    );
+    return (
+      <>
+        <h4 className="font-bold mt-2 mb-1 text-orange-950">
+          {prioritizedIcon}
+          {title} {authorDisplay}
+        </h4>
+        {/* <span className="text-xs italic underline">{link}</span> */}
+        <div className="pl-5 mt-1">
+          <div className="flex flex-row gap-x-2 items-center">
+            <small className="text-gray-500 flex-1 font-bold">
+              {organization.toUpperCase()}
+            </small>
+            <small className="text-gray-500 text-end italic flex-1 font-bold">
+              <FaCalendarDay className="inline" /> {formattedObtainedDate}
+            </small>
+          </div>
+          <p className="text-gray-500 ml-5 text-xs my-1 line-clamp-3">
+            {description}
+          </p>
+        </div>
+      </>
+    );
+  };
 
   const ExperienceLayout = ({ experience }: ExperienceLayoutProps) => {
     const {
@@ -359,14 +495,63 @@ export default function Bio() {
         </div>
       </div>
       <hr className="border-1 border-b-gray-200 my-8" />
-      <div className="grid grid-cols-3">
-        <div className="col-span-3 sm:col-span-2">
+      <div className="grid grid-cols-3 gap-x-10">
+        <div className="col-span-3 lg:col-span-2">
           <Divider>EXPERIENCE</Divider>
-          {experiences.map((experience) => (
-            <ExperienceLayout key={experience.title} experience={experience} />
+          {experiences.map((experience, index) => {
+            const isLastElement = index === experiences.length - 1;
+
+            return (
+              <div key={experience.title}>
+                <ExperienceLayout experience={experience} />
+                {!isLastElement && (
+                  <hr className="border border-1 border-gray-200 my-2" />
+                )}
+              </div>
+            );
+          })}
+          <Divider>COURSES / CERTIFICATIONS</Divider>
+          {sortedCourses.map((course) => (
+            <CourseLayout course={course} key={course.title} />
           ))}
         </div>
-        <div className="col-span-3 sm:col-span-1"></div>
+        <div className="col-span-3 lg:col-span-1">
+          <Divider>SKILLS</Divider>
+          {ITSkills.map(({ title, skills }) => (
+            <div key={title}>
+              <h5 className="font-bold my-1 text-center text-black">{title}</h5>
+              <div className="flex flex-wrap gap-1">
+                {skills.map((skill) => (
+                  <Tag color="black" className="flex" key={skill}>
+                    {skill}
+                  </Tag>
+                ))}
+              </div>
+            </div>
+          ))}
+          <Divider>LANGUAGES</Divider>
+          {languages.map(({ language, level }) => (
+            <div
+              className="flex flow-col justify-between items-center gap-"
+              key={language}
+            >
+              <p className="flex flex-1 my-2 font-bold">
+                {language.toUpperCase()}
+              </p>
+              <div className="flex flex-3 items-end">
+                <Rating level={level} />
+              </div>
+            </div>
+          ))}
+          <Divider>INTERESTS</Divider>
+          <div className="flex flex-wrap gap-1">
+            {interests.map((interet) => (
+              <Tag color="gray" className="flex" key={interet}>
+                {interet}
+              </Tag>
+            ))}
+          </div>
+        </div>
       </div>
     </>
   );
