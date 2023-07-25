@@ -21,7 +21,9 @@ export const ExternalIcon = ({ link, children }: ExternalIconProps) => {
           {children}
         </button>
       ) : (
-        <></>
+        <>
+          <button className="mx-1">{children}</button>
+        </>
       )}
     </>
   );
