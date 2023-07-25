@@ -1,5 +1,12 @@
 import { ExternalIcon } from "@app/components/ExternalIcon";
 import { Tag } from "@app/components/Tag";
+import {
+  CourseTaken,
+  Experience,
+  ITSkills,
+  LanguageDisplay,
+  PersonalProject,
+} from "@interfaces/bio.interface";
 import { LiProps } from "@interfaces/global.interface";
 import GhislainImage from "@public/ghislain.jpg";
 import dayjs from "dayjs";
@@ -13,46 +20,6 @@ import {
   FaStar,
 } from "react-icons/fa";
 
-interface Experience {
-  title: string;
-  company: string;
-  startDate: Date;
-  endDate: Date | null;
-  stillWorking: boolean;
-  missions: JSX.Element[];
-  country: string;
-  city: string;
-  websiteLink: string;
-  linkedInLink: string;
-}
-
-type BasicInfo =
-  | "title"
-  | "startDate"
-  | "endDate"
-  | "stillWorking"
-  | "missions"
-  | "websiteLink";
-
-interface PersonalProject extends Pick<Experience, BasicInfo> {
-  githubLink?: string;
-}
-
-interface CourseTaken {
-  author?: string;
-  prioritized: boolean;
-  title: string;
-  link: string;
-  description: string;
-  obtainedDate: Date;
-  organization: string;
-}
-
-interface LanguageDisplay {
-  language: string;
-  level: number;
-}
-
 type ExperienceLayoutProps = {
   experience: Prettify<Experience>;
 };
@@ -60,11 +27,6 @@ type ExperienceLayoutProps = {
 type CourseLayoutProps = {
   course: Prettify<CourseTaken>;
 };
-
-interface ITSkills {
-  title: string;
-  skills: string[];
-}
 
 export default function Bio() {
   const DATE_FORMAT = "MM-YYYY";
@@ -510,6 +472,7 @@ export default function Bio() {
               </div>
             );
           })}
+          <Divider>PERSONAL PROJECTS</Divider>
           <Divider>COURSES / CERTIFICATIONS</Divider>
           {sortedCourses.map((course) => (
             <CourseLayout course={course} key={course.title} />
