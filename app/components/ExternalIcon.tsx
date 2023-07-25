@@ -14,17 +14,13 @@ export const ExternalIcon = ({ link, children }: ExternalIconProps) => {
 
   const mounted = useDeferredValue(isComponentMounted);
 
+  const buttonProps: ButtonProps = mounted
+    ? { onClick: () => window.open(link, "_blank") }
+    : {};
+
   return (
-    <>
-      {mounted ? (
-        <button className="mx-1" onClick={() => window.open(link, "_blank")}>
-          {children}
-        </button>
-      ) : (
-        <>
-          <button className="mx-1">{children}</button>
-        </>
-      )}
-    </>
+    <button className="mx-1" {...buttonProps}>
+      {children}
+    </button>
   );
 };
