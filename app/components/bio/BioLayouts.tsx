@@ -3,15 +3,18 @@ import {
   Experience,
   PersonalProject,
 } from "@interfaces/bio.interface";
+import { getFormattedPeriodDate } from "@lib/functions/bio.fn";
 import dayjs from "dayjs";
 import {
   FaCalendarDay,
+  FaGithub,
   FaGlobe,
   FaLinkedinIn,
   FaLocationArrow,
   FaStar,
 } from "react-icons/fa";
 import { ExternalIcon } from "../ExternalIcon";
+import { Tag } from "../Tag";
 
 type CourseLayoutProps = {
   course: Prettify<CourseTaken>;
@@ -76,10 +79,11 @@ export const ExperienceLayout = ({ experience }: ExperienceLayoutProps) => {
     missions,
   } = experience;
 
-  const formattedStartDate = dayjs(startDate).format(DATE_FORMAT);
-  const formattedEndDate = stillWorking
-    ? "PRESENT"
-    : dayjs(endDate).format(DATE_FORMAT);
+  const formattedDate = getFormattedPeriodDate(
+    startDate,
+    endDate,
+    stillWorking
+  );
   return (
     <>
       <h3 className="font-bold my-2 text-black">{title}</h3>
@@ -95,7 +99,7 @@ export const ExperienceLayout = ({ experience }: ExperienceLayoutProps) => {
         </h4>
         <div className="flex flex-row gap-x-2 items-center">
           <small className="text-gray-500 italic flex-1 font-bold">
-            {formattedStartDate} - {formattedEndDate}
+            {formattedDate}
           </small>
           <small className="text-gray-500 text-end italic flex-1 font-bold">
             <FaLocationArrow className="inline" /> {city}, {country}
@@ -119,13 +123,69 @@ type ProjectLayoutProps = {
 };
 
 export const ProjectLayout = ({ project }: ProjectLayoutProps) => {
-  const { title, githubLink } = project;
+  const {
+    title,
+    githubLink,
+    keyResults,
+    technologies,
+    startDate,
+    endDate,
+    stillWorking,
+    websiteLink,
+  } = project;
+
+  const showGitHubLink = githubLink ? (
+    <ExternalIcon link={githubLink}>
+      <FaGithub />
+    </ExternalIcon>
+  ) : (
+    <></>
+  );
+  const showWebsiteLink =
+    websiteLink !== "" ? (
+      <ExternalIcon link={websiteLink}>
+        <FaGlobe />
+      </ExternalIcon>
+    ) : (
+      <></>
+    );
+
+  const formattedDate = getFormattedPeriodDate(
+    startDate,
+    endDate,
+    stillWorking
+  );
 
   return (
     <>
-      <h4 className="font-bold mt-2 mb-1 text-orange-950">{title}</h4>
-      <span className="text-xs italic underline">{githubLink}</span>
-      <p className="text-gray-500 ml-5 text-xs my-1 line-clamp-3">'hey'</p>
+      <h3 className="font-bold my-2 text-black">{title}</h3>
+      <div className="pl-5">
+        <div className="flex flex-row gap-x-2 items-center">
+          <small className="text-gray-500 italic flex-1 font-bold">
+            {formattedDate}
+          </small>
+          <span className="text-black text-end italic flex-1 font-bold text-xl">
+            {showGitHubLink}
+            {showWebsiteLink}
+          </span>
+        </div>
+      </div>
+      <h5 className="font-bold my-1">Skills</h5>
+      <div className="flex flex-wrap gap-1">
+        {technologies.map((technology) => (
+          <Tag color="green" className="flex" key={technology}>
+            {technology}
+          </Tag>
+        ))}
+      </div>
+      <h5 className="font-bold my-1">Skills</h5>
+      <ul className="list-disc mt-0">
+        {keyResults.map((keyResult, index) => (
+          <li key={`${websiteLink}+${index}`} className="text-xs mb-2">
+            {keyResult}
+          </li>
+        ))}
+      </ul>
     </>
   );
 };

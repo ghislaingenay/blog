@@ -43,3 +43,18 @@ export const sortCourses = (courses: CourseTaken[]) => {
   ];
   return finalCourses;
 };
+
+export const getFormattedPeriodDate = (
+  startDate: Date,
+  endDate: Date | null,
+  stillWorking: boolean
+) => {
+  const DATE_FORMAT = "MM-YYYY";
+  const formattedStartDate = dayjs(startDate).format(DATE_FORMAT);
+  const formattedEndDate = stillWorking
+    ? "PRESENT"
+    : dayjs(endDate).format(DATE_FORMAT);
+
+  if (formattedStartDate === formattedEndDate) return formattedStartDate;
+  return `${formattedStartDate} - ${formattedEndDate}`;
+};
