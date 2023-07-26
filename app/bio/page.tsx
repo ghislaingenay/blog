@@ -1,125 +1,25 @@
-import { ExternalIcon } from "@app/components/ExternalIcon";
 import { Tag } from "@app/components/Tag";
+import { CourseLayout, ExperienceLayout } from "@app/components/bio/BioLayouts";
+import { Rating } from "@app/components/bio/Rating";
+import { Divider } from "@app/components/styles/Divider";
 import {
   ITSkillsList,
   courseListing,
   interests,
   languages,
 } from "@constants/bio.const";
-import {
-  CourseTaken,
-  Experience,
-  PersonalProject,
-} from "@interfaces/bio.interface";
+import { generateKey } from "@functions";
+import { Experience, PersonalProject } from "@interfaces/bio.interface";
 import { LiProps } from "@interfaces/global.interface";
+import { sortCourses } from "@lib/functions/bio.fn";
 import GhislainImage from "@public/ghislain.jpg";
-import dayjs from "dayjs";
 import Image from "next/image";
-import React from "react";
-import {
-  FaCalendarDay,
-  FaGlobe,
-  FaLinkedinIn,
-  FaLocationArrow,
-  FaStar,
-} from "react-icons/fa";
-
-type ExperienceLayoutProps = {
-  experience: Prettify<Experience>;
-};
-
-type CourseLayoutProps = {
-  course: Prettify<CourseTaken>;
-};
 
 export default function Bio() {
-  const DATE_FORMAT = "MM-YYYY";
-
-  const personalProjectsListing: PersonalProject[] = [];
-
-  const sortCourses = (courses: CourseTaken[]) => {
-    const prioritizedCourses = courses.filter((course) => course.prioritized);
-    const nonPrioritizedCourses = courses.filter(
-      (course) => !course.prioritized
-    );
-    const sortCoursesByDate = (courses: CourseTaken[]) => {
-      return courses.sort((a, b) => {
-        return dayjs(b.obtainedDate).diff(a.obtainedDate);
-      });
-    };
-
-    const finalCourses = [
-      ...sortCoursesByDate(prioritizedCourses),
-      ...sortCoursesByDate(nonPrioritizedCourses),
-    ];
-    return finalCourses;
-  };
-
   const sortedCourses = sortCourses(courseListing);
-
   const SpecialLi = ({ children }: LiProps) => (
     <li className="[&>*:last-child]:mb-2">{children}</li>
   );
-
-  const Divider = ({ children }: { children?: React.ReactNode }) => {
-    return (
-      <>
-        {children ? (
-          <div className="flex flex-row  gap-x-2 items-center my-2">
-            <hr className="flex flex-auto border-black border-1 m-0 box-border my-auto" />
-            <h5 className="flex flex-shrink justify-center font-bold text-base">
-              {children}
-            </h5>
-            <hr className="flex flex-auto border-black border-1 m-0 box-border my-auto" />
-          </div>
-        ) : (
-          <hr className=" border-black border-1 m-0 my-2" />
-        )}
-      </>
-    );
-  };
-  function generateKey() {
-    return Math.random().toString(36).substring(2, 9);
-  }
-
-  const Rating = ({ level }: { level: number }) => {
-    let range = [];
-    for (let i = 0; i < 5; i++) range.push(i);
-    const validStarCount = 5 - (5 - level);
-    return (
-      <div className="flex items-center space-x-1">
-        {range.map((index) => {
-          if (index < validStarCount) {
-            return (
-              <svg
-                key={generateKey()}
-                className="w-4 h-4 text-yellow-300"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 22 20"
-              >
-                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-              </svg>
-            );
-          } else {
-            return (
-              <svg
-                key={generateKey()}
-                className="w-4 h-4 text-gray-300 dark:text-gray-500"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor"
-                viewBox="0 0 22 20"
-              >
-                <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-              </svg>
-            );
-          }
-        })}
-      </div>
-    );
-  };
 
   const experiences: Experience[] = [
     {
@@ -187,95 +87,6 @@ export default function Bio() {
     },
   ];
 
-  const CourseLayout = ({ course }: CourseLayoutProps) => {
-    const { title, description, obtainedDate, organization, author } = course;
-    const formattedObtainedDate = dayjs(obtainedDate).format(DATE_FORMAT);
-    const isPrioritized = course.prioritized;
-    const prioritizedIcon = isPrioritized ? (
-      <FaStar className="inline pb-1 mr-1" />
-    ) : (
-      <></>
-    );
-
-    const authorDisplay = author ? (
-      <small className="text-black">by {author}</small>
-    ) : (
-      <></>
-    );
-    return (
-      <>
-        <h4 className="font-bold mt-2 mb-1 text-orange-950">
-          {prioritizedIcon}
-          {title} {authorDisplay}
-        </h4>
-        {/* <span className="text-xs italic underline">{link}</span> */}
-        <div className="pl-5 mt-1">
-          <div className="flex flex-row gap-x-2 items-center">
-            <small className="text-gray-500 flex-1 font-bold">
-              {organization.toUpperCase()}
-            </small>
-            <small className="text-gray-500 text-end italic flex-1 font-bold">
-              <FaCalendarDay className="inline" /> {formattedObtainedDate}
-            </small>
-          </div>
-          <p className="text-gray-500 ml-5 text-xs my-1 line-clamp-3">
-            {description}
-          </p>
-        </div>
-      </>
-    );
-  };
-
-  const ExperienceLayout = ({ experience }: ExperienceLayoutProps) => {
-    const {
-      title,
-      company,
-      city,
-      country,
-      stillWorking,
-      startDate,
-      endDate,
-      websiteLink,
-      linkedInLink,
-      missions,
-    } = experience;
-
-    const formattedStartDate = dayjs(startDate).format(DATE_FORMAT);
-    const formattedEndDate = stillWorking
-      ? "PRESENT"
-      : dayjs(endDate).format(DATE_FORMAT);
-    return (
-      <>
-        <h3 className="font-bold my-2 text-black">{title}</h3>
-        <div className="pl-5">
-          <h4 className="mb-1 mt-0 text-blue-950">
-            {company?.toUpperCase()}{" "}
-            <ExternalIcon link={linkedInLink}>
-              <FaLinkedinIn />
-            </ExternalIcon>
-            <ExternalIcon link={websiteLink}>
-              <FaGlobe />
-            </ExternalIcon>
-          </h4>
-          <div className="flex flex-row gap-x-2 items-center">
-            <small className="text-gray-500 italic flex-1 font-bold">
-              {formattedStartDate} - {formattedEndDate}
-            </small>
-            <small className="text-gray-500 text-end italic flex-1 font-bold">
-              <FaLocationArrow className="inline" /> {city}, {country}
-            </small>
-          </div>
-        </div>
-        <h5 className="font-bold mt-1 mb-0">Achievements/Tasks</h5>
-        <ul className="list-disc mt-0">
-          {missions.map((mission, index) => (
-            <div key={`${websiteLink}+${index}`}>{mission}</div>
-          ))}
-        </ul>
-      </>
-    );
-  };
-
   return (
     <>
       <div>
@@ -310,6 +121,7 @@ export default function Bio() {
             );
           })}
           <Divider>PERSONAL PROJECTS</Divider>
+          {/* personalProjectsListing */}
           <Divider>COURSES / CERTIFICATIONS</Divider>
           {sortedCourses.map((course) => (
             <CourseLayout course={course} key={course.title} />

@@ -2,6 +2,7 @@ import {
   CourseTaken,
   ITSkills,
   LanguageDisplay,
+  PersonalProject,
 } from "@interfaces/bio.interface";
 
 export const ITSkillsList: ITSkills[] = [
@@ -148,3 +149,5 @@ export const languages: LanguageDisplay[] = [
   { language: "Japanese", level: 2 },
   { language: "Thai", level: 1 },
 ];
+
+export const personalProjectsListing: PersonalProject[] = [];
