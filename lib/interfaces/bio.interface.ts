@@ -16,12 +16,12 @@ export type BasicInfo =
   | "startDate"
   | "endDate"
   | "stillWorking"
-  | "missions"
   | "websiteLink";
 
 export interface PersonalProject extends Pick<Experience, BasicInfo> {
   githubLink?: string;
   technologies: string[];
+  keyResults: string[];
 }
 
 export interface CourseTaken {

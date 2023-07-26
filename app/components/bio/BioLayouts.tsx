@@ -1,4 +1,8 @@
-import { CourseTaken, Experience } from "@interfaces/bio.interface";
+import {
+  CourseTaken,
+  Experience,
+  PersonalProject,
+} from "@interfaces/bio.interface";
 import dayjs from "dayjs";
 import {
   FaCalendarDay,
@@ -104,6 +108,24 @@ export const ExperienceLayout = ({ experience }: ExperienceLayoutProps) => {
           <div key={`${websiteLink}+${index}`}>{mission}</div>
         ))}
       </ul>
+    </>
+  );
+};
+
+//////////////////////////////////////////////////////////////////////////
+
+type ProjectLayoutProps = {
+  project: Prettify<PersonalProject>;
+};
+
+export const ProjectLayout = ({ project }: ProjectLayoutProps) => {
+  const { title, githubLink } = project;
+
+  return (
+    <>
+      <h4 className="font-bold mt-2 mb-1 text-orange-950">{title}</h4>
+      <span className="text-xs italic underline">{githubLink}</span>
+      <p className="text-gray-500 ml-5 text-xs my-1 line-clamp-3">'hey'</p>
     </>
   );
 };

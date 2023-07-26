@@ -1,5 +1,9 @@
 import { Tag } from "@app/components/Tag";
-import { CourseLayout, ExperienceLayout } from "@app/components/bio/BioLayouts";
+import {
+  CourseLayout,
+  ExperienceLayout,
+  ProjectLayout,
+} from "@app/components/bio/BioLayouts";
 import { Rating } from "@app/components/bio/Rating";
 import { Divider } from "@app/components/styles/Divider";
 import {
@@ -7,16 +11,18 @@ import {
   courseListing,
   interests,
   languages,
+  personalProjectsListing,
 } from "@constants/bio.const";
 import { generateKey } from "@functions";
-import { Experience, PersonalProject } from "@interfaces/bio.interface";
+import { Experience } from "@interfaces/bio.interface";
 import { LiProps } from "@interfaces/global.interface";
-import { sortCourses } from "@lib/functions/bio.fn";
+import { sortCourses, sortProjects } from "@lib/functions/bio.fn";
 import GhislainImage from "@public/ghislain.jpg";
 import Image from "next/image";
 
 export default function Bio() {
   const sortedCourses = sortCourses(courseListing);
+  const sortedPersonalProjects = sortProjects(personalProjectsListing);
   const SpecialLi = ({ children }: LiProps) => (
     <li className="[&>*:last-child]:mb-2">{children}</li>
   );
@@ -121,7 +127,9 @@ export default function Bio() {
             );
           })}
           <Divider>PERSONAL PROJECTS</Divider>
-          {/* personalProjectsListing */}
+          {sortedPersonalProjects.map((project) => (
+            <ProjectLayout project={project} key={project.title} />
+          ))}
           <Divider>COURSES / CERTIFICATIONS</Divider>
           {sortedCourses.map((course) => (
             <CourseLayout course={course} key={course.title} />
