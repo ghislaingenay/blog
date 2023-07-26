@@ -68,11 +68,14 @@ export const socialMediaNavSection: NavField[] = [
       <FaLinkedin
         className={`${ICON_CLASS_NAV} text-blue-600`}
         onClick={() =>
-          window.open("https://www.linkedin.com/in/ghislaingenay/", "_blank")
+          window.open(
+            "https://www.linkedin.com/in/ghislain-genay-b698831b3/",
+            "_blank"
+          )
         }
       />
     ),
-    link: "https://www.linkedin.com/in/ghislaingenay/",
+    link: "https://www.linkedin.com/in/ghislain-genay-b698831b3/",
     label: "LINKEDIN",
   },
 ];

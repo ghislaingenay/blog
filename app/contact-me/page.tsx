@@ -1,3 +1,12 @@
+import NotFoundError from "@app/components/NotFoundError";
+import { generateKey } from "@functions";
+
 export default async function ContactMePage() {
-  return <h1>Contact Me</h1>;
+  return (
+    <NotFoundError
+      title="On construction ..."
+      message="This page is in preparation. Please come back later."
+      key={generateKey()}
+    />
+  );
 }

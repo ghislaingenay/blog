@@ -19,3 +19,6 @@ export const parseTag = (tag: string | number): string => {
   const words = tag.split("-");
   return words.map((word) => parseJS(word).toUpperCase()).join(" ");
 };
+export function generateKey() {
+  return Math.random().toString(36).substring(2, 9);
+}

@@ -21,3 +21,4 @@ export type DivProps = BaseHTMLProps<HTMLDivElement>;
 export type LiProps = BaseHTMLProps<HTMLLIElement>;
 export type UlProps = BaseHTMLProps<HTMLUListElement>;
 export type SelectProps = BaseHTMLProps<HTMLSelectElement>;
+export type ButtonProps = BaseHTMLProps<HTMLButtonElement>;

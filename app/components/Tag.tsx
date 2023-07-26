@@ -3,13 +3,13 @@ import Link from "next/link";
 import { ReactNode } from "react";
 
 type ButtonProps = React.ComponentProps<"button">;
-type TagColor = "blue" | "red" | "green" | "orange" | "gray";
+type TagColor = "blue" | "red" | "green" | "orange" | "gray" | "black";
 
 export interface TagProps {
   children: ReactNode;
   className?: ButtonProps["className"];
   link?: string;
-  color?: TagColor;
+  color?: Prettify<TagColor>;
 }
 
 export const Tag = ({
@@ -24,6 +24,7 @@ export const Tag = ({
     green: `bg-green-800`,
     orange: `bg-orange-600`,
     gray: `bg-black opacity-70`,
+    black: `bg-black`,
   };
 
   const linkUrl = link ? link : "";

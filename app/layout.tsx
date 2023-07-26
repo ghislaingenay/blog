@@ -22,10 +22,11 @@ export default function RootLayout({
     <html lang="en" className="min-h-full overflow-x-hidden">
       <body className="bg-slate-50 pb-5">
         <Navbar />
-        <main className="container mx-auto sm:w-[600px] md:w-[728px] lg:w-[984px] xl:w-[1240px] 2xl:[1535px] px-5 sm:px-0 prose prose-sm sm:prose-md md:prose-lg prose-slate">
+        <main className="container mx-auto sm:w-[600px] md:w-[728px] lg:w-[984px] xl:w-[1240px] 2xl:[1535px] px-5 sm:px-0 prose prose-sm sm:prose-md prose-slate prose-h1:m-0 ">
           {children}
         </main>
       </body>
     </html>
   );
 }
+// prose prose-sm sm:prose-md prose-slate

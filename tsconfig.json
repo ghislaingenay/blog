@@ -26,6 +26,7 @@
       "@api/*": ["./app/api/*"],
       "@functions": ["./lib/functions/index"],
       "@components/mdx": ["./app/components/mdx/index"],
+      "@public/*": ["./public/*"],
       "@components/*": ["./app/components/*"],
       "@lib-api/*": ["./lib/api/*"],
       "@constants/*": ["./lib/constants/*"],

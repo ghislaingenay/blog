@@ -136,7 +136,6 @@ export default function Searchbar({ posts }: SearchbarProps) {
                 </div>
                 <input
                   onChange={(e) => {
-                    console.log(e.target.value);
                     setQuery(e.target.value);
                   }}
                   value={query}
