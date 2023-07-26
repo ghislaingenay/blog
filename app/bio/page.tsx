@@ -1,10 +1,14 @@
 import { ExternalIcon } from "@app/components/ExternalIcon";
 import { Tag } from "@app/components/Tag";
 import {
+  ITSkillsList,
+  courseListing,
+  interests,
+  languages,
+} from "@constants/bio.const";
+import {
   CourseTaken,
   Experience,
-  ITSkills,
-  LanguageDisplay,
   PersonalProject,
 } from "@interfaces/bio.interface";
 import { LiProps } from "@interfaces/global.interface";
@@ -30,144 +34,8 @@ type CourseLayoutProps = {
 
 export default function Bio() {
   const DATE_FORMAT = "MM-YYYY";
-  const ITSkills: ITSkills[] = [
-    {
-      title: "Front-end",
-      skills: [
-        "JavaScript",
-        "TypeScript",
-        "HTML",
-        "CSS",
-        "SASS",
-        "TailwindCSS",
-        "ReactJS",
-        "AntDesign",
-        "NextJS",
-      ],
-    },
-    {
-      title: "Back-end",
-      skills: [
-        "JavaScript",
-        "TypeScript",
-        "NodeJS",
-        "ExpressJS",
-        "Python",
-        "Django",
-      ],
-    },
-    {
-      title: "Databases",
-      skills: ["MySQL (SQL)", "Postgres (SQL)", "MongoDB (NoSQL)"],
-    },
-    {
-      title: "Concepts",
-      skills: [
-        "Git Version Control",
-        "Agile",
-        "Scrum",
-        "TDD",
-        "Microservices",
-        "Monolith",
-      ],
-    },
-    {
-      title: "Softwares",
-      skills: ["Git", "Microsoft Office", "JIRA", "Adobe Suite"],
-    },
-    {
-      title: "DevOps",
-      skills: [
-        "Jest",
-        "Docker",
-        "Kubernetes",
-        "Github Actions",
-        "Digital Ocean",
-      ],
-    },
-    { title: "Data science", skills: ["Numpy & Pandas (Python)"] },
-  ];
-  const softSkills: string[] = [
-    "Teamwork",
-    "Problem solving",
-    "Adaptability",
-    "Creativity",
-    "Work ethic",
-    "Interpersonal skills",
-    "Time management",
-    "Attention to detail",
-    "Flexibility",
-    "Self-motivation",
-    "Conflict resolution",
-    "Open-mindedness",
-  ];
-
-  const interests: string[] = ["Coding", "Hiking", "Photoshop", "Language"];
 
   const personalProjectsListing: PersonalProject[] = [];
-
-  const courseListing: CourseTaken[] = [
-    {
-      prioritized: true,
-      title: "AWS Cloud Practitioner Essentials",
-      description:
-        "Certificate of completion. Compute in the cloud, Infrastructure,\
-    Networking, Storage & Databases, Security, Pricing.",
-      link: "https://www.aws.training/Details/eLearning?id=60697",
-      obtainedDate: new Date(2022, 10, 1),
-      organization: "Amazon Web Services",
-    },
-    {
-      prioritized: true,
-      title: "Data Scientist with Python",
-      description:
-        "Certification Course - Learn Python for data science. \
-       From data manipulation to machine learning! In this track, you'll learn how this versatile language allows you to import, clean, manipulate, and visualize data",
-      link: "https://www.datacamp.com/tracks/data-scientist-with-python",
-      obtainedDate: new Date(2023, 4, 15),
-      organization: "DataCamp",
-    },
-    {
-      prioritized: false,
-      author: "Stephen Grider",
-      title: "Microservices with Node JS and React",
-      description:
-        "Build, deploy, and scale an E-Commerce app using Microservices built with Node, React, Docker and Kubernetes",
-      link: "https://www.udemy.com/course/microservices-with-node-js-and-react/",
-      obtainedDate: new Date(2023, 2, 11),
-      organization: "Udemy",
-    },
-    {
-      prioritized: false,
-      author: "Stephen Grider",
-      title: "SQL and PostgreSQL: The Complete Developer's Guide",
-      description:
-        "Become an expert with SQL and PostgreSQL! Store and fetch data, tune queries, and design efficient database structures!",
-      link: "https://www.udemy.com/course/sql-and-postgresql",
-      obtainedDate: new Date(2023, 3, 28),
-      organization: "Udemy",
-    },
-    {
-      prioritized: false,
-      author: "Daniel Walter Scott",
-      title: "Adobe Photoshop CC - Advanced Training Course",
-      description:
-        "Advanced Photoshop techniques like Photoshop retouching & Graphic Design tutorials",
-      link: "https://www.udemy.com/course/adobe-photoshop-cc-advanced-training-course-tutorial/",
-      obtainedDate: new Date(2021, 9, 21),
-      organization: "Udemy",
-    },
-    {
-      prioritized: false,
-      author: "Joe Natoli",
-      title: "DESIGN RULES: Principles + Practices for Great UI Design",
-      description:
-        "Learn to design powerful user interfaces for apps, sites and systems",
-      link: "https://www.udemy.com/course/design-rules",
-      obtainedDate: new Date(2022, 3, 9),
-      organization: "Udemy",
-    },
-  ];
 
   const sortCourses = (courses: CourseTaken[]) => {
     const prioritizedCourses = courses.filter((course) => course.prioritized);
@@ -189,14 +57,6 @@ export default function Bio() {
 
   const sortedCourses = sortCourses(courseListing);
 
-  const languages: LanguageDisplay[] = [
-    { language: "French", level: 5 },
-    { language: "English", level: 4 },
-    { language: "Spanish", level: 3 },
-    { language: "Chinese", level: 2 },
-    { language: "Japanese", level: 2 },
-    { language: "Thai", level: 1 },
-  ];
   const SpecialLi = ({ children }: LiProps) => (
     <li className="[&>*:last-child]:mb-2">{children}</li>
   );
@@ -225,30 +85,7 @@ export default function Bio() {
   const Rating = ({ level }: { level: number }) => {
     let range = [];
     for (let i = 0; i < 5; i++) range.push(i);
-    const validStar = (
-      <svg
-        className="w-4 h-4 text-yellow-300"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
-        viewBox="0 0 22 20"
-      >
-        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-      </svg>
-    );
-    const emptyStar = (
-      <svg
-        className="w-4 h-4 text-gray-300 dark:text-gray-500"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
-        viewBox="0 0 22 20"
-      >
-        <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-      </svg>
-    );
     const validStarCount = 5 - (5 - level);
-
     return (
       <div className="flex items-center space-x-1">
         {range.map((index) => {
@@ -480,7 +317,7 @@ export default function Bio() {
         </div>
         <div className="col-span-3 lg:col-span-1">
           <Divider>SKILLS</Divider>
-          {ITSkills.map(({ title, skills }) => (
+          {ITSkillsList.map(({ title, skills }) => (
             <div key={title}>
               <h5 className="font-bold my-1 text-center text-black">{title}</h5>
               <div className="flex flex-wrap gap-1">
