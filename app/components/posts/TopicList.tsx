@@ -86,7 +86,7 @@ export const TopicList = ({ topics }: TopicListProps) => {
   const setActivatedStyleSmall = useCallback(
     (name: string) => {
       const LI_CLASS_SMALL =
-        "border shadow-xl border-gray-400 rounded-lg p-2 col-span-1";
+        "border shadow-xl border-gray-400 rounded-lg p-2 col-span-1 hover:border-black";
       if (name === selectedTopic) return `${LI_CLASS_SMALL} ${ACTIVE_LI_CLASS}`;
       else return `${LI_CLASS_SMALL}`;
     },
