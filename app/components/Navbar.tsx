@@ -114,7 +114,7 @@ const LineScroll = ({
 );
 
 export default function Navbar() {
-  const pathname = usePathname();
+  const pathname = usePathname() as string;
   const PATH_NAME_WITHOUT_NAV = ["/signout", "/signin", "/signup"];
 
   const shouldShowGlobalNavbar = !pathname.startsWith("/posts");
@@ -132,8 +132,14 @@ export default function Navbar() {
   const openedSideBar = useDeferredValue(isSideBarOpen);
   const hiddenClass = !openedSideBar ? "hidden" : "block";
 
+  const [firstLoad, setFirstLoad] = useState(true);
+
   const ICON_SIDE_BAR_ANIMATION_CLASS =
     "animate-rotate-x animate-ease-in-out animate-once animate-duration-300";
+
+  useEffect(() => {
+    setFirstLoad(false);
+  }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -235,6 +241,15 @@ export default function Navbar() {
     : [...mainNavElements, ...pageNavElements, ...[queryElement]];
 
   const isTopNav = hasReachedText ? { top: false } : { top: true };
+
+  if (firstLoad)
+    return (
+      <Nav>
+        <div className="w-full h-full animate-pulse animate-infinite">
+          <div className="w-full h-4 bg-gray-300 rounded-lg" />
+        </div>
+      </Nav>
+    );
 
   return (
     <Switch>
