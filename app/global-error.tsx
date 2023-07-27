@@ -4,6 +4,7 @@ import NotFoundImage from "@public/error-page.jpg";
 import Image from "next/image";
 import Link from "next/link";
 
+//https://www.sitepoint.com/next-js-error-handling-app-router/
 export default function GlobalError() {
   return (
     <html lang="en" className="min-h-full overflow-x-hidden">
