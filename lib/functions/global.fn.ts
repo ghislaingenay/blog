@@ -22,3 +22,8 @@ export const parseTag = (tag: string | number): string => {
 export function generateKey() {
   return Math.random().toString(36).substring(2, 9);
 }
+
+export const range = (start: number, end?: number): number[] => {
+  if (end === undefined) return [...Array(start)].map((_, i) => i);
+  return [...Array(end - start)].map((_, i) => i + start);
+};

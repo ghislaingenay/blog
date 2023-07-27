@@ -25,7 +25,7 @@ export default function Error({
           () => reset()
         }
       >
-        Try again
+        Try again error
       </button>
       <p className="text-xl">
         Or go back to{" "}
