@@ -22,6 +22,7 @@
     "eslint-config-next": "13.4.9",
     "highlight.js": "^11.8.0",
     "jquery": "^3.7.0",
+    "jquery-ui": "^1.13.2",
     "next": "13.4.9",
     "next-mdx-remote": "^4.4.1",
     "next-sitemap": "^4.1.8",
