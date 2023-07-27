@@ -13,8 +13,8 @@ import {
   FaLocationArrow,
   FaStar,
 } from "react-icons/fa";
-import { ExternalIcon } from "../ExternalIcon";
-import { Tag } from "../Tag";
+import { ExternalIcon } from "../../components/ExternalIcon";
+import { Tag } from "../../components/Tag";
 
 type CourseLayoutProps = {
   course: Prettify<CourseTaken>;

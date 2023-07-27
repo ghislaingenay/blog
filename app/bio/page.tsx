@@ -1,10 +1,10 @@
-import { Tag } from "@app/components/Tag";
 import {
   CourseLayout,
   ExperienceLayout,
   ProjectLayout,
-} from "@app/components/bio/BioLayouts";
-import { Rating } from "@app/components/bio/Rating";
+} from "@app/bio/components/BioLayouts";
+import { Rating } from "@app/bio/components/Rating";
+import { Tag } from "@app/components/Tag";
 import { Divider } from "@app/components/styles/Divider";
 import {
   ITSkillsList,
