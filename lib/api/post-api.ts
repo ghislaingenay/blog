@@ -1,3 +1,4 @@
+import { ClipboardCode } from "@app/components/mdx/ClipboardCode";
 import { CustomImage, Video } from "@components/mdx";
 import { Language, PostTopic } from "@interfaces/global.interface";
 import { SerializeOptions } from "next-mdx-remote/dist/types";
@@ -11,7 +12,7 @@ const HEADERS_GITHUB = {
   "X-GitHub-Api-Version": "2022-11-28",
 };
 
-const COMPONENTS_MDX = { Video, CustomImage };
+const COMPONENTS_MDX = { Video, CustomImage, ClipboardCode };
 const OPTIONS_MDX: SerializeOptions = {
   parseFrontmatter: true,
   mdxOptions: {
