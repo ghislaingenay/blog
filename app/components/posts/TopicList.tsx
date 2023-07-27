@@ -1,6 +1,6 @@
 "use client";
 
-import { DivProps, PostTopic } from "@interfaces/global.interface";
+import { PostTopic } from "@interfaces/global.interface";
 import $ from "jquery";
 import { useCallback, useEffect, useState } from "react";
 import { FaChartBar, FaCode, FaTags, FaUser } from "react-icons/fa";
@@ -9,12 +9,6 @@ import { Tag } from "../Tag";
 type TopicListProps = {
   topics: PostTopicSearch[];
 };
-
-interface TopicDivProps extends DivProps {
-  children?: React.ReactNode;
-  className: string;
-  topic: string;
-}
 
 interface LiComponentProps {
   name: PostTopic;
@@ -31,7 +25,8 @@ export const TopicList = ({ topics }: TopicListProps) => {
     return { ...topic, id: addNameStrToTopicName(topic.name) };
   });
 
-  const ACTIVE_LI_CLASS = "bg-slate-300 rounded-lg bg-opacity-0.5";
+  const ACTIVE_LI_CLASS =
+    "bg-slate-300 rounded-lg bg-opacity-0.5 dark:bg-slate-700";
 
   const [selectedTopic, setSelectedTopic] = useState<string | undefined>(
     undefined
@@ -86,7 +81,7 @@ export const TopicList = ({ topics }: TopicListProps) => {
   const setActivatedStyleSmall = useCallback(
     (name: string) => {
       const LI_CLASS_SMALL =
-        "border shadow-xl border-gray-400 rounded-lg p-2 col-span-1 hover:border-black";
+        "border shadow-xl border-gray-400 dark:border-gray-600 rounded-lg p-2 col-span-1 hover:border-black dark:hover:border-white";
       if (name === selectedTopic) return `${LI_CLASS_SMALL} ${ACTIVE_LI_CLASS}`;
       else return `${LI_CLASS_SMALL}`;
     },

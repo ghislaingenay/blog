@@ -93,7 +93,7 @@ export default function Searchbar({ posts }: SearchbarProps) {
             <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
               <button
                 type="button"
-                className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                className="text-gray-400 bg-transparent hover:bg-gray-200  hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                 onClick={() => $("div#search-modal").addClass("hidden")}
               >
                 <svg

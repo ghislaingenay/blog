@@ -88,7 +88,7 @@ export const ExperienceLayout = ({ experience }: ExperienceLayoutProps) => {
     <>
       <h3 className="font-bold my-2 text-black">{title}</h3>
       <div className="pl-5">
-        <h4 className="mb-1 mt-0 text-blue-950">
+        <h4 className="mb-1 mt-0 text-blue-950 dark:text-slate-200">
           {company?.toUpperCase()}{" "}
           <ExternalIcon link={linkedInLink}>
             <FaLinkedinIn />

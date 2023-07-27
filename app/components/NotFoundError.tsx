@@ -24,10 +24,10 @@ export default function NotFoundError({ title, message }: NotFoundPageProps) {
         <h1 className="text-red-500 flex flex-1">{title}</h1>
         <p className="italic flex flex-1 my-2 text-sm">{message}</p>
       </div>
-      <button className="bg-blue-800 px-4 py-1 rounded-2xl hover:bg-blue-700 block mx-auto mt-6">
+      <button className="bg-blue-800 dark:bg-blue-100 px-4 py-1 rounded-2xl hover:bg-blue-700 dark:hover:bg-blue-200 block mx-auto mt-6">
         <Link
           href="/"
-          className="font-bold text-white no-underline text-sm md:text-md "
+          className="font-bold text-white no-underline text-sm md:text-md dark:text-black"
         >
           <FaHome className="inline mr-2" />
           Return to Home

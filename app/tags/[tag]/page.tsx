@@ -47,7 +47,7 @@ export default async function TagList({ params: { tag } }: TagProps) {
         </>
       ) : (
         <>
-          <p className="mt-5 text-center">
+          <p className="mt-5 text-center dark:text-slate-200">
             Sorry, no posts found for tag: {""}
             <span className="font-bold text-blue-500">{capitalize(tag)}</span>
           </p>

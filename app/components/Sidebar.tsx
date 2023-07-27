@@ -4,7 +4,7 @@ export const Sidebar = () => {
   // https://flowbite.com/docs/components/sidebar/
   //{/* https://tailwindcomponents.com/component/navigation-side-bar */}
   return (
-    <div className="flex fixed top-0 max-h-max flex-col items-center w-16 h-full overflow-hidden text-gray-700 bg-gray-100 rounded">
+    <div className="flex fixed top-0 max-h-max flex-col items-center w-16 h-full overflow-hidden text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-blue-950  rounded">
       <a className="flex items-center justify-center mt-3" href="#">
         <svg
           className="w-8 h-8 fill-current"

@@ -27,12 +27,21 @@ export const Tag = ({
     black: `bg-black`,
   };
 
+  const colorBlackList: Record<TagColor, string> = {
+    blue: `bg-blue-400`,
+    red: `bg-red-400`,
+    green: `bg-green-400`,
+    orange: `bg-orange-400`,
+    gray: `bg-black opacity-30`,
+    black: `bg-white`,
+  };
+
   const linkUrl = link ? link : "";
   const isClickable = link && link ? true : false;
 
   const initialClasses: ButtonProps["className"] =
     "text-white w-auto px-3 py-1 mr-1 text-xs font-medium text-bold rounded-full text-xs sm:text-sm";
-  const classes = `${initialClasses} ${className} ${colorList[color]}`;
+  const classes = `${initialClasses} ${className} ${colorList[color]} dark:${colorBlackList[color]}`;
 
   const ButtonTag = ({ children }: { children: ReactNode }) => (
     <button className={classes} disabled={!isClickable}>

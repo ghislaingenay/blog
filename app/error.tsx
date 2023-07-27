@@ -28,7 +28,7 @@ export default function Error({ error, reset }: ErrorProps) {
           Something went wrong!
         </h1>
 
-        <p className="text-xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+        <p className="text-xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-slate-100">
           {error.message || "An error occurred"}
         </p>
 

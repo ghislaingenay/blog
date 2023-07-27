@@ -24,7 +24,6 @@ export default function PostItem({ post, tag }: PostItemProps) {
   const changeOpacityTagClass = (tagValue: string) =>
     tagMatch(tagValue) ? "" : "opacity-50";
   return (
-    // <li className="border border-red-600">
     <Link
       id={topic}
       href={`/posts/${post.id}`}
@@ -32,7 +31,7 @@ export default function PostItem({ post, tag }: PostItemProps) {
         ...LINK_STYLE,
       }}
     >
-      <div className=" bg-slate-100 shadow-md p-3 md:px-10 md:h-[25rem] grid grid-cols-2 gap-y-2 md:gap-y-0 md:gap-x-10 items-center">
+      <div className=" bg-slate-100 dark:bg-slate-950 shadow-md p-3 md:px-10 md:h-[25rem] grid grid-cols-2 gap-y-2 md:gap-y-0 md:gap-x-10 items-center">
         <div className="col-span-2 md:col-span-1">
           <Image
             src={image}
@@ -86,10 +85,7 @@ export default function PostItem({ post, tag }: PostItemProps) {
             </div>
             {/* Right Column */}
             <div className="flex flex-col">
-              <span className="text-xs italic text-end">
-                {/* <FaClock className="my-auto inline" /> */}
-                {createdAt}{" "}
-              </span>
+              <span className="text-xs italic text-end">{createdAt} </span>
             </div>
           </div>
         </div>

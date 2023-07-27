@@ -18,7 +18,9 @@ import { FaArrowLeft, FaBars, FaSearch, FaXing } from "react-icons/fa";
 import { Case, Default, Switch } from "react-if";
 
 const selectColorTextHover = (samePath: boolean) =>
-  samePath ? "text-blue-600" : "text-gray-700";
+  samePath
+    ? "text-blue-600 dark:text-blue-400"
+    : "text-gray-700 dark:text-gray-300";
 
 interface NavBannerProps extends LiProps {
   navField: NavField;
@@ -36,7 +38,7 @@ const NavBanner = ({ navField, currentPath, ...props }: NavBannerProps) => {
     <li key={id} {...props}>
       <Link
         href={link}
-        className={`block py-2 pl-3 pr-4 text-gray-900 text-start rounded hover:bg-gray-300 md:hover:bg-transparent md:border-0  md:p-0`}
+        className={`block py-2 pl-3 pr-4 text-gray-900 dark:text-slate-100 text-start rounded hover:bg-gray-300 dark:hover:bg-gray-600 md:hover:bg-transparent md:border-0  md:p-0`}
       >
         <p className={`${selectedItemClass} m-0 p-0`}>{label}</p>
       </Link>
@@ -58,19 +60,19 @@ const NavIcon = ({ navField, currentPath, ...props }: NavIconProps) => {
   const idDisplay = `display-${navField.id}`;
 
   const TRIANGLE_CLASS =
-    "absolute left-[1.3rem] top-[2.75rem] border-l-[7.5px] border-l-transparent border-b-[10px] border-b-black opacity-0.5 border-r-[7.5px] border-r-transparent";
+    "absolute left-[1.3rem] top-[2.75rem] border-l-[7.5px] border-l-transparent border-b-[10px] border-b-black dark:border-b-white opacity-0.5 border-r-[7.5px] border-r-transparent";
 
   return (
     <>
       <div
-        className={`${selectedItemClass} relative flex flex-wrap justify-center items-center my-auto hover:bg-slate-300 hover:bg-opacity-50 hover:rounded-xl mr-0 ml-1 lg:ml-0 lg:mr-1`}
+        className={`${selectedItemClass} relative flex flex-wrap justify-center items-center my-auto hover:bg-slate-300 dark:bg-slate-500 hover:bg-opacity-50 hover:rounded-xl mr-0 ml-1 lg:ml-0 lg:mr-1`}
         onMouseOver={() => $(`#${idDisplay}`).removeClass("hidden")}
         onMouseOut={() => $(`#${idDisplay}`).addClass("hidden")}
         {...props}
       >
         <div id={idDisplay} className="hidden">
           <div
-            className={`${hiddenIfSocialPage} absolute w-[90%] grid top-[3rem] left-[0.175rem] h-6 bg-black z-40 rounded-lg`}
+            className={`${hiddenIfSocialPage} absolute w-[90%] grid top-[3rem] left-[0.175rem] h-6 bg-black dark:bg-slate-100 z-40 rounded-lg`}
           >
             <span className="text-[9px] font-bold text-white self-center text-center">
               {label}
@@ -87,7 +89,7 @@ const NavIcon = ({ navField, currentPath, ...props }: NavIconProps) => {
 const Nav = ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <nav className="fixed z-10 flex bg-slate-200 top-0 items-center h-16 w-full drop-shadow-lg">
+      <nav className="fixed z-10 flex bg-slate-200 dark:bg-gray-950 top-0 items-center h-16 w-full drop-shadow-lg">
         <div className="container flex flex-wrap items-center justify-between mx-auto w-full sm:w-[600px] md:w-[728px] lg:w-[984px] xl:w-[1240px] 2xl:[1535px] px-5 sm:px-0">
           {children}
         </div>
@@ -246,7 +248,7 @@ export default function Navbar() {
     return (
       <Nav>
         <div className="w-full h-full animate-pulse animate-infinite">
-          <div className="w-full h-4 bg-gray-300 rounded-lg" />
+          <div className="w-full h-4 bg-gray-300 dark:bg-blue-950 rounded-lg" />
         </div>
       </Nav>
     );
@@ -257,7 +259,7 @@ export default function Navbar() {
         <Nav>
           <button
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-700 rounded-lg lg:hidden hover:bg-slate-300 hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-700 dark:text-gray-100 rounded-lg lg:hidden hover:bg-slate-300 dark:hover:bg-slate-500 hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-700"
             onClick={() => setIsSideBarOpen((prevValue) => !prevValue)}
           >
             {iconSideBarMobile}
@@ -280,7 +282,7 @@ export default function Navbar() {
                             navField={navField}
                           />
                         </div>
-                        <div className="border border-spacing-1 border-gray-200 max-w-[97%] border-opacity-0.5 mx-auto" />
+                        <div className="border border-spacing-1 border-gray-200 dark:border-gray-800 max-w-[97%] border-opacity-0.5 mx-auto" />
                       </div>
                     );
                   })}

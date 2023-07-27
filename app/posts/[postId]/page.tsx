@@ -50,15 +50,7 @@ export default async function Post({ params: { postId } }: PostProps) {
     <>
       <div className="h-48" />
       <div className="overflow-hidden">
-        <div className=" overflow-hidden absolute top-[-10%] left-[-25%] lg:left-[-5%] h-[14rem] w-[150%] overflow-x-hidden rounded-b-[80%] bg-blue-500 bg-gradient-to-b from-blue-400  to-orange-500">
-          {/* <Image
-          alt={`Image for post ${title}`}
-          width={650}
-          height={650}
-          src={image}
-          className="object-cover w-full h-full"
-        /> */}
-        </div>
+        <div className=" overflow-hidden absolute top-[-10%] left-[-25%] lg:left-[-5%] h-[14rem] w-[150%] overflow-x-hidden rounded-b-[80%] bg-orange-500"></div>
       </div>
       <h1
         className="text-center text-xl sm:text-2xl md:text-3xl m-0"

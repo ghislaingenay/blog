@@ -8,7 +8,7 @@ import Link from "next/link";
 export default function GlobalError() {
   return (
     <html lang="en" className="min-h-full overflow-x-hidden">
-      <body className="bg-slate-50 pb-5">
+      <body className="bg-slate-50 pb-5 dark: dark:bg-blue-950">
         <main className="container mx-auto sm:w-[600px] md:w-[728px] lg:w-[984px] xl:w-[1240px] 2xl:[1535px] px-5 sm:px-0 prose prose-sm sm:prose-md prose-slate prose-h1:m-0 ">
           <div className="grid relative h-full px-4 place-items-center">
             <Image
@@ -21,7 +21,7 @@ export default function GlobalError() {
               <h1 className="my-6 text-3xl sm:text-4xl font-bold text-red-500">
                 This is broken!
               </h1>
-              <p className="text-xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+              <p className="text-xl font-bold tracking-tight text-gray-900 sm:text-3xl dark:text-slate-200">
                 An error occurred. Please try to refresh the page !
               </p>
               <p className="mt-4 text-gray-500 text-lg">

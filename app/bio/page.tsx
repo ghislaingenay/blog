@@ -102,7 +102,7 @@ export default function Bio() {
             height={400}
             alt="Ghislain Genay's profile picture"
             src={GhislainImage}
-            className="rounded-full border-4 border-gray-200 my-4 w-[200px] sm:w-[250px] md:w-[300px] mx-auto"
+            className="rounded-full border-4 border-gray-200 dark:border-gray-800 my-4 w-[200px] sm:w-[250px] md:w-[300px] mx-auto"
           />
         </div>
         <div>
@@ -117,7 +117,7 @@ export default function Bio() {
           (personal blog with NextJS / Markdown) and data science skills.
         </p>
       </div>
-      <hr className="border-1 border-b-gray-200 my-8" />
+      <hr className="border-1 border-b-gray-200 dark:border-b-gray-800 my-8" />
       <div className="grid grid-cols-3 gap-x-10">
         <div className="col-span-3 lg:col-span-2">
           <Divider>EXPERIENCE</Divider>
