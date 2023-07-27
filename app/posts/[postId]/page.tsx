@@ -37,7 +37,7 @@ export async function generateMetadata({
 
 export default async function Post({ params: { postId } }: PostProps) {
   const post = await getPostByName(`${postId}.mdx`); //deduped
-  if (!post) return notFound();
+  if (!post) notFound();
   const { meta, content } = post;
   const { title, tags, image, updatedAt, readTime } = meta;
   const tagList = tags.map((tag, index) => (

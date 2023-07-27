@@ -1,10 +1,10 @@
-import { Tag } from "@app/components/Tag";
 import {
   CourseLayout,
   ExperienceLayout,
   ProjectLayout,
-} from "@app/components/bio/BioLayouts";
-import { Rating } from "@app/components/bio/Rating";
+} from "@app/bio/components/BioLayouts";
+import { Rating } from "@app/bio/components/Rating";
+import { Tag } from "@app/components/Tag";
 import { Divider } from "@app/components/styles/Divider";
 import {
   ITSkillsList,
@@ -107,8 +107,15 @@ export default function Bio() {
         </div>
         <div>
           <h1 className="text-center mb-1">Ghislain Genay</h1>
-          <h2 className="text-center italic mt-0">Full Stack Developer</h2>
+          <h2 className="text-center italic mt-0.5">Full Stack Developer</h2>
         </div>
+        <p className="text-center w-full lg:w-3/4 mx-auto">
+          After working for 2 years as an R&D Engineer, I decided to switch
+          career and become a programmer. I am currently working as a full stack
+          developer where I acquired problem solving skills and clean code
+          philosophy. I am currently working during my free time on my web app
+          (personal blog with NextJS / Markdown) and data science skills.
+        </p>
       </div>
       <hr className="border-1 border-b-gray-200 my-8" />
       <div className="grid grid-cols-3 gap-x-10">

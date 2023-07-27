@@ -1,3 +1,5 @@
+import PostIdLoading from "@app/components/loading/pages/PostIdLoading";
+
 export default function Loading() {
-  return <h1>Loading...</h1>;
+  return <PostIdLoading />;
 }

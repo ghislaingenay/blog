@@ -1,3 +1,4 @@
+import { AlertInfo } from "@app/components/styles/Alert";
 import PostItem from "@components/posts/PostItem";
 import { REVALIDATION_PERIOD } from "@constants/global.const";
 import { capitalize, createMetaData } from "@functions";
@@ -24,8 +25,7 @@ export function generateMetadata({ params: { tag } }: TagProps) {
 
 export default async function TagList({ params: { tag } }: TagProps) {
   const posts = await getPostsMeta(); //deduped!
-  if (!posts)
-    return <p className="mt-5 text-center">Sorry, no posts available.</p>;
+  if (!posts) return <AlertInfo title="Sorry" message="no posts available" />;
 
   const tagPosts = posts.filter((post) => post.tags.includes(tag));
 
