@@ -4,7 +4,6 @@ export const TagLoading = () => (
   </div>
 );
 
-
 type TagListLoadingProps = {
   count?: number;
 };
@@ -13,9 +12,8 @@ export const TagListLoading = ({ count = 5 }: TagListLoadingProps) => (
   <div className="grid grid-cols-4 md:grid-cols-6">
     {[...Array(count)].map((_, index) => (
       <div key={index} className="col-span-1">
-      <TagLoading  />
+        <TagLoading />
       </div>
     ))}
   </div>
 );
-)
