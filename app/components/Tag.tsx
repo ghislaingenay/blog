@@ -1,6 +1,6 @@
 import { parseTag } from "@functions";
 import Link from "next/link";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 type ButtonProps = React.ComponentProps<"button">;
 type TagColor = "blue" | "red" | "green" | "orange" | "gray" | "black";
@@ -30,7 +30,7 @@ export const Tag = ({
   const linkUrl = link ? link : "";
   const isClickable = link && link ? true : false;
 
-  const initialClasses =
+  const initialClasses: ButtonProps["className"] =
     "text-white w-auto px-3 py-1 mr-1 text-xs font-medium text-bold rounded-full text-xs sm:text-sm";
   const classes = `${initialClasses} ${className} ${colorList[color]}`;
 
