@@ -1,5 +1,5 @@
-import PostItemLoading from "@app/components/loading/components/PostItemLoading";
+import { PostItemCardLoading } from "@app/components/loading/components/PostItemLoading";
 
 export default function Loading() {
-  return <PostItemLoading />;
+  return <PostItemCardLoading count={3} />;
 }
