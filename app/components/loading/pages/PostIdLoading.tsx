@@ -32,3 +32,5 @@ const PostIdLoading = () => (
     </div> */}
   </div>
 );
+
+export default PostIdLoading;

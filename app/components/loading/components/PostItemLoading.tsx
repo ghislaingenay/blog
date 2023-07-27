@@ -34,7 +34,5 @@ export const PostItemCardLoading = () => (
   <>
     <PostItemLoading />
     <PostItemLoading />
-    <PostItemLoading />
-    <PostItemLoading />
   </>
 );
