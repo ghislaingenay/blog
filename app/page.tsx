@@ -2,13 +2,14 @@ import { getPostTopics, getPostsMeta } from "@lib-api/post-api";
 import Searchbar from "./components/Searchbar";
 import PostItem from "./components/posts/PostItem";
 import { TopicList } from "./components/posts/TopicList";
+import { AlertInfo } from "./components/styles/Alert";
 
 export const revalidate = 20;
 
 export default async function Home() {
   const posts = await getPostsMeta();
   if (!posts) {
-    return <p className="mt-10 text-center">Sorry, no posts available.</p>;
+    return <AlertInfo title="Sorry" message="No posts available" />;
   }
 
   const foundTopics = getPostTopics(posts);
