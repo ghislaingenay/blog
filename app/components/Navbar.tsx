@@ -58,7 +58,7 @@ const NavIcon = ({ navField, currentPath, ...props }: NavIconProps) => {
   const idDisplay = `display-${navField.id}`;
 
   const TRIANGLE_CLASS =
-    "absolute left-[1.3rem] top-[2.75rem] border-l-[7.5px] border-l-transparent border-b-[10px] border-b-slate-500 opacity-0.5 border-r-[7.5px] border-r-transparent";
+    "absolute left-[1.3rem] top-[2.75rem] border-l-[7.5px] border-l-transparent border-b-[10px] border-b-black opacity-0.5 border-r-[7.5px] border-r-transparent";
 
   return (
     <>
@@ -70,7 +70,7 @@ const NavIcon = ({ navField, currentPath, ...props }: NavIconProps) => {
       >
         <div id={idDisplay} className="hidden">
           <div
-            className={`${hiddenIfSocialPage} absolute w-[90%] grid top-[3rem] left-[0.175rem] h-6 bg-slate-500 z-40 rounded-lg`}
+            className={`${hiddenIfSocialPage} absolute w-[90%] grid top-[3rem] left-[0.175rem] h-6 bg-black z-40 rounded-lg`}
           >
             <span className="text-[9px] font-bold text-white self-center text-center">
               {label}
