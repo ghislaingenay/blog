@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "./components/Navbar";
 import "./globals.css";
+import Providers from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,14 +22,19 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="min-h-full overflow-x-hidden"
-      // suppressHydrationWarning={true}
+      className="min-h-full overflow-x-hidden light"
+      style={{ colorScheme: "light" }}
+      suppressHydrationWarning
     >
-      <body className="bg-slate-50 pb-5">
-        <Navbar />
-        <main className="container mx-auto sm:w-[600px] md:w-[728px] lg:w-[984px] xl:w-[1240px] 2xl:[1535px] px-5 sm:px-0 prose prose-sm sm:prose-md prose-slate prose-h1:m-0 ">
-          {children}
-        </main>
+      <body className="bg-slate-50 pb-5 dark:bg-blue-950">
+        <Providers>
+          <header>
+            <Navbar />
+          </header>
+          <main className="container mx-auto sm:w-[600px] md:w-[728px] lg:w-[984px] xl:w-[1240px] 2xl:[1535px] px-5 sm:px-0 prose prose-sm sm:prose-md prose-slate prose-h1:m-0 ">
+            {children}
+          </main>
+        </Providers>
       </body>
     </html>
   );

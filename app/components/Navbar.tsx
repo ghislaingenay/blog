@@ -16,6 +16,7 @@ import { usePathname } from "next/navigation";
 import { ReactNode, useDeferredValue, useEffect, useState } from "react";
 import { FaArrowLeft, FaBars, FaSearch, FaXing } from "react-icons/fa";
 import { Case, Default, Switch } from "react-if";
+import ThemeButton from "./ThemeButton";
 
 const selectColorTextHover = (samePath: boolean) =>
   samePath ? "text-blue-600" : "text-gray-700";
@@ -87,7 +88,7 @@ const NavIcon = ({ navField, currentPath, ...props }: NavIconProps) => {
 const Nav = ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <nav className="fixed z-10 flex bg-slate-200 top-0 items-center h-16 w-full drop-shadow-lg">
+      <nav className="fixed z-10 flex bg-slate-200 dark:bg-blue-950 top-0 items-center h-16 w-full drop-shadow-lg">
         <div className="container flex flex-wrap items-center justify-between mx-auto w-full sm:w-[600px] md:w-[728px] lg:w-[984px] xl:w-[1240px] 2xl:[1535px] px-5 sm:px-0">
           {children}
         </div>
@@ -262,7 +263,10 @@ export default function Navbar() {
           >
             {iconSideBarMobile}
           </button>
-          <div className="flex items-center">{mainNavElementsGlobal}</div>
+          <div className="flex items-center">
+            <ThemeButton />
+            {mainNavElementsGlobal}
+          </div>
 
           {isMobile ? (
             <>
