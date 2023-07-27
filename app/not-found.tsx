@@ -1,3 +1,10 @@
+import NotFoundError from "./components/NotFoundError";
+
 export default function NotFound() {
-  return <h1>The requested post does not exist. Back to home</h1>;
+  return (
+    <NotFoundError
+      title="Sorry, the requested page does not exist."
+      message="Please check the URL or go back to the homepage."
+    />
+  );
 }

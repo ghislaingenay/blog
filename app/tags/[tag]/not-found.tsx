@@ -3,8 +3,8 @@ import NotFoundError from "@app/components/NotFoundError";
 export default function NotFound() {
   return (
     <NotFoundError
-      title="Sorry, the requested post does not exist."
-      message="Please try with a available post"
+      title="Sorry, the requested tag post does not exist."
+      message="Please access the tags directly from the post."
     />
   );
 }
