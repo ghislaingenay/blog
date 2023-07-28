@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import { ParagraphLoading } from "../loading/components/ParagraphLoading";
 
+const btnClass =
+  "font-bold col-span-1  border border-black bg-slate-50 shadow-lg py-2 rounded-md hover:bg-slate-100";
+
 export const CounterState = () => {
   const [count, setCount] = useState(0);
   const [mounted, setMounted] = useState(false);
@@ -11,9 +14,6 @@ export const CounterState = () => {
   const reinitializeCount = () => setCount(0);
 
   useEffect(() => setMounted(true), []);
-
-  const btnClass =
-    "font-bold col-span-1  border border-black bg-slate-50 shadow-lg py-2 rounded-md hover:bg-slate-100";
 
   if (!mounted) return <ParagraphLoading />;
   return (
@@ -38,7 +38,6 @@ export const CounterState = () => {
           + 5
         </button>
       </div>
-
       <button
         onClick={() => reinitializeCount()}
         className="bg-red-600 font-bold px-5 py-2 rounded-3xl text-white max-h-full mx-auto block mt-5"
