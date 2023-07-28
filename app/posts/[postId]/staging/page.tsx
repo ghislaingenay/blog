@@ -1,5 +1,5 @@
 import { createMetaData, parseTag } from "@functions";
-import { getPostByName } from "@lib-api/post-api";
+import { getStagingPostByName } from "@lib-api/post-api";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -8,7 +8,7 @@ import { PostProps } from "../page";
 export async function generateMetadata({
   params: { postId },
 }: PostProps): Promise<Metadata> {
-  const post = await getPostByName(`${postId}.mdx`);
+  const post = await getStagingPostByName(`${postId}.mdx`);
   if (!post) {
     return { title: "Post Not Found" };
   }
@@ -19,7 +19,7 @@ export async function generateMetadata({
 
 export default async function Post({ params: { postId } }: PostProps) {
   if (process.env.NODE_ENV === "production") notFound();
-  const post = await getPostByName(`${postId}.mdx`);
+  const post = await getStagingPostByName(`${postId}.mdx`);
   if (!post) notFound();
   const { meta, content } = post;
   const { title, tags } = meta;
