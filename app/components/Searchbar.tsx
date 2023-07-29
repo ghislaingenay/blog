@@ -85,7 +85,7 @@ export default function Searchbar({ posts }: SearchbarProps) {
                   <option
                     key={id}
                     value={id}
-                    className={OPTION_CLASS}
+                    className={`${OPTION_CLASS} truncate`}
                     onClick={() => router.push(`/posts/${id}`)}
                   >
                     {title}
@@ -107,8 +107,8 @@ export default function Searchbar({ posts }: SearchbarProps) {
       aria-hidden="true"
       className="fixed z-[1500] hidden w-full p-4 overflow-x-hidden overflow-y-auto inset-0 h-full max-h-full bg-slate-500 bg-opacity-80 "
     >
-      <div className="h-full grid ">
-        <div className="place-self-center w-full border max-w-2xl max-h-full rounded-xl">
+      <div className="h-full grid">
+        <div className="place-self-center w-full border max-w-[95%] md:max-w-2xl max-h-full rounded-xl">
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 animate-jump-in animate-once animate-duration-400">
             <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
               <button
