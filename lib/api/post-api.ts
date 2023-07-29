@@ -1,7 +1,8 @@
 import { ClipboardCode } from "@app/components/mdx/ClipboardCode";
 import { CounterState } from "@app/components/mdx/CounterState";
 import { CustomImage, Video } from "@components/mdx";
-import { Language, PostTopic } from "@interfaces/global.interface";
+import { Language, PostTopicKeys } from "@interfaces/global.interface";
+import SearchBarParams from "@interfaces/nav.interface";
 import dayjs from "dayjs";
 import { SerializeOptions } from "next-mdx-remote/dist/types";
 import { compileMDX } from "next-mdx-remote/rsc";
@@ -119,12 +120,32 @@ export function getPostTopics(posts: PostMeta[]): PostTopicSearch[] {
 ///////////////////////////////////
 export function sortPostsByTopic(
   posts: PostMeta[]
-): Record<Partial<keyof PostTopic>, PostMeta[]> {
+): Record<PostTopicKeys, PostMeta[]> {
   const sortedPosts = {} as ReturnType<typeof sortPostsByTopic>;
   for (const post of posts) {
-    const { topic } = post;
+    const { topic }: { topic: PostTopicKeys } = post;
     if (!sortedPosts[topic]) sortedPosts[topic] = [post];
     else sortedPosts[topic].push(post);
   }
   return sortedPosts;
 }
+//////////////////////////////////////////////////
+
+export const havePosts = (posts: PostMeta[]) => posts.length > 0;
+
+export const filterPostsByParams = (
+  params: SearchBarParams,
+  posts: PostMeta[]
+) => {
+  const { query, topic } = params || {};
+  let filteredPosts = [...posts];
+
+  if (topic) filteredPosts = sortPostsByTopic(posts)[topic];
+  if (query && havePosts(filteredPosts)) {
+    const regex = new RegExp(query, "gi");
+    filteredPosts = filteredPosts.filter(({ title, description }) => {
+      return regex.test(title) || regex.test(description);
+    });
+  }
+  return filteredPosts;
+};

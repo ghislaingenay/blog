@@ -1,3 +1,5 @@
+import { PostTopic } from "./global.interface";
+
 export interface NavField {
   id: string;
   type: "page" | "social" | "main"; // main is the elemment always displayed
@@ -9,4 +11,9 @@ export interface NavField {
 export interface NavDisplay {
   navField: NavField;
   currentPath: string;
+}
+
+export default interface SearchBarParams {
+  query?: string;
+  topic?: PostTopic;
 }
