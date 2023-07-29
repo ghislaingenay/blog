@@ -5,7 +5,6 @@ import { getPostByName, getPostsMeta } from "@lib-api/post-api";
 import "highlight.js/styles/github.css"; //a11y-light
 import { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FaCalendarDay, FaClock } from "react-icons/fa";
 
@@ -41,11 +40,13 @@ export default async function Post({ params: { postId } }: PostProps) {
   if (!post) notFound();
   const { meta, content } = post;
   const { title, tags, image, updatedAt, readTime } = meta;
-  const tagList = tags.map((tag, index) => (
-    <Link key={index} href={`/tags/${tag}`}>
-      <Tag color="blue">{tag}</Tag>
-    </Link>
-  ));
+  const tagList = tags.map((tag, index) => {
+    return (
+      <Tag color="blue" link={`/tags/${tag}`} key={index}>
+        {tag}
+      </Tag>
+    );
+  });
 
   return (
     <div className="md:w-7/12 mx-auto">

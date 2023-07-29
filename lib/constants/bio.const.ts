@@ -235,6 +235,6 @@ export const personalProjectsListing: PersonalProject[] = [
     endDate: null,
     stillWorking: true,
     githubLink: undefined,
-    websiteLink: "https://ghislaingenay.vercel.app",
+    websiteLink: "https://ghislain.genay.rediapp.net/bio",
   },
 ];

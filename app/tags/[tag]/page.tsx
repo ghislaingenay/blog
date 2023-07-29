@@ -37,7 +37,7 @@ export default async function TagList({ params: { tag } }: TagProps) {
         <>
           <section className="mx-auto">
             <ul className="list-none p-0">
-              {posts.map((post) => (
+              {tagPosts.map((post) => (
                 <li key={post.id}>
                   <PostItem key={post.id} post={post} tag={tag} />
                 </li>
