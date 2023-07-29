@@ -1,6 +1,11 @@
 "use client";
 import { SelectProps } from "@interfaces/global.interface";
-import { sortPostsByTopic } from "@lib-api/post-api";
+import SearchBarParams from "@interfaces/nav.interface";
+import {
+  filterPostsByParams,
+  havePosts,
+  sortPostsByTopic,
+} from "@lib-api/post-api";
 import $ from "jquery";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -25,25 +30,40 @@ export default function Searchbar({ posts }: SearchbarProps) {
   const [query, setQuery] = useState<string>("");
   const debouncedQuery = useDebounce(query, 500);
   const [loading, setLoading] = useState(false);
-  const [foundPosts, setFoundPosts] = useState<boolean | undefined>(undefined);
-  const performedSearch = foundPosts !== undefined;
+
+  const [foundPosts, setFoundPosts] = useState(true);
+
+  const [params, setParams] = useState<SearchBarParams>({
+    query: undefined,
+    topic: undefined,
+  });
 
   useEffect(() => {
-    if (debouncedQuery) {
-      setLoading(true);
-      const regex = new RegExp(debouncedQuery, "gi");
-      const filteredPosts = posts.filter(({ title, description }) => {
-        return regex.test(title) || regex.test(description);
-      });
-      const havePosts = filteredPosts.length > 0;
-      setFoundPosts(havePosts);
-      if (!havePosts) return setLoading(false);
-      const sortedPosts = sortPostsByTopic(filteredPosts);
-      setFilteredPosts(sortedPosts);
-      setLoading(false);
-    }
+    const haveQuery = debouncedQuery && debouncedQuery.length > 0;
+    if (!haveQuery) return;
+    setParams({ ...params, query: debouncedQuery });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedQuery]);
+
+  useEffect(() => {
+    console.log("clikc");
+    setLoading(true);
+    const recoveredPosts = filterPostsByParams(params, posts);
+    const foundPosts = havePosts(recoveredPosts);
+    setFoundPosts(foundPosts);
+    setTimeout(() => {
+      setLoading(false);
+      setFilteredPosts(sortPostsByTopic(recoveredPosts));
+    }, 500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params]);
+
+  useEffect(() => {
+    $("input#default-search").on("search", (e) => {
+      setQuery("");
+      setParams({ ...params, query: "" });
+    });
+  });
 
   const SearchSelect = ({ posts, ...props }: SearchSelectProps) => {
     if (!posts) return <></>;
@@ -119,7 +139,7 @@ export default function Searchbar({ posts }: SearchbarProps) {
               <div className="relative pb-4">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <svg
-                    className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                    className="w-4 text-gray-500 dark:text-gray-400 pb-3"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -146,10 +166,10 @@ export default function Searchbar({ posts }: SearchbarProps) {
                   required
                 />
               </div>
+              {/* {Object.keys(PostTopic).map((topic, index) => {
+                return <Tag color="blue">{topic}</Tag>
+              })} */}
               <Switch>
-                <Case condition={!performedSearch}>
-                  <></>
-                </Case>
                 <Case condition={loading}>
                   <div className="grid grid-cols-4 place-self-center">
                     <div role="status" className="col-span-1">
@@ -171,7 +191,9 @@ export default function Searchbar({ posts }: SearchbarProps) {
                       </svg>
                       <span className="sr-only">Loading...</span>
                     </div>
-                    <div className="cols-span-3 m-0 p-0">Finding posts ...</div>
+                    <div className="cols-span-3 my-auto p-0">
+                      Finding posts ...
+                    </div>
                   </div>
                 </Case>
                 <Case condition={!foundPosts}>
