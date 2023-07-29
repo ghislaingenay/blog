@@ -15,7 +15,7 @@ export interface TagProps {
 export const Tag = ({
   children,
   className,
-  link = undefined,
+  link,
   color = "blue",
 }: TagProps) => {
   const colorList: Record<TagColor, string> = {
