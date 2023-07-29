@@ -2,6 +2,7 @@ import { ClipboardCode } from "@app/components/mdx/ClipboardCode";
 import { CounterState } from "@app/components/mdx/CounterState";
 import { CustomImage, Video } from "@components/mdx";
 import { Language, PostTopic } from "@interfaces/global.interface";
+import dayjs from "dayjs";
 import { SerializeOptions } from "next-mdx-remote/dist/types";
 import { compileMDX } from "next-mdx-remote/rsc";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -99,7 +100,7 @@ export async function getPostsMeta(): Promise<PostMeta[] | undefined> {
   }
 
   return posts.sort((a, b) =>
-    a.createdAt.localeCompare(b.createdAt) ? 1 : -1
+    dayjs(a.createdAt).isBefore(b.createdAt) ? 1 : -1
   );
 }
 /////////////////////////////////////
