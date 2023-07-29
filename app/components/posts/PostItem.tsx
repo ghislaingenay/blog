@@ -1,3 +1,4 @@
+import GhislainGenay from "@public/ghislain.jpg";
 import Image from "next/image";
 import Link from "next/link";
 import { CSSProperties } from "react";
@@ -67,12 +68,12 @@ export default function PostItem({ post, tag }: PostItemProps) {
             <div className="flex flex-row justify-left items-center gap-2  basis-[65%]">
               <div className="flex flex-col justify-center items-center ">
                 <Image
-                  src={image}
+                  src={GhislainGenay}
                   width={50}
                   height={50}
                   layout="fixed"
                   className="rounded-full w-10 h-10 object-cover align-baseline "
-                  alt={`Image for ${title} blog post`}
+                  alt={`Ghislain Genay - Full Stack developer`}
                 />
               </div>
               <div className="flex flex-col items-center">
