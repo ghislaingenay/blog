@@ -26,7 +26,7 @@ export default function RootLayout({
     >
       <body className="bg-slate-50 pb-5">
         <Navbar />
-        <main className="container mx-auto sm:w-[600px] md:w-[728px] lg:w-[984px] xl:w-[1240px] 2xl:[1535px] px-5 sm:px-0 prose prose-sm sm:prose-md prose-slate prose-h1:m-0 ">
+        <main className="container mx-auto sm:w-[600px] md:w-[728px] lg:w-[984px] xl:w-[1240px] 2xl:[1535px] px-5 sm:px-0 prose prose-slate prose-h1:m-0 ">
           {children}
         </main>
       </body>
