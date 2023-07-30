@@ -11,7 +11,7 @@ type NotFoundPageProps = {
 export default function NotFoundError({ title, message }: NotFoundPageProps) {
   return (
     <div>
-      <div className="flex flex-row justify-center">
+      <div className="flex flex-row justify-center w-[90%] mx-auto">
         <Image
           src={NotFoundImage}
           width={500}

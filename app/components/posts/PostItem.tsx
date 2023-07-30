@@ -1,7 +1,7 @@
-import GhislainGenay from "@public/ghislain.jpg";
 import Image from "next/image";
 import Link from "next/link";
 import { CSSProperties } from "react";
+import { FaClock } from "react-icons/fa";
 import { Tag, TagProps, TopicTag } from "../Tag";
 
 interface PostItemProps {
@@ -33,64 +33,41 @@ export default function PostItem({ post, tag }: PostItemProps) {
         ...LINK_STYLE,
       }}
     >
-      <div className=" bg-slate-100 shadow-md p-3 md:px-10 md:h-[25rem] grid grid-cols-2 gap-y-2 md:gap-y-0 md:gap-x-10 items-center">
-        <div className="col-span-2 md:col-span-1">
+      <div className=" bg-slate-100 shadow-md p-3 max-w-sm min-h-[400px] md:min-h-[160px] md:max-w-full mx-auto md:px-10 grid grid-cols-1 gap-y-4 md:grid-cols-3 md:grid-rows-1 md:gap-x-10 place-self-center">
+        <div className="col-span-1 md:col-start-1 md:col-end-2">
           <Image
             src={image}
             width={450}
             height={450}
             alt={`Image for ${title} blog post`}
+            className="m-0 object-fit"
           />
         </div>
-        <div className="col-span-2 md:col-span-1 gap-3 grid">
-          <div className="text-left md:text-right mb-0 col-span-1">
-            <TopicTag>{topic}</TopicTag>
-          </div>
-          <h3 className="p-0 mt-2 md:mt-0 text-base sm:text-lg line-clamp-2 col-span-1">
-            {title}
-          </h3>
-
-          <div className="text-start text-base m-0 col-span-1">
-            {tags.map((tag, index) => (
-              <Tag
-                {...additionalTagProps(tag)}
-                key={index}
-                className={changeOpacityTagClass(tag)}
-              >
-                {tag}
-              </Tag>
-            ))}
-          </div>
-
-          {/* Flexbox */}
-          <div className="hidden text-start text-base col-span-1 md:flex md:flex-row md:justify-between md:items-center md:gap-2">
-            {/* Left Column */}
-            <div className="flex flex-row justify-left items-center gap-2  basis-[65%]">
-              <div className="flex flex-col justify-center items-center ">
-                <Image
-                  src={GhislainGenay}
-                  width={50}
-                  height={50}
-                  layout="fixed"
-                  className="rounded-full w-10 h-10 object-cover align-baseline "
-                  alt={`Ghislain Genay - Full Stack developer`}
-                />
-              </div>
-              <div className="flex flex-col items-center">
-                <span className="flex flex-row flex-1 text-sm font-bold">
-                  Ghislain Genay
-                </span>
-                <span className="flex flex-1 flex-row text-xs italic">
-                  Full Stack Developer
+        <div className="col-span-1 md:col-start-2 md:col-end-4">
+          <div className="grid grid-cols-1 gap-y-4">
+            <div className="col-span-1">
+              <div className="flex justify-between items-center">
+                <TopicTag>{topic}</TopicTag>
+                <span className="text-sm md:text-sm italic text-end">
+                  <FaClock className="my-auto inline mr-2 mb-0.5 box-content" />
+                  {createdAt}{" "}
                 </span>
               </div>
             </div>
-            {/* Right Column */}
-            <div className="flex flex-col">
-              <span className="text-xs italic text-end">
-                {/* <FaClock className="my-auto inline" /> */}
-                {createdAt}{" "}
-              </span>
+            <h3 className="text-base sm:text-lg line-clamp-2 col-span-1 m-0 truncate">
+              {title}
+            </h3>
+
+            <div className="text-start text-base m-0 col-span-1">
+              {tags.map((tag, index) => (
+                <Tag
+                  {...additionalTagProps(tag)}
+                  key={index}
+                  className={changeOpacityTagClass(tag)}
+                >
+                  {tag}
+                </Tag>
+              ))}
             </div>
           </div>
         </div>
