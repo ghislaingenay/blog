@@ -1,11 +1,4 @@
-import {
-  CourseLayout,
-  ExperienceLayout,
-  ProjectLayout,
-} from "@app/bio/components/BioLayouts";
-import { Rating } from "@app/bio/components/Rating";
-import { Tag } from "@app/components/Tag";
-import { Divider } from "@app/components/styles/Divider";
+import { Divider } from "@components/styles/Divider";
 import {
   ITSkillsList,
   courseListing,
@@ -19,6 +12,13 @@ import { LiProps } from "@interfaces/global.interface";
 import { sortCourses, sortProjects } from "@lib/functions/bio.fn";
 import GhislainImage from "@public/ghislain.jpg";
 import Image from "next/image";
+import {
+  CourseLayout,
+  ExperienceLayout,
+  ProjectLayout,
+} from "./components/BioLayouts";
+import { Tag } from "@components/Tag";
+import { Rating } from "./components/Rating";
 
 export default function Bio() {
   const sortedCourses = sortCourses(courseListing);

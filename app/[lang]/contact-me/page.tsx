@@ -1,4 +1,4 @@
-import NotFoundError from "@app/components/NotFoundError";
+import NotFoundError from "@components/NotFoundError";
 import { generateKey } from "@functions";
 
 export default async function ContactMePage() {

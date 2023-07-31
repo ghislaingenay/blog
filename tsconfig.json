@@ -22,7 +22,7 @@
       }
     ],
     "paths": {
-      "@app/*": ["./app/*"],
+      "@app/*": ["./app/lang/*"],
       "@api/*": ["./app/api/*"],
       "@functions": ["./lib/functions/index"],
       "@components/mdx": ["./app/components/mdx/index"],

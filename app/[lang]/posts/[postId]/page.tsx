@@ -18,6 +18,7 @@ export interface PostProps {
 
 // inside fetch('', {next: {revalidate: 60}})
 export async function generateStaticParams() {
+  if (process.env.NODE_ENV === "development") return [];
   const posts = await getPostsMeta();
   if (!posts) return [];
   return posts.map((post) => ({ postId: post.id }));
