@@ -108,7 +108,9 @@ export default function Searchbar({ posts }: SearchbarProps) {
       className="fixed z-[1500] hidden w-full p-4 overflow-x-hidden overflow-y-auto inset-0 h-full max-h-full bg-slate-500 bg-opacity-80 "
     >
       <div className="h-full grid">
-        <div className="place-self-center w-full border max-w-[95%] md:max-w-2xl max-h-full rounded-xl">
+        {/* Box placement */}
+        <div className="place-self-center w-full border max-w-[280px] xs:max-w-full sm:max-w-2xl md:max-w-2xl rounded-xl">
+          {/* Search box */}
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 animate-jump-in animate-once animate-duration-400">
             <div className="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
               <button

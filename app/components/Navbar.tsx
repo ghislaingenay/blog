@@ -117,7 +117,7 @@ export default function Navbar() {
   const pathname = usePathname() as string;
   const PATH_NAME_WITHOUT_NAV = ["/signout", "/signin", "/signup"];
 
-  const shouldShowGlobalNavbar = !pathname.startsWith("/posts");
+  const shouldShowGlobalNavbar = !pathname.startsWith("/en/posts");
   const isGlobalNav = useDeferredValue(shouldShowGlobalNavbar);
 
   const shouldNotShowNav = PATH_NAME_WITHOUT_NAV.includes(pathname);
@@ -218,7 +218,7 @@ export default function Navbar() {
   };
 
   const queryElement =
-    pathname === "/" ? (
+    pathname === "/en" ? (
       <button
         onClick={() => $("div#search-modal").removeClass("hidden")}
         type="button"
