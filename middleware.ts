@@ -1,12 +1,14 @@
 import { Language } from "@interfaces/global.interface";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 let locales: Language[] = [Language.ENGLISH, Language.FRENCH];
 
 // Get the preferred locale, similar to above or using a library
 function getLocale(request: NextRequest) {
   // Check if the cookie is defined
-  const cookieLocale = request.cookies.get("lang") as Language | undefined;
+  const cookieLocale = request.cookies.get("lang")?.value as
+    | Language
+    | undefined;
   const haveCookieLocaleDefined =
     cookieLocale && locales.includes(cookieLocale as Language);
   if (haveCookieLocaleDefined) return cookieLocale;
@@ -23,12 +25,11 @@ export function middleware(request: NextRequest) {
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request);
-
     // e.g. incoming request is /products
-    // The new URL is now /en-US/products
-    return NextResponse.redirect(
-      new URL(`/${locale}/${pathname}`, request.url)
-    );
+    // return NextResponse.redirect(
+    // new URL(`/${locale}/${pathname}`, request.url)
+    //   new URL(`/${pathname}`, request.url)
+    // );
   }
 }
 
