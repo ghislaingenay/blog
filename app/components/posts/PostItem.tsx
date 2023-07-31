@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
 import { CSSProperties } from "react";
@@ -18,6 +19,8 @@ export default function PostItem({ post, tag }: PostItemProps) {
     padding: 0,
   };
   const haveTag = tag ? true : false;
+
+  const formattedCreatedDate = dayjs(createdAt).format("MMM DD, YYYY");
   const tagMatch = (tagValue: string) => haveTag && tag === tagValue;
   const additionalTagProps = (tagValue: string): Partial<TagProps> =>
     tagMatch(tagValue) ? { color: "green" } : { color: "gray" };
@@ -49,7 +52,7 @@ export default function PostItem({ post, tag }: PostItemProps) {
                 <TopicTag>{topic}</TopicTag>
                 <span className="text-sm md:text-sm italic text-end">
                   <FaClock className="my-auto inline mr-2 mb-0.5 box-content" />
-                  {createdAt}{" "}
+                  {formattedCreatedDate}{" "}
                 </span>
               </div>
             </div>
