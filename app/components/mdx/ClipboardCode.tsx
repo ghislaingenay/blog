@@ -13,6 +13,7 @@ export const ClipboardCode = ({ children }: ClipboardProps) => {
   const [mounted, setMounted] = useState(false);
   const [value, copy] = useCopyToClipboard();
   const [haveText, setHaveText] = useState(false);
+
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
@@ -37,7 +38,7 @@ export const ClipboardCode = ({ children }: ClipboardProps) => {
 
   if (!mounted) return <ParagraphLoading />;
   return (
-    <div className="relative z-[-10]">
+    <div className="z-[-10] hidden md:block">
       <button
         className="absolute top-10 right-10 w-"
         onClick={() => clipText()}
