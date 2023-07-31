@@ -36,7 +36,7 @@ const NavBanner = ({ navField, currentPath, ...props }: NavBannerProps) => {
     <li key={id} {...props}>
       <Link
         href={link}
-        className={`block py-2 pl-3 pr-4 text-gray-900 text-start rounded hover:bg-gray-300 md:hover:bg-transparent md:border-0  md:p-0`}
+        className={`block pl-3  text-gray-900 text-start md:border-0`}
       >
         <p className={`${selectedItemClass} m-0 p-0`}>{label}</p>
       </Link>
@@ -275,6 +275,7 @@ export default function Navbar() {
                       <div key={navField.id}>
                         <div className="my-0 md:my-2 ps-0 md:ps-[1.5%]">
                           <NavBanner
+                            className=" hover:bg-gray-200 max-w-[97%] py-2 rounded-lg"
                             onClick={() => setIsSideBarOpen(false)}
                             currentPath={pathname}
                             navField={navField}
