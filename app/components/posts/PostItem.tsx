@@ -25,7 +25,6 @@ export default function PostItem({ post, tag }: PostItemProps) {
   const changeOpacityTagClass = (tagValue: string) =>
     tagMatch(tagValue) ? "" : "opacity-50";
   return (
-    // <li className="border border-red-600">
     <Link
       id={topic}
       href={`/posts/${post.id}`}
