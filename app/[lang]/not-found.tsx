@@ -1,10 +1,16 @@
+import { Language } from "@interfaces/global.interface";
 import NotFoundError from "../components/NotFoundError";
+import { getDictionary } from "./dictionaries";
 
-export default function NotFound() {
+export default async function NotFound() {
+  const dict = await getDictionary(Language.ENGLISH);
   return (
-    <NotFoundError
-      title="Sorry, the requested page does not exist."
-      message="Please check the URL or go back to the homepage."
-    />
+    <>
+      <NotFoundError
+        title={dict.appDirectory.homePage.notFoundSection.title}
+        message={dict.appDirectory.homePage.notFoundSection.message}
+        buttonText={dict.globalText.returnToHome}
+      />
+    </>
   );
 }
