@@ -1,7 +1,7 @@
 import { Tag } from "@app/components/Tag";
 import { REVALIDATION_PERIOD } from "@constants/global.const";
 import { createMetaData } from "@functions";
-import { getPostByName } from "@lib-api/post-api";
+import { getPostByName, getPostsMeta } from "@lib-api/post-api";
 import "highlight.js/styles/github.css"; //a11y-light
 import { Metadata } from "next";
 import Image from "next/image";
@@ -17,11 +17,11 @@ export interface PostProps {
 }
 
 // inside fetch('', {next: {revalidate: 60}})
-// export async function generateStaticParams() {
-//   const posts = await getPostsMeta();
-//   if (!posts) return [];
-//   return posts.map((post) => ({ postId: post.id }));
-// }
+export async function generateStaticParams() {
+  const posts = await getPostsMeta();
+  if (!posts) return [];
+  return posts.map((post) => ({ postId: post.id }));
+}
 
 export async function generateMetadata({
   params: { postId },
