@@ -1,4 +1,4 @@
-import NotFoundError from "./components/NotFoundError";
+import NotFoundError from "../components/NotFoundError";
 
 export default function NotFound() {
   return (

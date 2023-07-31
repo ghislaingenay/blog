@@ -1,8 +1,8 @@
 import { REVALIDATION_PERIOD } from "@constants/global.const";
 import { getPostsMeta } from "@lib-api/post-api";
-import Searchbar from "./components/Searchbar";
-import PostItem from "./components/posts/PostItem";
-import { AlertInfo } from "./components/styles/Alert";
+import Searchbar from "../components/Searchbar";
+import PostItem from "../components/posts/PostItem";
+import { AlertInfo } from "../components/styles/Alert";
 
 export const revalidate = REVALIDATION_PERIOD;
 

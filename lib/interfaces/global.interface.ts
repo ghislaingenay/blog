@@ -24,3 +24,9 @@ export type SelectProps = BaseHTMLProps<HTMLSelectElement>;
 export type ButtonProps = BaseHTMLProps<HTMLButtonElement>;
 
 export type PostTopicKeys = keyof typeof PostTopic;
+
+export type LangProps = {
+  params: {
+    lang: Language;
+  };
+};

@@ -1,7 +1,8 @@
 import { Language } from "@interfaces/global.interface";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-let locales: Language[] = [Language.ENGLISH, Language.FRENCH];
+// let locales: Language[] = [Language.ENGLISH, Language.FRENCH];
+let locales: Language[] = [Language.ENGLISH];
 
 // Get the preferred locale, similar to above or using a library
 function getLocale(request: NextRequest) {
@@ -26,10 +27,9 @@ export function middleware(request: NextRequest) {
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request);
     // e.g. incoming request is /products
-    // return NextResponse.redirect(
-    // new URL(`/${locale}/${pathname}`, request.url)
-    //   new URL(`/${pathname}`, request.url)
-    // );
+    return NextResponse.redirect(
+      new URL(`/${locale}/${pathname}`, request.url)
+    );
   }
 }
 

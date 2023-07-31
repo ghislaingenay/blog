@@ -1,3 +1,5 @@
+import { ExternalIcon } from "@components/ExternalIcon";
+import { Tag } from "@components/Tag";
 import {
   CourseTaken,
   Experience,
@@ -13,8 +15,6 @@ import {
   FaLocationArrow,
   FaStar,
 } from "react-icons/fa";
-import { ExternalIcon } from "../../components/ExternalIcon";
-import { Tag } from "../../components/Tag";
 
 type CourseLayoutProps = {
   course: Prettify<CourseTaken>;
