@@ -38,7 +38,7 @@ export const ClipboardCode = ({ children }: ClipboardProps) => {
 
   if (!mounted) return <ParagraphLoading />;
   return (
-    <div className="z-[-10] hidden md:block">
+    <div className="z-[-10] hidden md:block relative">
       <button
         className="absolute top-10 right-10 w-"
         onClick={() => clipText()}
