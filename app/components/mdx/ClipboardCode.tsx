@@ -20,9 +20,8 @@ export const ClipboardCode = ({ children }: ClipboardProps) => {
     if (!haveText) return;
     setTimeout(() => {
       setHaveText(false);
-    }, 5000);
+    }, 2000);
   }, [haveText]);
-  const text: any = children as unknown;
 
   const clipboardIcon = haveText ? (
     <FaClipboardCheck className="text-green-500 animate-fade animate-duration-200 text-xl" />
@@ -38,12 +37,15 @@ export const ClipboardCode = ({ children }: ClipboardProps) => {
 
   if (!mounted) return <ParagraphLoading />;
   return (
-    <div className="z-[-10] hidden md:block">
+    <div className="hidden md:block relative">
       <button
-        className="absolute top-10 right-10 w-"
-        onClick={() => clipText()}
+        className="absolute top-10 right-10 focus:outline-none p-1 active:outline-none"
+        type="button"
+        onClick={() => {
+          clipText();
+        }}
       >
-        <div>{clipboardIcon}</div>
+        {clipboardIcon}
       </button>
       {children}
     </div>
