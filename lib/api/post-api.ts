@@ -1,6 +1,6 @@
-import { ClipboardCode } from "@app/components/mdx/ClipboardCode";
-import { CounterState } from "@app/components/mdx/CounterState";
 import { CustomImage, Video } from "@components/mdx";
+import { ClipboardCode } from "@components/mdx/ClipboardCode";
+import { CounterState } from "@components/mdx/CounterState";
 import { Language, PostTopicKeys } from "@interfaces/global.interface";
 import SearchBarParams from "@interfaces/nav.interface";
 import dayjs from "dayjs";
