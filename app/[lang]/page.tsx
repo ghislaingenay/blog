@@ -12,8 +12,6 @@ export default async function Home() {
     return <AlertInfo title="Sorry" message="No posts available" />;
   }
 
-  // const foundTopics = getPostTopics(posts);
-
   return (
     <>
       <section className="col-span-1">

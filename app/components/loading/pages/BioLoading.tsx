@@ -38,25 +38,37 @@ export const BioLoading = () => (
     <div role="status" className="animate-pulse">
       <div className="grid grid-cols-3 gap-x-10">
         <div className="col-span-3 lg:col-span-2">
-          <Divider>EXPERIENCE</Divider>
+          <Divider>
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
+          </Divider>
           <BioLoadingCard />
           <BioLoadingCard />
-          <Divider>PERSONAL PROJECTS</Divider>
+          <Divider>
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
+          </Divider>
           <BioLoadingCard />
           <BioLoadingCard />
-          <Divider>COURSES / CERTIFICATIONS</Divider>
+          <Divider>
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
+          </Divider>
           <BioLoadingCard />
         </div>
         <div className="col-span-3 lg:col-span-1">
-          <Divider>SKILLS</Divider>
+          <Divider>
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
+          </Divider>
           <TagListLoading count={16} />
-          <Divider>LANGUAGES</Divider>
+          <Divider>
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
+          </Divider>
           <LanguageLoading />
           <LanguageLoading />
           <LanguageLoading />
           <LanguageLoading />
 
-          <Divider>INTERESTS</Divider>
+          <Divider>
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
+          </Divider>
           <TagListLoading count={4} />
         </div>
       </div>

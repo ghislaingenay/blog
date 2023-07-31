@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Case, Default, Switch } from "react-if";
 import { useDebounce } from "usehooks-ts";
+import { ParagraphLoading } from "./loading/components/ParagraphLoading";
 
 type SearchbarProps = {
   posts: PostMeta[];
@@ -65,9 +66,9 @@ export default function Searchbar({ posts }: SearchbarProps) {
     });
   });
 
-  const SearchSelect = ({ posts, ...props }: SearchSelectProps) => {
+  const SearchSelect = ({ posts }: SearchSelectProps) => {
     if (!posts) return <></>;
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <ParagraphLoading />;
 
     const OPTION_CLASS =
       "p-2 px-4 m-1 ml-6 hover:bg-blue-300 hover:rounded-2xl";

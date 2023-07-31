@@ -1,7 +1,7 @@
 import PostItem from "@components/posts/PostItem";
 import { AlertInfo } from "@components/styles/Alert";
 import { REVALIDATION_PERIOD } from "@constants/global.const";
-import { capitalize, createMetaData } from "@functions";
+import { createMetaData } from "@functions";
 import { getPostsMeta } from "@lib-api/post-api";
 
 export interface TagProps {
@@ -26,7 +26,10 @@ export function generateMetadata({ params: { tag } }: TagProps) {
 
 export default async function TagList({ params: { tag } }: TagProps) {
   const posts = await getPostsMeta(); //deduped!
-  if (!posts) return <AlertInfo title="Sorry" message="no posts available" />;
+  if (!posts)
+    return (
+      <AlertInfo title="Sorry" message={`No posts available for ${tag}`} />
+    );
 
   const tagPosts = posts.filter((post) => post.tags.includes(tag));
 
@@ -47,12 +50,7 @@ export default async function TagList({ params: { tag } }: TagProps) {
           </section>
         </>
       ) : (
-        <>
-          <p className="mt-5 text-center">
-            Sorry, no posts found for tag: {""}
-            <span className="font-bold text-blue-500">{capitalize(tag)}</span>
-          </p>
-        </>
+        <AlertInfo title="Sorry" message={`No posts available for ${tag}`} />
       )}
     </div>
   );

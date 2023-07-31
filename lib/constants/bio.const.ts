@@ -37,14 +37,7 @@ export const ITSkillsList: ITSkills[] = [
   },
   {
     title: "Concepts",
-    skills: [
-      "Git Version Control",
-      "Agile",
-      "Scrum",
-      "TDD",
-      "Microservices",
-      "Monolith",
-    ],
+    skills: ["Git", "Agile", "Scrum", "TDD", "Microservices", "Monolith"],
   },
   {
     title: "Softwares",
@@ -228,7 +221,7 @@ export const personalProjectsListing: PersonalProject[] = [
     keyResults: [
       "Utilized NextJS's server-side rendering to improve SEO",
       "Utilized TailwindCSS to create a responsive and mobile-first design",
-      "Future feature: add different languages, add a dark mode",
+      "Add internationalization to the website",
       "Future feature: add a backend using Django",
     ],
     startDate: new Date(2023, 6, 22),
