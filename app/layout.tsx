@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="min-h-full overflow-x-hidden max-w-full"
+      className="min-h-full overflow-x-hidden"
       // suppressHydrationWarning={true}
     >
       <body className="bg-slate-50 pb-5">

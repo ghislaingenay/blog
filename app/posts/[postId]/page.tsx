@@ -50,10 +50,10 @@ export default async function Post({ params: { postId } }: PostProps) {
 
   return (
     <div className="md:w-7/12 mx-auto">
-      <div className="h-48" />
       <div className="overflow-hidden">
-        <div className=" overflow-hidden absolute top-[-10%] left-[-25%] lg:left-[-5%] h-[14rem] w-[150%] overflow-x-hidden rounded-b-[80%] bg-blue-500 bg-gradient-to-b from-orange-400  to-orange-300"></div>
+        <div className="absolute top-[-10%] -left-[0%] box-content lg:left-[-5%] h-[14rem] w-full rounded-br-full bg-blue-500 bg-gradient-to-b from-orange-400  to-orange-300"></div>
       </div>
+      <div className="h-48" />
       <h1
         className="text-center text-xl sm:text-2xl md:text-3xl m-0"
         id="title"
