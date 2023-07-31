@@ -1,4 +1,4 @@
-import { Tag } from "@app/components/Tag";
+import { Tag } from "@components/Tag";
 import { REVALIDATION_PERIOD } from "@constants/global.const";
 import { createMetaData } from "@functions";
 import { getPostByName, getPostsMeta } from "@lib-api/post-api";

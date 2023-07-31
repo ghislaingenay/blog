@@ -1,5 +1,5 @@
-import { AlertInfo } from "@app/components/styles/Alert";
 import PostItem from "@components/posts/PostItem";
+import { AlertInfo } from "@components/styles/Alert";
 import { REVALIDATION_PERIOD } from "@constants/global.const";
 import { capitalize, createMetaData } from "@functions";
 import { getPostsMeta } from "@lib-api/post-api";
