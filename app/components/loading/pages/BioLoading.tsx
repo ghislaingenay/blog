@@ -1,4 +1,4 @@
-import { Divider } from "@app/components/styles/Divider";
+import { Divider } from "@components/styles/Divider";
 import { BioLoadingCard } from "../components/BioLoadingCard";
 import { TagListLoading } from "../components/TagLoading";
 
