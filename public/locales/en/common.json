@@ -13,23 +13,14 @@
   "navMenu": {
     "home": "home",
     "contact": "contact",
-    "bio": "bio"
+    "bio": "bio",
+    "search": "search"
   },
   "globalText": {
     "laodingDot": "Loading...",
     "SrOnlyInfo": "Information",
-    "errorAltImage": "404 image. Image by pch.vector on Freepik"
-  },
-  "globalError": {
-    "mainTitle": "This is broken",
-    "sub-title": "An error occurred. Please try to refresh the page !",
-    "description": "If not changes was observed. Please contact me.",
-    "callToAction": "Refresh"
-  },
-  "mainErrorPage": {
-    "mainTitle": "Something went wrong!",
-    "sub-title": "Please try to refresh the page",
-    "callToAction": "Refresh"
+    "errorAltImage": "404 image. Image by pch.vector on Freepik",
+    "returnToHome": "Return to Home"
   },
   "appDirectory": {
     "homePage": {
@@ -107,7 +98,7 @@
   },
   "components": {
     "searchBar": {
-      "placeholder": "Search",
+      "placeholder": "SSearch by post title or description ...",
       "srOnlyModal": "Close modal",
       "loadingText": "Loading...",
       "findPosts": "Finding posts...",
@@ -131,7 +122,7 @@
       "devOps": "DevOps",
       "dataScience": "Data science"
     },
-    "soft-skills": {
+    "softSkills": {
       "teamwork": "Teamwork",
       "problemSolving": "Problem solving",
       "adaptability": "Adaptability",
@@ -176,7 +167,7 @@
           "codeSharing": "Shared code between frontend and backend components using git submodules"
         }
       },
-      "FOOD-BACKEND": {
+      "FOOD_BACKEND": {
         "title": "BACKEND - FOOD POS SYSTEM",
         "keyResults": {
           "robustApi": "Developed a robust backend API using Django's REST framework",
