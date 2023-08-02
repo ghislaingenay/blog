@@ -57,7 +57,6 @@ export default function Searchbar({ posts, dict }: SearchbarProps) {
   }, [debouncedQuery]);
 
   useEffect(() => {
-    console.log("clikc");
     setLoading(true);
     const recoveredPosts = filterPostsByParams(params, posts);
     const foundPosts = havePosts(recoveredPosts);
