@@ -3,9 +3,7 @@ const PostIdLoading = () => (
     <div className=" overflow-hidden absolute top-[-10%] left-[-25%] lg:left-[-5%] h-[14rem] w-[150%] overflow-x-hidden rounded-b-[80%] bg-blue-500 bg-gradient-to-b from-blue-400  to-orange-500"></div>
     <div role="status" className="animate-pulse w-full pb-5">
       {/* Spacing */}
-      <div className="h-24" />
-      <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 max-w-[640px] mb-2.5 mx-auto"></div>
-      <div className="h-2.5 mx-auto bg-gray-300 rounded-full dark:bg-gray-700 max-w-[540px]"></div>
+      <div className="h-[10rem] w-full bg-gradient-radial blur roounded-full from-slate-200 to-bg-transparent mb-10" />
       {/* Post information */}
       <div className="flex items-center justify-between md:w-5/12 mt-6 mx-auto">
         <div className="w-20 h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 mr-3"></div>

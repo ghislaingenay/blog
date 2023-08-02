@@ -98,7 +98,7 @@
   },
   "components": {
     "searchBar": {
-      "placeholder": "SSearch by post title or description ...",
+      "placeholder": "Search by post title or description ...",
       "srOnlyModal": "Close modal",
       "loadingText": "Loading...",
       "findPosts": "Finding posts...",

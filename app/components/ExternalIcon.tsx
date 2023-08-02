@@ -8,10 +8,7 @@ interface ExternalIconProps extends ButtonProps {
 
 export const ExternalIcon = ({ link, children }: ExternalIconProps) => {
   const [isComponentMounted, setIsComponentMounted] = useState(false);
-  useEffect(() => {
-    setIsComponentMounted(true); // This ensures that the window is defined in order to use window.open
-  }, []);
-
+  useEffect(() => setIsComponentMounted(true), []); // This ensures that the window is defined in order to use window.open
   const mounted = useDeferredValue(isComponentMounted);
 
   const buttonProps: ButtonProps = mounted

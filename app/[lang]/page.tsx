@@ -24,13 +24,13 @@ export default async function Home({ params: { lang } }: LangProps) {
   return (
     <>
       <section className="col-span-1">
-        <div role="listbox">
+        <ul className="list-inside list-none p-0">
           {posts.map((post) => (
-            <li key={post.id} className="list-none mb-5">
+            <li key={post.id} className="mb-5 px-auto">
               <PostItem post={post} lang={lang} />
             </li>
           ))}
-        </div>
+        </ul>
       </section>
       <Searchbar posts={posts} dict={dict} />
     </>

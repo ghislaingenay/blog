@@ -23,7 +23,7 @@ import { FaArrowLeft, FaBars, FaSearch, FaXing } from "react-icons/fa";
 import { Case, Default, Switch } from "react-if";
 
 const selectColorTextHover = (samePath: boolean) =>
-  samePath ? "text-blue-600" : "text-gray-700";
+  samePath ? "text-blue-600 ring-2 ring-blue-600 rounded-xl" : "text-gray-700";
 
 interface NavBannerProps extends LiProps {
   navField: NavField;
@@ -75,7 +75,7 @@ const NavIcon = ({ navField, currentPath, ...props }: NavIconProps) => {
       >
         <div id={idDisplay} className="hidden">
           <div
-            className={`${hiddenIfSocialPage} absolute w-[90%] grid top-[3rem] left-[0.175rem] h-6 bg-black z-90 rounded-lg`}
+            className={`${hiddenIfSocialPage} absolute w-full grid top-[3rem] h-6 bg-black z-90 rounded-lg`}
           >
             <span className="text-[9px] font-bold text-white self-center text-center">
               {label}
@@ -92,7 +92,7 @@ const NavIcon = ({ navField, currentPath, ...props }: NavIconProps) => {
 const Nav = ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <nav className="fixed z-10 flex bg-slate-200 top-0 items-center h-16 w-full drop-shadow-lg">
+      <nav className="fixed z-10 flex bg-stone-100 top-0 items-center h-16 w-full drop-shadow-lg">
         <div className="container flex flex-wrap items-center justify-between mx-auto w-full sm:w-[600px] md:w-[728px] lg:w-[984px] xl:w-[1240px] 2xl:[1535px] px-5 sm:px-0">
           {children}
         </div>
@@ -125,8 +125,9 @@ type NavbarProps = {
 export default function Navbar({ dict }: NavbarProps) {
   const pathname = usePathname() as string;
   const PATH_NAME_WITHOUT_NAV = ["/signout", "/signin", "/signup"];
+  const { language: lang } = dict;
 
-  const shouldShowGlobalNavbar = !pathname.startsWith("/en/posts");
+  const shouldShowGlobalNavbar = !pathname.startsWith(`/${lang}/posts`);
   const isGlobalNav = useDeferredValue(shouldShowGlobalNavbar);
 
   const shouldNotShowNav = PATH_NAME_WITHOUT_NAV.includes(pathname);
