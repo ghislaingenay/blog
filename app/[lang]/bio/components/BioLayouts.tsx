@@ -5,6 +5,7 @@ import {
   Experience,
   PersonalProject,
 } from "@interfaces/bio.interface";
+import { Dictionary } from "@interfaces/global.interface";
 import { getFormattedPeriodDate } from "@lib/functions/bio.fn";
 import dayjs from "dayjs";
 import {
@@ -15,6 +16,8 @@ import {
   FaLocationArrow,
   FaStar,
 } from "react-icons/fa";
+
+type GlobalTextBio = Dictionary["bioConstants"]["globalText"];
 
 type CourseLayoutProps = {
   course: Prettify<CourseTaken>;
@@ -33,7 +36,7 @@ export const CourseLayout = ({ course }: CourseLayoutProps) => {
   );
 
   const authorDisplay = author ? (
-    <small className="text-black">by {author}</small>
+    <small className="text-black">({author})</small>
   ) : (
     <></>
   );
@@ -64,8 +67,12 @@ export const CourseLayout = ({ course }: CourseLayoutProps) => {
 ////////////////////////////////////////////////////////////////////////////////
 type ExperienceLayoutProps = {
   experience: Prettify<Experience>;
+  globalText: GlobalTextBio;
 };
-export const ExperienceLayout = ({ experience }: ExperienceLayoutProps) => {
+export const ExperienceLayout = ({
+  experience,
+  globalText,
+}: ExperienceLayoutProps) => {
   const {
     title,
     company,
@@ -106,7 +113,7 @@ export const ExperienceLayout = ({ experience }: ExperienceLayoutProps) => {
           </small>
         </div>
       </div>
-      <h5 className="font-bold mt-1 mb-0">Achievements/Tasks</h5>
+      <h5 className="font-bold mt-1 mb-0">{globalText.achievements}</h5>
       <ul className="list-disc mt-0">
         {missions.map((mission, index) => (
           <div key={`${websiteLink}+${index}`}>{mission}</div>
@@ -120,9 +127,10 @@ export const ExperienceLayout = ({ experience }: ExperienceLayoutProps) => {
 
 type ProjectLayoutProps = {
   project: Prettify<PersonalProject>;
+  globalText: GlobalTextBio;
 };
 
-export const ProjectLayout = ({ project }: ProjectLayoutProps) => {
+export const ProjectLayout = ({ project, globalText }: ProjectLayoutProps) => {
   const {
     title,
     githubLink,
@@ -170,7 +178,7 @@ export const ProjectLayout = ({ project }: ProjectLayoutProps) => {
           </span>
         </div>
       </div>
-      <h5 className="font-bold my-1">Skills</h5>
+      <h5 className="font-bold my-1">{globalText.skills}</h5>
       <div className="flex flex-wrap gap-1">
         {technologies.map((technology) => (
           <Tag color="green" className="flex" key={technology}>
@@ -178,7 +186,7 @@ export const ProjectLayout = ({ project }: ProjectLayoutProps) => {
           </Tag>
         ))}
       </div>
-      <h5 className="font-bold my-1">Skills</h5>
+      <h5 className="font-bold my-1">{globalText.keyResults}</h5>
       <ul className="list-disc mt-0">
         {keyResults.map((keyResult, index) => (
           <li key={`${websiteLink}+${index}`} className="text-xs mb-2">

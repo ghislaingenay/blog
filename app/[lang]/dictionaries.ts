@@ -1,4 +1,4 @@
-import { Language } from "@interfaces/global.interface";
+import { Dictionary, Language } from "@interfaces/global.interface";
 import "server-only";
 
 const dictionaries = {
@@ -8,4 +8,5 @@ const dictionaries = {
     import("@public/locales/en/common.json").then((module) => module.default),
 };
 
-export const getDictionary = async (locale: Language) => dictionaries[locale]();
+export const getDictionary = async (locale: Language): Promise<Dictionary> =>
+  dictionaries[locale]();

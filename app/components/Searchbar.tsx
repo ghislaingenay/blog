@@ -1,5 +1,9 @@
 "use client";
-import { SelectProps } from "@interfaces/global.interface";
+import {
+  Dictionary,
+  PostTopic,
+  SelectProps,
+} from "@interfaces/global.interface";
 import SearchBarParams from "@interfaces/nav.interface";
 import {
   filterPostsByParams,
@@ -15,15 +19,17 @@ import { ParagraphLoading } from "./loading/components/ParagraphLoading";
 
 type SearchbarProps = {
   posts: PostMeta[];
+  dict: Dictionary;
 };
 
 type FilteredPosts = ReturnType<typeof sortPostsByTopic>;
 
 interface SearchSelectProps extends SelectProps {
   posts: FilteredPosts;
+  postTopics: Dictionary["postTopics"];
 }
 
-export default function Searchbar({ posts }: SearchbarProps) {
+export default function Searchbar({ posts, dict }: SearchbarProps) {
   const router = useRouter();
   const [filteredPosts, setFilteredPosts] = useState<FilteredPosts>(
     {} as FilteredPosts
@@ -38,6 +44,10 @@ export default function Searchbar({ posts }: SearchbarProps) {
     query: undefined,
     topic: undefined,
   });
+
+  const { postTopics } = dict;
+  const { placeholder, srOnlyModal, loadingText, findPosts, alertInfo } =
+    dict.components.searchBar;
 
   useEffect(() => {
     const haveQuery = debouncedQuery && debouncedQuery.length > 0;
@@ -66,7 +76,7 @@ export default function Searchbar({ posts }: SearchbarProps) {
     });
   });
 
-  const SearchSelect = ({ posts }: SearchSelectProps) => {
+  const SearchSelect = ({ posts, postTopics }: SearchSelectProps) => {
     if (!posts) return <></>;
     if (loading) return <ParagraphLoading />;
 
@@ -79,7 +89,7 @@ export default function Searchbar({ posts }: SearchbarProps) {
             <optgroup
               className="text-base font-bold italic"
               key={topic}
-              label={topic.replace(/[_]/gi, " ")}
+              label={postTopics[topic as keyof typeof PostTopic]}
             >
               {posts.map(({ id, title }) => {
                 return (
@@ -134,7 +144,7 @@ export default function Searchbar({ posts }: SearchbarProps) {
                     d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                   />
                 </svg>
-                <span className="sr-only">Close modal</span>
+                <span className="sr-only">{srOnlyModal}</span>
               </button>
             </div>
             {/* <!-- Modal body --> */}
@@ -150,9 +160,9 @@ export default function Searchbar({ posts }: SearchbarProps) {
                   >
                     <path
                       stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                     />
                   </svg>
@@ -165,7 +175,7 @@ export default function Searchbar({ posts }: SearchbarProps) {
                   type="search"
                   id="default-search"
                   className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Search by post title or description ..."
+                  placeholder={placeholder}
                   required
                 />
               </div>
@@ -192,11 +202,9 @@ export default function Searchbar({ posts }: SearchbarProps) {
                           fill="currentFill"
                         />
                       </svg>
-                      <span className="sr-only">Loading...</span>
+                      <span className="sr-only">{loadingText}</span>
                     </div>
-                    <div className="cols-span-3 my-auto p-0">
-                      Finding posts ...
-                    </div>
+                    <div className="cols-span-3 my-auto p-0">{findPosts}</div>
                   </div>
                 </Case>
                 <Case condition={!foundPosts}>
@@ -213,16 +221,16 @@ export default function Searchbar({ posts }: SearchbarProps) {
                     >
                       <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                     </svg>
-                    <span className="sr-only">Info</span>
+                    <span className="sr-only">{alertInfo.type}</span>
                     <div>
-                      <span className="font-medium">No posts found!</span> Try
-                      to modify your search but obtain what you are looking
-                      for...
+                      <span className="font-medium">{alertInfo.title}</span>{" "}
+                      {alertInfo.description}
                     </div>
                   </div>
                 </Case>
                 <Default>
                   <SearchSelect
+                    postTopics={postTopics}
                     posts={filteredPosts}
                     className="w-full rounded-2xl border text-black border-gray-500 focus:border-gray-700 focus:text-blue-500 p-2"
                   />

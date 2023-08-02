@@ -8,7 +8,12 @@ import {
 } from "@constants/nav-menu";
 import { checkSocialType, matchPath } from "@functions";
 import { useWindowSize } from "@hooks";
-import { DivProps, LiProps } from "@interfaces/global.interface";
+import {
+  Dictionary,
+  DivProps,
+  Language,
+  LiProps,
+} from "@interfaces/global.interface";
 import { NavField } from "@interfaces/nav.interface";
 import $ from "jquery";
 import Link from "next/link";
@@ -63,14 +68,14 @@ const NavIcon = ({ navField, currentPath, ...props }: NavIconProps) => {
   return (
     <>
       <div
-        className={`${selectedItemClass} relative flex flex-wrap justify-center items-center my-auto hover:bg-slate-300 hover:bg-opacity-50 hover:rounded-xl mr-0 ml-1 lg:ml-0 lg:mr-1`}
+        className={`${selectedItemClass} relative z-50 flex flex-wrap justify-center items-center my-auto hover:bg-slate-300 hover:bg-opacity-50 hover:rounded-xl mr-0 ml-1 lg:ml-0 lg:mr-1`}
         onMouseOver={() => $(`#${idDisplay}`).removeClass("hidden")}
         onMouseOut={() => $(`#${idDisplay}`).addClass("hidden")}
         {...props}
       >
         <div id={idDisplay} className="hidden">
           <div
-            className={`${hiddenIfSocialPage} absolute w-[90%] grid top-[3rem] left-[0.175rem] h-6 bg-black z-40 rounded-lg`}
+            className={`${hiddenIfSocialPage} absolute w-[90%] grid top-[3rem] left-[0.175rem] h-6 bg-black z-90 rounded-lg`}
           >
             <span className="text-[9px] font-bold text-white self-center text-center">
               {label}
@@ -106,14 +111,18 @@ const LineScroll = ({
 }) => (
   <div
     className={`fixed ${
-      top ? "z-80" : "top-[4rem] z-10"
+      top ? "z-10" : "top-[4rem] z-10"
     } left-0 w-full h-1 scroll-smooth`}
   >
-    <div className="h-full bg-black" style={{ width: `${value}%` }} />
+    <div className="h-full bg-black z-[-10]" style={{ width: `${value}%` }} />
   </div>
 );
 
-export default function Navbar() {
+type NavbarProps = {
+  dict: Dictionary;
+};
+
+export default function Navbar({ dict }: NavbarProps) {
   const pathname = usePathname() as string;
   const PATH_NAME_WITHOUT_NAV = ["/signout", "/signin", "/signup"];
 
@@ -133,6 +142,8 @@ export default function Navbar() {
   const hiddenClass = !openedSideBar ? "hidden" : "block";
 
   const [firstLoad, setFirstLoad] = useState(true);
+
+  const { navMenu } = dict;
 
   const ICON_SIDE_BAR_ANIMATION_CLASS =
     "animate-rotate-x animate-ease-in-out animate-once animate-duration-300";
@@ -203,15 +214,20 @@ export default function Navbar() {
     });
   };
 
-  const mainNavElements = createNavSectionLinkIcon(mainNavSection);
-  const pageNavElements = createNavSectionLinkIcon(pageNavSection);
+  const { language } = dict;
+  const mainNavElements = createNavSectionLinkIcon(
+    mainNavSection(navMenu, language as Language)
+  );
+  const pageNavElements = createNavSectionLinkIcon(
+    pageNavSection(navMenu, language as Language)
+  );
   const socialMediaNavSectionElements = createNavSectionLinkIcon(
     socialMediaNavSection
   );
 
   const querySection: NavField = {
     id: "query",
-    label: "SEARCH",
+    label: navMenu.search?.toUpperCase(),
     link: "",
     type: "social", // avoid to have a redirection link
     children: <FaSearch className={`${ICON_CLASS_NAV} text-gray-700`} />,
@@ -270,21 +286,23 @@ export default function Navbar() {
                 className={`${hiddenClass} w-full lg:block lg:w-auto absolute lg:static text-end lg:text-center right-0 top-12`}
               >
                 <ul className="flex flex-col sm:w-[97%] sm:mx-auto font-medium mt-4 rounded-lg bg-gray-50 lg:flex-row lg:space-x-8 lg:mt-0 lg:border-0 lg:bg-transparent dark:bg-gray-800 lg:dark:bg-transparent dark:border-gray-700">
-                  {[...pageNavSection].map((navField) => {
-                    return (
-                      <div key={navField.id}>
-                        <div className="my-0 md:my-2 ps-0 md:ps-[1.5%]">
-                          <NavBanner
-                            className=" hover:bg-gray-200 max-w-[97%] py-2 rounded-lg"
-                            onClick={() => setIsSideBarOpen(false)}
-                            currentPath={pathname}
-                            navField={navField}
-                          />
+                  {[...pageNavSection(navMenu, language as Language)].map(
+                    (navField) => {
+                      return (
+                        <div key={navField.id}>
+                          <div className="my-0 md:my-2 ps-0 md:ps-[1.5%]">
+                            <NavBanner
+                              className=" hover:bg-gray-200 max-w-[97%] py-2 rounded-lg"
+                              onClick={() => setIsSideBarOpen(false)}
+                              currentPath={pathname}
+                              navField={navField}
+                            />
+                          </div>
+                          <div className="border border-spacing-1 border-gray-200 max-w-[97%] border-opacity-0.5 mx-auto" />
                         </div>
-                        <div className="border border-spacing-1 border-gray-200 max-w-[97%] border-opacity-0.5 mx-auto" />
-                      </div>
-                    );
-                  })}
+                      );
+                    }
+                  )}
                   <div className="grid grid-cols-6 sm:grid-cols-8 gap-2">
                     {socialMediaNavSection.map((navField) => {
                       return (

@@ -6,9 +6,14 @@ import { FaHome } from "react-icons/fa";
 type NotFoundPageProps = {
   title: string;
   message: string;
+  buttonText: string;
 };
 
-export default function NotFoundError({ title, message }: NotFoundPageProps) {
+export default function NotFoundError({
+  title,
+  message,
+  buttonText,
+}: NotFoundPageProps) {
   return (
     <div>
       <div className="flex flex-row justify-center w-[90%] mx-auto">
@@ -16,7 +21,7 @@ export default function NotFoundError({ title, message }: NotFoundPageProps) {
           src={NotFoundImage}
           width={500}
           height={500}
-          alt="404 image. Image by pch.vector on Freepik"
+          alt="404 image"
           className="mix-blend-multiply w-full lg:w-5/12 m-0 mb-2"
         />
       </div>
@@ -30,7 +35,7 @@ export default function NotFoundError({ title, message }: NotFoundPageProps) {
           className="font-bold text-white no-underline text-sm md:text-md "
         >
           <FaHome className="inline mr-2" />
-          Return to Home
+          {buttonText}
         </Link>
       </button>
     </div>

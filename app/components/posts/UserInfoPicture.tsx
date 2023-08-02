@@ -16,7 +16,7 @@ export const UserInfoPicture = ({ fullName, job }: UserInfoPictureProps) => {
           height={50}
           layout="fixed"
           className="rounded-full w-10 h-10 object-cover align-baseline "
-          alt={`Ghislain Genay - Full Stack developer`}
+          alt={fullName}
         />
       </div>
       <div className="flex flex-col items-center">

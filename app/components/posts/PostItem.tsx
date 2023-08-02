@@ -1,3 +1,4 @@
+import { Language } from "@interfaces/global.interface";
 import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,9 +9,10 @@ import { Tag, TagProps, TopicTag } from "../Tag";
 interface PostItemProps {
   post: PostMeta;
   tag?: string;
+  lang: Language;
 }
 
-export default function PostItem({ post, tag }: PostItemProps) {
+export default function PostItem({ post, tag, lang }: PostItemProps) {
   const { title, topic, image, tags, createdAt } = post;
 
   const LINK_STYLE: CSSProperties = {
@@ -20,7 +22,16 @@ export default function PostItem({ post, tag }: PostItemProps) {
   };
   const haveTag = tag ? true : false;
 
-  const formattedCreatedDate = dayjs(createdAt).format("MMM DD, YYYY");
+  const formattedDateDict = {
+    [Language.ENGLISH]: dayjs(createdAt).format("MMM DD, YYYY"),
+    [Language.FRENCH]: dayjs(createdAt).format("DD MMM YYYY"),
+  };
+
+  const altImageDict = {
+    [Language.ENGLISH]: `Image blog post - ${title}`,
+    [Language.FRENCH]: `Image pour le blog post :${title}`,
+  };
+
   const tagMatch = (tagValue: string) => haveTag && tag === tagValue;
   const additionalTagProps = (tagValue: string): Partial<TagProps> =>
     tagMatch(tagValue) ? { color: "green" } : { color: "gray" };
@@ -41,7 +52,7 @@ export default function PostItem({ post, tag }: PostItemProps) {
             src={image}
             width={450}
             height={450}
-            alt={`Image for ${title} blog post`}
+            alt={altImageDict[lang]}
             className="m-0 object-fit"
           />
         </div>
@@ -52,7 +63,7 @@ export default function PostItem({ post, tag }: PostItemProps) {
                 <TopicTag>{topic}</TopicTag>
                 <span className="text-sm md:text-sm italic text-end">
                   <FaClock className="my-auto inline mr-2 mb-0.5 box-content" />
-                  {formattedCreatedDate}{" "}
+                  {formattedDateDict[lang]}{" "}
                 </span>
               </div>
             </div>

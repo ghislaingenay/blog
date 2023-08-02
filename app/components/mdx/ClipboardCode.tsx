@@ -1,5 +1,6 @@
 "use client";
 
+import { generateKey } from "@functions";
 import { ReactNode, useEffect, useState } from "react";
 import { FaClipboard, FaClipboardCheck } from "react-icons/fa";
 import { useCopyToClipboard } from "usehooks-ts";
@@ -15,6 +16,8 @@ export const ClipboardCode = ({ children }: ClipboardProps) => {
   const [haveText, setHaveText] = useState(false);
 
   useEffect(() => setMounted(true), []);
+
+  const id = generateKey();
 
   useEffect(() => {
     if (!haveText) return;
@@ -37,9 +40,9 @@ export const ClipboardCode = ({ children }: ClipboardProps) => {
 
   if (!mounted) return <ParagraphLoading />;
   return (
-    <div className="relative">
+    <div className="relative -z-[1]" role="button">
       <button
-        className="absolute top-10 right-10 focus:outline-none p-1 active:outline-none hidden md:block "
+        className="absolute top-10 right-10 focus:outline-none p-1 active:outline-none hidden md:block"
         type="button"
         onClick={() => {
           clipText();

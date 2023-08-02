@@ -5,6 +5,7 @@ export default function NotFound() {
     <NotFoundError
       title="Sorry, the requested post does not exist."
       message="Please try with a available post"
+      buttonText="Return To Home"
     />
   );
 }

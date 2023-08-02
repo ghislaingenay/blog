@@ -4,10 +4,18 @@ import {
   LanguageDisplay,
   PersonalProject,
 } from "@interfaces/bio.interface";
+import { Dictionary } from "@interfaces/global.interface";
 
-export const ITSkillsList: ITSkills[] = [
+type BioConstants = Dictionary["bioConstants"];
+type ITSkillsDictionary = BioConstants["itSkills"];
+type InterestsDictionary = BioConstants["interests"];
+type LanguageDictionary = BioConstants["languages"];
+type ProjectsDictionary = BioConstants["projects"];
+type SoftoSkiru = BioConstants["softSkills"];
+
+export const ITSkillsList = (itSkills: ITSkillsDictionary): ITSkills[] => [
   {
-    title: "Front-end",
+    title: itSkills.frontend,
     skills: [
       "JavaScript",
       "TypeScript",
@@ -21,7 +29,7 @@ export const ITSkillsList: ITSkills[] = [
     ],
   },
   {
-    title: "Back-end",
+    title: itSkills.backend,
     skills: [
       "JavaScript",
       "TypeScript",
@@ -32,45 +40,29 @@ export const ITSkillsList: ITSkills[] = [
     ],
   },
   {
-    title: "Databases",
+    title: itSkills.databases,
     skills: ["MySQL (SQL)", "Postgres (SQL)", "MongoDB (NoSQL)"],
   },
   {
-    title: "Concepts",
+    title: itSkills.concepts,
     skills: ["Git", "Agile", "Scrum", "TDD", "Microservices", "Monolith"],
   },
   {
-    title: "Softwares",
+    title: itSkills.softwares,
     skills: ["Git", "Microsoft Office", "JIRA", "Adobe Suite"],
   },
   {
-    title: "DevOps",
+    title: itSkills.devOps,
     skills: ["Jest", "Docker", "Kubernetes", "Github Actions", "Digital Ocean"],
   },
-  { title: "Data science", skills: ["Numpy", "Pandas"] },
+  { title: itSkills.dataScience, skills: ["Numpy", "Pandas"] },
 ];
-export const softSkills: string[] = [
-  "Teamwork",
-  "Problem solving",
-  "Adaptability",
-  "Creativity",
-  "Work ethic",
-  "Interpersonal skills",
-  "Time management",
-  "Attention to detail",
-  "Flexibility",
-  "Self-motivation",
-  "Conflict resolution",
-  "Open-mindedness",
-];
+export const softSkills = (softSkills: SoftoSkiru) =>
+  Object.entries(softSkills).map(([_, value]) => value);
+export const interests = (interestElements: InterestsDictionary) =>
+  Object.entries(interestElements).map(([_, value]) => value);
 
-export const interests: string[] = [
-  "Coding",
-  "Hiking",
-  "Photoshop",
-  "Language",
-];
-
+// No need to do i18n because certificate and courses and kept only in English
 export const courseListing: CourseTaken[] = [
   {
     prioritized: true,
@@ -134,100 +126,108 @@ export const courseListing: CourseTaken[] = [
   },
 ];
 
-export const languages: LanguageDisplay[] = [
-  { language: "French", level: 5 },
-  { language: "English", level: 4 },
-  { language: "Spanish", level: 3 },
-  { language: "Chinese", level: 2 },
-  { language: "Japanese", level: 2 },
-  { language: "Thai", level: 1 },
+export const languages = (languages: LanguageDictionary): LanguageDisplay[] => [
+  { language: languages["french"], level: 5 },
+  { language: languages["english"], level: 4 },
+  { language: languages["spanish"], level: 3 },
+  { language: languages["chinese"], level: 2 },
+  { language: languages["japanese"], level: 2 },
+  { language: languages["thai"], level: 1 },
 ];
 
-export const personalProjectsListing: PersonalProject[] = [
-  {
-    title: "REDIFOOD",
-    githubLink: "https://github.com/ghislaingenay/redifood",
-    technologies: [
-      "ReactJS",
-      "AntDesign",
-      "JavaScript",
-      "HTML",
-      "CSS",
-      "SCSS",
-      "NodeJS",
-      "NestJS",
-      "Postgres",
-      "NextJS",
-      "TypeScript",
-      "CI/CD",
-      "MongoDB",
-      "GitHub Actions",
-      "TDD",
-      "Docker",
-      "Kubernetes",
-      "Digital Ocean",
-      "Amazon Route 53",
-      "React Testing Library",
-      "JWT authentication",
-      "REST API",
-      "Git submodules",
-    ],
-    startDate: new Date(2023, 0, 4),
-    endDate: new Date(2023, 6, 5),
-    stillWorking: false,
-    websiteLink: "https://rediapp.net",
-    keyResults: [
-      "Successfully deployed a full-fledged food POS system on Digital Ocean using Docker and Kubernetes",
-      "Utilized NextJS and Ant Design to create intuitive user interface",
-      "Implement a complete and functional CI/CD pipeline using GitHub Actions",
-      "Utilized Git version control and GitHub ",
-      "Demonstrated strong problem-solving skills and adaptability",
-      "Implemented authentication and authorization mechanisms using JWT cookies",
-      "Test React components with React Testing Library",
-      "Developed robust APIs using NestJS, ensuring smooth communication between frontend and backend components",
-      "Follow the clean code principle by sharing code using git submodules",
-      "Implemented web application workflow from testing to deployment online",
-      "Create a RESTful API with NestJS",
-    ],
-  },
-  {
-    title: "BACKEND - FOOD POS SYSTEM",
-    technologies: ["JWT Authentication", "Python", "SQL", "Django"],
-    startDate: new Date(2023, 3, 22),
-    endDate: new Date(2023, 3, 26),
-    stillWorking: false,
-    githubLink: "https://github.com/ghislaingenay/redifood-v1-api-python",
-    websiteLink: "",
-    keyResults: [
-      "Developed a robust backend API using Django's REST framework",
-      "Utilized Django's ORM to interact with the database",
-      "Successfully implemented user authentication and registration functionalities with JWT tokens",
-      "Utilized Git version control",
-    ],
-  },
-  {
-    title: 'BLOG - "MY PORTFOLIO"',
-    technologies: [
-      "ReactJS",
-      "JavaScript",
-      "NextJS",
-      "TypeScript",
-      "HTML",
-      "CSS",
-      "TailwindCSS",
-      "MDX",
-      "Markdown",
-    ],
-    keyResults: [
-      "Utilized NextJS's server-side rendering to improve SEO",
-      "Utilized TailwindCSS to create a responsive and mobile-first design",
-      "Add internationalization to the website",
-      "Future feature: add a backend using Django",
-    ],
-    startDate: new Date(2023, 6, 22),
-    endDate: null,
-    stillWorking: true,
-    githubLink: undefined,
-    websiteLink: "https://ghislain.genay.rediapp.net/bio",
-  },
-];
+export const personalProjectsListing = (
+  ProjectsDictionary: ProjectsDictionary
+): PersonalProject[] => {
+  const { REDIFOOD, FOOD_BACKEND, BLOG } = ProjectsDictionary;
+  const REDIKeys = REDIFOOD.keyResults;
+  const FOODBKeys = FOOD_BACKEND.keyResults;
+  const BLOGKeys = BLOG.keyResults;
+  return [
+    {
+      title: REDIFOOD.title,
+      githubLink: "https://github.com/ghislaingenay/redifood",
+      technologies: [
+        "ReactJS",
+        "AntDesign",
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "SCSS",
+        "NodeJS",
+        "NestJS",
+        "Postgres",
+        "NextJS",
+        "TypeScript",
+        "CI/CD",
+        "MongoDB",
+        "GitHub Actions",
+        "TDD",
+        "Docker",
+        "Kubernetes",
+        "Digital Ocean",
+        "Amazon Route 53",
+        "React Testing Library",
+        "JWT authentication",
+        "REST API",
+        "Git submodules",
+      ],
+      startDate: new Date(2023, 0, 4),
+      endDate: new Date(2023, 6, 5),
+      stillWorking: false,
+      websiteLink: "https://rediapp.net",
+      keyResults: [
+        REDIKeys.properlyDeployed,
+        REDIKeys.useNextJs,
+        REDIKeys.useGit,
+        REDIKeys.problemSolving,
+        REDIKeys.cdCiPipeline,
+        REDIKeys.api,
+        REDIKeys.cleanCode,
+        REDIKeys.testing,
+        REDIKeys.auth,
+        REDIKeys.codeSharing,
+        REDIKeys.workflow,
+      ],
+    },
+    {
+      title: FOOD_BACKEND.title,
+      technologies: ["JWT Authentication", "Python", "SQL", "Django"],
+      startDate: new Date(2023, 3, 22),
+      endDate: new Date(2023, 3, 26),
+      stillWorking: false,
+      githubLink: "https://github.com/ghislaingenay/redifood-v1-api-python",
+      websiteLink: "",
+      keyResults: [
+        FOODBKeys.auth,
+        FOODBKeys.orm,
+        FOODBKeys.robustApi,
+        FOODBKeys.useGit,
+      ],
+    },
+    {
+      title: BLOG.title,
+      technologies: [
+        "ReactJS",
+        "JavaScript",
+        "NextJS",
+        "TypeScript",
+        "HTML",
+        "CSS",
+        "TailwindCSS",
+        "MDX",
+        "Markdown",
+      ],
+      keyResults: [
+        BLOGKeys.useNextJs,
+        BLOGKeys.ui,
+        BLOGKeys.i18n,
+        BLOGKeys.newFeature,
+      ],
+      startDate: new Date(2023, 6, 22),
+      endDate: null,
+      stillWorking: true,
+      githubLink: "https://github.com/ghislaingenay/blog",
+      websiteLink: "https://ghislain.genay.rediapp.net/bio",
+    },
+  ];
+};

@@ -42,10 +42,10 @@
           "jobTitle": "Associate Full Stack Developer",
           "missions": {
             "scalableWebApp": "Developing scalable <strong>full-stack web applications</strong> using <em> JavaScript / TypeScript / HTML / CSS / ReactJS / AntDesign / NextJS / NodeJS / SQL (MySQL) and NoSQL (MongoDB) </em>",
-            "jira": "<strong>Collaboration</strong> with other developers in complex projects using Agile Methodologies and{' '}<strong>Git version control</strong> <em>(JIRA, Bitbucket)</em>",
-            "cmsFeatures": "Creation of new features in Control Management System application using <strong>RESTful APIs</strong>{' '}<em>(e.g. message, email templates, reservation, logging system)</em>",
+            "jira": "<strong>Collaboration</strong> with other developers in complex projects using Agile Methodologies and <strong>Git version control</strong> <em>(JIRA, Bitbucket)</em>",
+            "cmsFeatures": "Creation of new features in Control Management System application using <strong>RESTful APIs</strong> <em>(e.g. message, email templates, reservation, logging system)</em>",
             "startUp": "Working in a <strong>start-up</strong> environment with a small team of developers",
-            "dataAnalysis": "Carried out <strong>data scraping</strong> and{' '}<strong>machine learning</strong> projects (recover data from website and verify car pictures with AI models)"
+            "dataAnalysis": "Carried out <strong>data scraping</strong> and <strong>machine learning</strong> projects (recover data from website and verify car pictures with AI models)"
           },
           "country": "Thailand",
           "city": "Bangkok"
@@ -56,8 +56,8 @@
           "city": "Koh Phangan",
           "country": "Thailand",
           "missions": {
-            "learning": "7 weeks (280 hours) of intensive{' '} <strong>training on full-stack JavaScript development</strong>{' '}(front-end, back-end, database).",
-            "developedWebApp": "Developed web applications using technologies including{' '} <em>JavaScript / CSS3 / Bootstrap / HTML5 / Handlebars / Node.js / Express / MongoDB / ReactJS / Git</em>"
+            "learning": "7 weeks (280 hours) of intensive <strong>training on full-stack JavaScript development</strong> (front-end, back-end, database).",
+            "developedWebApp": "Developed web applications using technologies including <em>JavaScript / CSS3 / Bootstrap / HTML5 / Handlebars / Node.js / Express / MongoDB / ReactJS / Git</em>"
           }
         }
       },
@@ -149,6 +149,11 @@
       "chinese": "Chinese",
       "japanese": "Japanese",
       "thai": "Thai"
+    },
+    "globalText": {
+      "achievements": "Achievements/Tasks",
+      "skills": "Skills",
+      "keyResults": "Key Results"
     },
     "projects": {
       "REDIFOOD": {

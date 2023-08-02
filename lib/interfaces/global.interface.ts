@@ -30,3 +30,9 @@ export type LangProps = {
     lang: Language;
   };
 };
+
+export interface LayoutProps extends LangProps {
+  children: React.ReactNode;
+}
+
+export type Dictionary = typeof import("@public/locales/en/common.json");

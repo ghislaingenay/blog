@@ -2,11 +2,14 @@ import PostItem from "@components/posts/PostItem";
 import { AlertInfo } from "@components/styles/Alert";
 import { REVALIDATION_PERIOD } from "@constants/global.const";
 import { createMetaData } from "@functions";
+import { Language } from "@interfaces/global.interface";
 import { getPostsMeta } from "@lib-api/post-api";
+import { getDictionary } from "../../dictionaries";
 
 export interface TagProps {
   params: {
     tag: string;
+    lang: Language;
   };
 }
 
@@ -24,12 +27,14 @@ export function generateMetadata({ params: { tag } }: TagProps) {
   return createMetaData({ title: `Posts about ${tag}` });
 }
 
-export default async function TagList({ params: { tag } }: TagProps) {
+export default async function TagList({ params: { tag, lang } }: TagProps) {
+  const dict = await getDictionary(lang);
+  const {
+    alertNoPosts: { title, description },
+  } = dict.appDirectory.tagPage;
   const posts = await getPostsMeta(); //deduped!
   if (!posts)
-    return (
-      <AlertInfo title="Sorry" message={`No posts available for ${tag}`} />
-    );
+    return <AlertInfo title={title} message={`${description} ${tag}`} />;
 
   const tagPosts = posts.filter((post) => post.tags.includes(tag));
 
@@ -43,7 +48,7 @@ export default async function TagList({ params: { tag } }: TagProps) {
             <ul className="list-none p-0">
               {tagPosts.map((post) => (
                 <li key={post.id}>
-                  <PostItem key={post.id} post={post} tag={tag} />
+                  <PostItem key={post.id} post={post} tag={tag} lang={lang} />
                 </li>
               ))}
             </ul>
