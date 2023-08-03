@@ -36,3 +36,5 @@ export interface LayoutProps extends LangProps {
 }
 
 export type Dictionary = typeof import("@public/locales/en/common.json");
+
+export type AnimationState = true | false | "idle";

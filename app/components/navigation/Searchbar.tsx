@@ -15,9 +15,9 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Case, Default, Switch } from "react-if";
 import { useDebounce } from "usehooks-ts";
-import { ParagraphLoading } from "./loading/components/ParagraphLoading";
-import { AlertInfo } from "./styles/Alert";
-import { CrossSvg, SearchSvg, SpinSvg } from "./svg/index";
+import { ParagraphLoading } from "../loading/components/ParagraphLoading";
+import { AlertInfo } from "../styles/Alert";
+import { CrossSvg, SearchSvg, SpinSvg } from "../svg/index";
 
 type SearchbarProps = {
   posts: PostMeta[];

@@ -1,7 +1,7 @@
 import { createMetaData } from "@functions";
 import { LangProps, LayoutProps } from "@interfaces/global.interface";
 import { Inter } from "next/font/google";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/navigation/Navbar";
 import "./../globals.css";
 import { getDictionary } from "./dictionaries";
 
