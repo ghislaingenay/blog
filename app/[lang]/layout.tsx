@@ -1,5 +1,5 @@
 import { createMetaData } from "@functions";
-import { LangProps, LayoutProps } from "@interfaces/global.interface";
+import { LangProps, Language, LayoutProps } from "@interfaces/global.interface";
 import { Inter } from "next/font/google";
 import Navbar from "../components/navigation/Navbar";
 import "./../globals.css";
@@ -15,9 +15,10 @@ export async function generateMetadata({ params: { lang } }: LangProps) {
   });
 }
 
-// export async function generateStaticParams() {
-//   return [{ lang: Language.ENGLISH }];
-// }
+export async function generateStaticParams() {
+  if (process.env.NODE_ENV !== "production") return [];
+  return [{ lang: Language.ENGLISH }];
+}
 
 export default async function RootLayout({
   children,
