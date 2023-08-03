@@ -8,46 +8,18 @@ import {
 } from "@constants/nav-menu";
 import { checkSocialType, matchPath } from "@functions";
 import { useWindowSize } from "@hooks";
-import {
-  Dictionary,
-  DivProps,
-  Language,
-  LiProps,
-} from "@interfaces/global.interface";
+import { Dictionary, DivProps, Language } from "@interfaces/global.interface";
 import { NavField } from "@interfaces/nav.interface";
 import $ from "jquery";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode, useDeferredValue, useEffect, useState } from "react";
 import { FaArrowLeft, FaBars, FaSearch, FaXing } from "react-icons/fa";
-import { Case, Default, Switch } from "react-if";
+import { Case, Default, Else, If, Switch, Then } from "react-if";
+import { CrossSvg } from "./svg";
 
 const selectColorTextHover = (samePath: boolean) =>
-  samePath ? "text-blue-600 ring-2 ring-blue-600 rounded-xl" : "text-gray-700";
-
-interface NavBannerProps extends LiProps {
-  navField: NavField;
-  currentPath: string;
-}
-
-const NavBanner = ({ navField, currentPath, ...props }: NavBannerProps) => {
-  const { children, label, link, id } = navField;
-  const haveSamePath = matchPath(link, currentPath);
-  const selectedItemClass = selectColorTextHover(haveSamePath);
-  const isSocial = checkSocialType(navField);
-
-  if (isSocial) return <button id={navField.id}>{children}</button>;
-  return (
-    <li key={id} {...props}>
-      <Link
-        href={link}
-        className={`block pl-3  text-gray-900 text-start md:border-0`}
-      >
-        <p className={`${selectedItemClass} m-0 p-0`}>{label}</p>
-      </Link>
-    </li>
-  );
-};
+  samePath ? "text-blue-600 rounded-xl" : "text-gray-700";
 
 interface NavIconProps extends DivProps {
   navField: NavField;
@@ -111,7 +83,7 @@ const LineScroll = ({
 }) => (
   <div
     className={`fixed ${
-      top ? "z-10" : "top-[4rem] z-10"
+      top ? "z-0" : "top-[4rem] z-10"
     } left-0 w-full h-1 scroll-smooth`}
   >
     <div className="h-full bg-black z-[-10]" style={{ width: `${value}%` }} />
@@ -122,36 +94,52 @@ type NavbarProps = {
   dict: Dictionary;
 };
 
+const langToPath = (lang: Language | string, path: string) =>
+  `/${lang}/${path}`;
+
 export default function Navbar({ dict }: NavbarProps) {
   const pathname = usePathname() as string;
-  const PATH_NAME_WITHOUT_NAV = ["/signout", "/signin", "/signup"];
   const { language: lang } = dict;
+  const PATH_NAME_WITHOUT_NAV = [
+    langToPath(lang, "signout"),
+    langToPath(lang, "signin"),
+    langToPath(lang, "signup"),
+  ];
 
-  const shouldShowGlobalNavbar = !pathname.startsWith(`/${lang}/posts`);
-  const isGlobalNav = useDeferredValue(shouldShowGlobalNavbar);
-
-  const shouldNotShowNav = PATH_NAME_WITHOUT_NAV.includes(pathname);
-  const noNav = useDeferredValue(shouldNotShowNav);
+  const isGlobalNav = useDeferredValue(
+    !pathname.startsWith(langToPath(lang, "posts"))
+  );
+  const noNav = useDeferredValue(PATH_NAME_WITHOUT_NAV.includes(pathname));
 
   const isMobile = useWindowSize()[0] < 1024;
 
   const [articleCompletion, setArticleCompletion] = useState(0);
   const percentage = useDeferredValue(articleCompletion);
 
-  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+  const [isSideBarOpen, setIsSideBarOpen] = useState<boolean | "closing">(
+    false
+  );
   const openedSideBar = useDeferredValue(isSideBarOpen);
-  const hiddenClass = !openedSideBar ? "hidden" : "block";
 
-  const [firstLoad, setFirstLoad] = useState(true);
+  const animationSideBar =
+    openedSideBar === "closing"
+      ? "animate-fade-down animate-reverse animate-duration-400"
+      : openedSideBar
+      ? "animate-flip-down"
+      : "hidden";
+
+  useEffect(() => {
+    if (openedSideBar === "closing") {
+      setTimeout(() => {
+        setIsSideBarOpen(false);
+      }, 800);
+    }
+  }, [openedSideBar]);
 
   const { navMenu } = dict;
 
   const ICON_SIDE_BAR_ANIMATION_CLASS =
-    "animate-rotate-x animate-ease-in-out animate-once animate-duration-300";
-
-  useEffect(() => {
-    setFirstLoad(false);
-  }, []);
+    "animate-rotate-x animate-ease-in-out animate-once";
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -169,9 +157,17 @@ export default function Navbar({ dict }: NavbarProps) {
   }, [isMobile]);
 
   const iconSideBarMobile = openedSideBar ? (
-    <FaXing className={`${ICON_CLASS_NAV} ${ICON_SIDE_BAR_ANIMATION_CLASS}`} />
+    <FaXing
+      aria-hidden="true"
+      id="icon-switch"
+      className={`${ICON_CLASS_NAV} ${ICON_SIDE_BAR_ANIMATION_CLASS}`}
+    />
   ) : (
-    <FaBars className={`${ICON_CLASS_NAV} ${ICON_SIDE_BAR_ANIMATION_CLASS}`} />
+    <FaBars
+      aria-hidden="true"
+      id="icon-switch"
+      className={`${ICON_CLASS_NAV} ${ICON_SIDE_BAR_ANIMATION_CLASS}`}
+    />
   );
 
   const [hasReachedText, setHasReachedText] = useState(false);
@@ -234,31 +230,41 @@ export default function Navbar({ dict }: NavbarProps) {
     children: <FaSearch className={`${ICON_CLASS_NAV} text-gray-700`} />,
   };
 
+  const searchBarClass = isMobile
+    ? "absolute -translate-x-1/2 -translate-y-1/2"
+    : "absolute -translate-y-1/2";
+
   const queryElement =
     pathname === "/en" ? (
-      <button
-        onClick={() => $("div#search-modal").removeClass("hidden")}
-        type="button"
-        key={querySection.id}
-      >
-        <NavIcon
-          navField={querySection}
-          currentPath={pathname}
-          onClick={() => setIsSideBarOpen(false)}
-        />
-      </button>
+      <div className="relative">
+        <button
+          onClick={() => $("div#search-modal").removeClass("hidden")}
+          type="button"
+          className={searchBarClass}
+          key={querySection.id}
+        >
+          <NavIcon
+            navField={querySection}
+            currentPath={pathname}
+            onClick={() => setIsSideBarOpen(false)}
+          />
+        </button>
+      </div>
     ) : (
       <></>
     );
 
-  const mainElementsWithQuery = [...mainNavElements, ...[queryElement]];
+  // const mainElementsWithQuery = [...mainNavElements, ...[queryElement]];
 
   const mainNavElementsGlobal = isMobile
-    ? mainElementsWithQuery
+    ? // ? mainElementsWithQuery
+      queryElement
     : [...mainNavElements, ...pageNavElements, ...[queryElement]];
 
   const isTopNav = hasReachedText ? { top: false } : { top: true };
 
+  const [firstLoad, setFirstLoad] = useState(true);
+  useEffect(() => setFirstLoad(false), []);
   if (firstLoad)
     return (
       <Nav>
@@ -273,65 +279,76 @@ export default function Navbar({ dict }: NavbarProps) {
       <Case condition={isGlobalNav}>
         <Nav>
           <button
+            id="sidebar-switch"
             type="button"
             className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-700 rounded-lg lg:hidden hover:bg-slate-300 hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-gray-200"
-            onClick={() => setIsSideBarOpen((prevValue) => !prevValue)}
+            onClick={() => setIsSideBarOpen(true)}
           >
             {iconSideBarMobile}
           </button>
           <div className="flex items-center">{mainNavElementsGlobal}</div>
 
-          {isMobile ? (
-            <>
-              <div
-                className={`${hiddenClass} w-full lg:block lg:w-auto absolute lg:static text-end lg:text-center right-0 top-12`}
-              >
-                <ul className="flex flex-col sm:w-[97%] sm:mx-auto font-medium mt-4 rounded-lg bg-gray-50 lg:flex-row lg:space-x-8 lg:mt-0 lg:border-0 lg:bg-transparent dark:bg-gray-800 lg:dark:bg-transparent dark:border-gray-700">
-                  {[...pageNavSection(navMenu, language as Language)].map(
-                    (navField) => {
-                      return (
-                        <div key={navField.id}>
-                          <div className="my-0 md:my-2 ps-0 md:ps-[1.5%]">
-                            <NavBanner
-                              className=" hover:bg-gray-200 max-w-[97%] py-2 rounded-lg"
-                              onClick={() => setIsSideBarOpen(false)}
-                              currentPath={pathname}
-                              navField={navField}
-                            />
-                          </div>
-                          <div className="border border-spacing-1 border-gray-200 max-w-[97%] border-opacity-0.5 mx-auto" />
-                        </div>
+          <If condition={isMobile}>
+            <Then>
+              <>
+                <div
+                  id="drawer-navigation"
+                  className={`${animationSideBar} rounded-xl w-full left-0 bg-zinc-200 border border-gray-700 shadow-2xl absolute top-[0.5rem] max-h-fit z-90`}
+                >
+                  <div className="flex justify-between py-5 px-10">
+                    <h3 className="font-bold">MENU</h3>
+                    <button onClick={() => setIsSideBarOpen("closing")}>
+                      <CrossSvg />
+                    </button>
+                  </div>
+                  <ul className="list-inside list-none">
+                    {[
+                      ...mainNavSection(navMenu, language as Language),
+                      ...pageNavSection(navMenu, language as Language),
+                    ].map((navElement) => {
+                      const { id, label, link } = navElement;
+
+                      const colorStyleClass = selectColorTextHover(
+                        matchPath(link, pathname)
                       );
-                    }
-                  )}
-                  <div className="grid grid-cols-6 sm:grid-cols-8 gap-2">
-                    {socialMediaNavSection.map((navField) => {
                       return (
-                        <div
-                          key={navField.id}
-                          className="col-span-1 self-center"
+                        <Link
+                          key={id}
+                          href={link}
+                          onClick={() => setIsSideBarOpen(false)}
                         >
-                          <NavIcon
-                            navField={navField}
-                            currentPath={pathname}
-                            onClick={() => setIsSideBarOpen(false)}
-                          />
-                        </div>
+                          <li
+                            className={`${colorStyleClass} py-2 px-10 border border-x-0 border-t-0 border-b-gray-200 last:border-b-0 first:border-t-2 first:border-t-stone-100 hover:bg-slate-300 my-1 [&:not(:last-child)]:hover:my-1 hover:last:mt-1 hover:last:rounded-b-xl`}
+                          >
+                            <span className="font-bold">{label}</span>
+                          </li>
+                        </Link>
                       );
                     })}
-                  </div>
-                </ul>
-              </div>
-            </>
-          ) : (
-            <>
+                    <li className={`py-2 px-10`}>
+                      <div className="grid grid-cols-4">
+                        {socialMediaNavSectionElements.map((element) => {
+                          const { id } = element.props.navField;
+                          return (
+                            <div key={id} className="col-span-1">
+                              {element}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </>
+            </Then>
+            <Else>
               <div className="flex items-center">
                 {socialMediaNavSectionElements}
               </div>
-            </>
-          )}
+            </Else>
+          </If>
         </Nav>
-        <LineScroll value={percentage} />
+        {!openedSideBar && <LineScroll value={percentage} />}
       </Case>
       <Case condition={!isGlobalNav}>
         <div
