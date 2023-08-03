@@ -40,7 +40,7 @@ export const ClipboardCode = ({ children }: ClipboardProps) => {
 
   if (!mounted) return <ParagraphLoading />;
   return (
-    <div className="relative -z-[1]" role="button">
+    <div className="relative" role="button">
       <button
         className="absolute top-10 right-10 focus:outline-none p-1 active:outline-none hidden md:block"
         type="button"

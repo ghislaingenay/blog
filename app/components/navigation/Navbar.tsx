@@ -252,8 +252,8 @@ export default function Navbar({ dict }: NavbarProps) {
             </div>
           </Else>
         </If>
+        {!openedSideBar && <LineScroll />}
       </Nav>
-      {!openedSideBar && <LineScroll />}
     </>
   );
 }
