@@ -1,18 +1,21 @@
 import { Tag } from "@components/Tag";
 import { REVALIDATION_PERIOD } from "@constants/global.const";
 import { createMetaData } from "@functions";
+import { Language } from "@interfaces/global.interface";
 import { getPostByName, getPostsMeta } from "@lib-api/post-api";
 import "highlight.js/styles/github.css"; //a11y-light
 import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { FaCalendarDay, FaClock } from "react-icons/fa";
+import { getDictionary } from "../../dictionaries";
 
 export const revalidate = REVALIDATION_PERIOD;
 
 export interface PostProps {
   params: {
     postId: string;
+    lang: Language;
   };
 }
 
@@ -36,7 +39,11 @@ export async function generateMetadata({
   return createMetaData({ title, description, keywords });
 }
 
-export default async function Post({ params: { postId } }: PostProps) {
+export default async function Post({ params: { postId, lang } }: PostProps) {
+  const dict = await getDictionary(lang);
+  const {
+    postIdPage: { relatedArticles },
+  } = dict.appDirectory;
   const post = await getPostByName(`${postId}.mdx`); //deduped
   if (!post) notFound();
   const { meta, content } = post;
@@ -51,10 +58,7 @@ export default async function Post({ params: { postId } }: PostProps) {
 
   return (
     <div className="md:w-7/12 mx-auto">
-      <div className="overflow-hidden">
-        <div className="absolute top-[-10%] -left-[0%] box-content lg:left-[-5%] h-[14rem] w-full rounded-br-full bg-blue-500 bg-gradient-to-b from-orange-400  to-orange-300"></div>
-      </div>
-      <div className="h-48" />
+      <div className="h-[10rem] w-full bg-gradient-radial blur roounded-full from-slate-200 to-bg-transparent mb-10" />
       <h1
         className="text-center text-xl sm:text-2xl md:text-3xl m-0"
         id="title"
@@ -82,7 +86,7 @@ export default async function Post({ params: { postId } }: PostProps) {
       <article>{content}</article>
       <hr className="my-4" />
       <section>
-        <h3 className="mt-0">Related</h3>
+        <h3 className="mt-0">{relatedArticles}</h3>
         <div className="flex flex-row gap-4">{tagList}</div>
       </section>
     </div>

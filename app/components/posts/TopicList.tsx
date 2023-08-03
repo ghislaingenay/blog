@@ -1,6 +1,6 @@
 "use client";
 
-import { DivProps, PostTopic } from "@interfaces/global.interface";
+import { Dictionary, PostTopic } from "@interfaces/global.interface";
 import $ from "jquery";
 import { useCallback, useEffect, useState } from "react";
 import { FaChartBar, FaCode, FaTags, FaUser } from "react-icons/fa";
@@ -8,20 +8,15 @@ import { Tag } from "../Tag";
 
 type TopicListProps = {
   topics: PostTopicSearch[];
+  dict: Dictionary;
 };
-
-interface TopicDivProps extends DivProps {
-  children?: React.ReactNode;
-  className: string;
-  topic: string;
-}
 
 interface LiComponentProps {
   name: PostTopic;
   count: number;
 }
 
-export const TopicList = ({ topics }: TopicListProps) => {
+export const TopicList = ({ topics, dict }: TopicListProps) => {
   const addSpaceToTopicName = (name: string) => name.replaceAll("_", " ");
   const addNameStrToTopicName = (topicName: string) => `name-${topicName}`;
   const removeNameStrToTopicName = (topicName: string) =>
@@ -149,7 +144,7 @@ export const TopicList = ({ topics }: TopicListProps) => {
       {/* --- Large screen --- */}
       <div className="hidden lg:block w-10/12 mx-auto">
         <h3 className="text-center border border-b-gray border-t-gray border-l-0 border-r-0 py-1 mx-auto">
-          MAIN TOPICS
+          {dict.components.topicList.mainTopics}
         </h3>
         <div className="list-none" role="list">
           {topicList.map(({ name, count, id }) => {

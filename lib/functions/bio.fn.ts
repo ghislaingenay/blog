@@ -52,7 +52,7 @@ export const getFormattedPeriodDate = (
   const DATE_FORMAT = "MM-YYYY";
   const formattedStartDate = dayjs(startDate).format(DATE_FORMAT);
   const formattedEndDate = stillWorking
-    ? "PRESENT"
+    ? "..."
     : dayjs(endDate).format(DATE_FORMAT);
 
   if (formattedStartDate === formattedEndDate) return formattedStartDate;

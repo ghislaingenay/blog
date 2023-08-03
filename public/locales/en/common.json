@@ -1,0 +1,195 @@
+{
+  "language": "en",
+  "mainMetaData": {
+    "title": "Ghislain Genay - Software Engineer",
+    "description": "This blog explores the world of software engineering. From frontend (NextJS, ReactJS, HTML, CSS, Javascript, UI Framework) to backend and database 5SQL and NoSQL, from design to deployment, from code to production. Everything is covered. The main goal is to share my knowledge and experience with the community."
+  },
+  "postTopics": {
+    "DATA_SCIENCE": "DATA SCIENCE",
+    "WEB_DEVELOPMENT": "WEB DEVELOPMENT",
+    "OTHERS": "OTHERS",
+    "PERSONAL": "PERSONAL"
+  },
+  "navMenu": {
+    "home": "home",
+    "contact": "contact",
+    "bio": "bio",
+    "search": "search"
+  },
+  "globalText": {
+    "laodingDot": "Loading...",
+    "SrOnlyInfo": "Information",
+    "errorAltImage": "404 image. Image by pch.vector on Freepik",
+    "returnToHome": "Return to Home"
+  },
+  "appDirectory": {
+    "homePage": {
+      "notFoundSection": {
+        "title": "Sorry, the requested page does not exist.",
+        "message": "Please check the URL or go back to the homepage."
+      },
+      "alertNoPosts": {
+        "title": "Sorry",
+        "description": "No posts available"
+      }
+    },
+    "bioPage": {
+      "jobTitle": "Full Stack Developer",
+      "summary": "After working for 2 years as an R&D Engineer, I decided to switch career and become a programmer. I am currently working as a full stack developer where I acquired problem solving skills and clean code philosophy. I am currently working during my free time on my web app (personal blog with NextJS / Markdown) and data science skills.",
+      "experiences": {
+        "HAUP": {
+          "companyName": "HAUPCAR",
+          "jobTitle": "Associate Full Stack Developer",
+          "missions": {
+            "scalableWebApp": "Developing scalable <strong>full-stack web applications</strong> using <em> JavaScript / TypeScript / HTML / CSS / ReactJS / AntDesign / NextJS / NodeJS / SQL (MySQL) and NoSQL (MongoDB) </em>",
+            "jira": "<strong>Collaboration</strong> with other developers in complex projects using Agile Methodologies and <strong>Git version control</strong> <em>(JIRA, Bitbucket)</em>",
+            "cmsFeatures": "Creation of new features in Control Management System application using <strong>RESTful APIs</strong> <em>(e.g. message, email templates, reservation, logging system)</em>",
+            "startUp": "Working in a <strong>start-up</strong> environment with a small team of developers",
+            "dataAnalysis": "Carried out <strong>data scraping</strong> and <strong>machine learning</strong> projects (recover data from website and verify car pictures with AI models)"
+          },
+          "country": "Thailand",
+          "city": "Bangkok"
+        },
+        "HAIKU": {
+          "companyName": "HAIKU ACADEMY",
+          "jobTitle": "Full Stack Developer - Bootcamp",
+          "city": "Koh Phangan",
+          "country": "Thailand",
+          "missions": {
+            "learning": "7 weeks (280 hours) of intensive <strong>training on full-stack JavaScript development</strong> (front-end, back-end, database).",
+            "developedWebApp": "Developed web applications using technologies including <em>JavaScript / CSS3 / Bootstrap / HTML5 / Handlebars / Node.js / Express / MongoDB / ReactJS / Git</em>"
+          }
+        }
+      },
+      "sectionName": {
+        "experiences": "Experiences",
+        "personalProjects": "Personal Projects",
+        "courses": "Courses / Certifications",
+        "skills": "Skills",
+        "languages": "Languages",
+        "interests": "Interests"
+      }
+    },
+    "contactMePage": {
+      "constructionTitle": "On construction ...",
+      "constructionMessage": "This page is in preparation. Please come back later."
+    },
+    "postIdPage": {
+      "relatedArticles": "Related articles",
+      "notFoundSection": {
+        "title": "Sorry, the requested post does not exist.",
+        "message": "Please check the URL or go back to the homepage."
+      },
+      "alertNoPosts": {
+        "title": "Sorry",
+        "description": "No posts available"
+      }
+    },
+    "tagPage": {
+      "notFoundSection": {
+        "title": "Sorry, the requested tag does not exist.",
+        "message": "Please check the URL or go back to the homepage."
+      },
+      "alertNoPosts": {
+        "title": "Sorry",
+        "description": "No posts available for"
+      }
+    }
+  },
+  "components": {
+    "searchBar": {
+      "placeholder": "Search by post title or description ...",
+      "srOnlyModal": "Close modal",
+      "loadingText": "Loading...",
+      "findPosts": "Finding posts...",
+      "alertInfo": {
+        "type": "info",
+        "title": "No posts found!",
+        "description": "Try to modify your search but obtain what you are looking for..."
+      }
+    },
+    "topicList": {
+      "mainTopics": "Main topics"
+    }
+  },
+  "bioConstants": {
+    "itSkills": {
+      "frontend": "Front End",
+      "backend": "Backend",
+      "databases": "Databases",
+      "concepts": "Concepts",
+      "softwares": "Softwares",
+      "devOps": "DevOps",
+      "dataScience": "Data science"
+    },
+    "softSkills": {
+      "teamwork": "Teamwork",
+      "problemSolving": "Problem solving",
+      "adaptability": "Adaptability",
+      "creativity": "Creativity",
+      "workEthic": "Work ethic",
+      "interpersonalSkills": "Interpersonal Skills",
+      "timeManagement": "Time management",
+      "attentionToDetail": "Attention to detail",
+      "flexibility": "Flexibility",
+      "selfMotivation": "Self motivation",
+      "conflictResolution": "Conflict resolution",
+      "openMindedness": "Open-mindedness"
+    },
+    "interests": {
+      "coding": "Coding",
+      "hiking": "Hiking",
+      "photoshop": "Photoshop",
+      "languages": "Languages"
+    },
+    "languages": {
+      "english": "English",
+      "french": "French",
+      "spanish": "Spanish",
+      "chinese": "Chinese",
+      "japanese": "Japanese",
+      "thai": "Thai"
+    },
+    "globalText": {
+      "achievements": "Achievements/Tasks",
+      "skills": "Skills",
+      "keyResults": "Key Results"
+    },
+    "projects": {
+      "REDIFOOD": {
+        "title": "REDIFOOD",
+        "keyResults": {
+          "properlyDeployed": "Successfully deployed a full-fledged food POS system on Digital Ocean using Docker and Kubernetes",
+          "useNextJs": "Utilized NextJS and Ant Design to create intuitive user interface",
+          "cdCiPipeline": "Implement a complete and functional CI/CD pipeline using GitHub Actions",
+          "useGit": "Utilized Git version control and GitHub ",
+          "problemSolving": "Demonstrated strong problem-solving skills and adaptability",
+          "auth": "Implemented authentication and authorization mechanisms using JWT cookies",
+          "testing": "Tested the application using Jest and React Testing Library",
+          "api": "Developed robust APIs using NestJS, ensuring smooth communication between frontend and backend components",
+          "cleanCode": "Followed the clean code principle by sharing code using git submodules",
+          "workflow": "Implemented web application workflow from testing to deployment online",
+          "codeSharing": "Shared code between frontend and backend components using git submodules"
+        }
+      },
+      "FOOD_BACKEND": {
+        "title": "BACKEND - FOOD POS SYSTEM",
+        "keyResults": {
+          "robustApi": "Developed a robust backend API using Django's REST framework",
+          "orm": "Utilized Django's ORM to interact with the database",
+          "auth": "Successfully implemented user authentication and registration functionalities with JWT tokens",
+          "useGit": "Utilized Git version control and GitHub "
+        }
+      },
+      "BLOG": {
+        "title": "BLOG - MY PORTFOLIO",
+        "keyResults": {
+          "useNextJs": "Utilized NextJS's server-side rendering to improve SEO",
+          "ui": "Utilized TailwindCSS to create a responsive and mobile-first design",
+          "i18n": "Implemented internationalization to the website",
+          "newFeature": "Future feature: add a backend using Python / Django and authentication"
+        }
+      }
+    }
+  }
+}

@@ -1,35 +1,46 @@
+import { Dictionary, Language } from "@interfaces/global.interface";
 import { NavField } from "@interfaces/nav.interface";
 import { FaEnvelope, FaGithub, FaHome, FaLinkedin } from "react-icons/fa";
 
 const ICON_ANIMATION = "hover:animate-wiggle hover:animate-infinite";
 export const ICON_CLASS_NAV = "text-2xl hover:opacity-70";
+type NavMenuDict = Dictionary["navMenu"];
 // left section of the navbar
-export const mainNavSection: NavField[] = [
-  {
-    id: "home",
-    type: "main",
-    children: (
-      <span className="my-auto p-0">
-        <FaHome className={`${ICON_CLASS_NAV} ${ICON_ANIMATION}`} />
-      </span>
-    ),
-    link: "/",
-    label: "HOME",
-  },
-  {
-    id: "contact",
-    type: "main",
-    children: (
-      <span className="my-auto p-0">
-        <FaEnvelope className={`${ICON_CLASS_NAV} ${ICON_ANIMATION}`} />
-      </span>
-    ),
-    link: "/contact-me",
-    label: "CONTACT",
-  },
-];
+export const mainNavSection = (
+  navDict: NavMenuDict,
+  lang: Language
+): NavField[] => {
+  const { home, contact } = navDict;
+  return [
+    {
+      id: "home",
+      type: "main",
+      children: (
+        <span className="my-auto p-0">
+          <FaHome className={`${ICON_CLASS_NAV} ${ICON_ANIMATION}`} />
+        </span>
+      ),
+      link: `/${lang}`,
+      label: home?.toUpperCase(),
+    },
+    {
+      id: "contact",
+      type: "main",
+      children: (
+        <span className="my-auto p-0">
+          <FaEnvelope className={`${ICON_CLASS_NAV} ${ICON_ANIMATION}`} />
+        </span>
+      ),
+      link: `/${lang}/contact-me`,
+      label: contact?.toUpperCase(),
+    },
+  ];
+};
 
-export const pageNavSection: NavField[] = [
+export const pageNavSection = (
+  navDict: NavMenuDict,
+  lang: Language
+): NavField[] => [
   {
     id: "bio",
     type: "page",
@@ -40,8 +51,8 @@ export const pageNavSection: NavField[] = [
         BIO
       </p>
     ),
-    link: "/bio",
-    label: "BIO",
+    link: `/${lang}/bio`,
+    label: navDict.bio?.toUpperCase(),
   },
 ];
 

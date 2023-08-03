@@ -1,7 +1,12 @@
 import GhislainGenay from "@public/ghislain.jpg";
 import Image from "next/image";
 
-export const UserInforPicture = () => {
+type UserInfoPictureProps = {
+  fullName: string;
+  job: string;
+};
+
+export const UserInfoPicture = ({ fullName, job }: UserInfoPictureProps) => {
   return (
     <div className="flex flex-row justify-left items-center gap-2  basis-[65%]">
       <div className="flex flex-col justify-center items-center ">
@@ -11,16 +16,14 @@ export const UserInforPicture = () => {
           height={50}
           layout="fixed"
           className="rounded-full w-10 h-10 object-cover align-baseline "
-          alt={`Ghislain Genay - Full Stack developer`}
+          alt={fullName}
         />
       </div>
       <div className="flex flex-col items-center">
         <span className="flex flex-row flex-1 text-sm font-bold">
-          Ghislain Genay
+          {fullName}
         </span>
-        <span className="flex flex-1 flex-row text-xs italic">
-          Full Stack Developer
-        </span>
+        <span className="flex flex-1 flex-row text-xs italic">{job}</span>
       </div>
     </div>
   );

@@ -1,8 +1,12 @@
+import { Language } from "@interfaces/global.interface";
 import { NavField } from "@interfaces/nav.interface";
 
 export const matchPath = (link: string, currentPath: string) => {
-  if (link === currentPath && link === "/en") return true;
-  if (link !== "/en" && new RegExp(link, "gi").test(currentPath)) return true;
+  const languages = Object.values(Language).map((lang) => `/${lang}`);
+  if (link === "") return false;
+  if (link === currentPath && languages.includes(link)) return true;
+  if (!languages.includes(link) && new RegExp(link, "gi").test(currentPath))
+    return true;
   return false;
 };
 
