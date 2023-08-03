@@ -135,7 +135,7 @@ export default function Navbar({ dict }: NavbarProps) {
   };
 
   const searchBarClass = isMobile
-    ? "absolute -translate-x-1/2 -translate-y-1/2"
+    ? "absolute -translate-x-1/2 -translate-y-1/2 pr-5 lg:pr-0"
     : "absolute -translate-y-1/2";
 
   const queryElement =
