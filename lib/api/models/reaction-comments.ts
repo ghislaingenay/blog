@@ -62,9 +62,11 @@ reactionCommentSchema.statics.build = (attrs: ReactionCommentAttrs) => {
   return new ReactionComment(attrs);
 };
 
-const ReactionComment = mongoose.model<
-  ReactionCommentDoc,
-  ReactionCommentModel
->("reaction-comments", reactionCommentSchema);
+const ReactionComment =
+  mongoose.models.reactioncomments ??
+  mongoose.model<ReactionCommentDoc, ReactionCommentModel>(
+    "reactioncomments",
+    reactionCommentSchema
+  );
 
 export { ReactionComment };

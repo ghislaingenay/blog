@@ -87,10 +87,9 @@ commentSchema.statics.build = (attrs: CommentAttrs) => {
   return new Comment(attrs);
 };
 
-const Comment = mongoose.model<CommentDoc, CommentModel>(
-  "comments",
-  commentSchema
-);
+const Comment =
+  mongoose.models.comments ??
+  mongoose.model<CommentDoc, CommentModel>("comments", commentSchema);
 
 export { Comment };
 

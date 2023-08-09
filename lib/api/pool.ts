@@ -19,5 +19,5 @@ export class PoolMongo {
   }
 }
 
-const clientPromise = new PoolMongo().connect();
+const clientPromise = new PoolMongo();
 export default clientPromise;
