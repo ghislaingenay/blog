@@ -85,6 +85,23 @@
       "alertNoPosts": {
         "title": "Sorry",
         "description": "No posts available"
+      },
+      "comments": {
+        "needAuthentication": "You need to be authenticated...",
+        "needGoogleAuthentication": "You need to be authenticated with Google...",
+        "alertNoComments": {
+          "title": "",
+          "description": "No comments found for this posts"
+        },
+        "reactions": {
+          "like": "like",
+          "dislike": "dislike",
+          "love": "love",
+          "haha": "haha",
+          "wow": "wow",
+          "sad": "sad",
+          "angry": "angry"
+        }
       }
     },
     "tagPage": {

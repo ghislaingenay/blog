@@ -1,4 +1,5 @@
 import { Tag } from "@components/Tag";
+import Comments from "@components/posts/comments/Comments";
 import { REVALIDATION_PERIOD } from "@constants/global.const";
 import { createMetaData } from "@functions";
 import { Language } from "@interfaces/global.interface";
@@ -88,6 +89,9 @@ export default async function Post({ params: { postId, lang } }: PostProps) {
       <section>
         <h3 className="mt-0">{relatedArticles}</h3>
         <div className="flex flex-row gap-4">{tagList}</div>
+      </section>
+      <section>
+        <Comments {...{ postId, lang }} />
       </section>
     </div>
   );

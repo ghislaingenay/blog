@@ -1,10 +1,5 @@
 import { handleAuth, handleLogout } from "@auth0/nextjs-auth0";
 
-const domain =
-  process.env.NODE_ENV === "production"
-    ? process.env.WEBSITE_URL
-    : "http://localhost:3000/";
-
 export const GET = handleAuth({
   // login: handleLogin({
   //   authorizationParams: {
@@ -16,6 +11,6 @@ export const GET = handleAuth({
   //   redirectUri: `${domain}/api/auth/callback`,
   // }),
   logout: handleLogout({
-    returnTo: domain,
+    returnTo: process.env.WEBSITE_URL,
   }),
 });
