@@ -16,4 +16,4 @@ export async function GET(request: NextRequest) {
   return NextResponse.json({ revalidated: true, now: Date.now() });
 }
 // revalidatePath will revalidate all segments under a dynamic route segment.
-// For example, if you have a dynamic segment /product/[id] and you call
+// For example, if you have a dynamic segment /post/[id] and you call
