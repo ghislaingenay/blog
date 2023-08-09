@@ -71,7 +71,7 @@ export default function Searchbar({ posts, dict }: SearchbarProps) {
   }, [params]);
 
   useEffect(() => {
-    $("input#default-search").on("search", (e) => {
+    $("input#default-search").on("search", () => {
       setQuery("");
       setParams({ ...params, query: "" });
     });
