@@ -1,7 +1,9 @@
 "use client";
 
+import { useUser } from "@auth0/nextjs-auth0/client";
 import {
   ICON_CLASS_NAV,
+  authNavSection,
   mainNavSection,
   pageNavSection,
   socialMediaNavSection,
@@ -36,8 +38,9 @@ const langToPath = (lang: Language | string, path: string) =>
   `/${lang}/${path}`;
 
 export default function Navbar({ dict }: NavbarProps) {
+  const { user } = useUser();
   const pathname = usePathname() as string;
-  const { language: lang } = dict;
+  const { language: lang, navMenu } = dict;
   const PATH_NAME_WITHOUT_NAV = [
     langToPath(lang, "signout"),
     langToPath(lang, "signin"),
@@ -68,8 +71,6 @@ export default function Navbar({ dict }: NavbarProps) {
       }, 800);
     }
   }, [openedSideBar]);
-
-  const { navMenu } = dict;
 
   const ICON_SIDE_BAR_ANIMATION_CLASS =
     "animate-rotate-x animate-ease-in-out animate-once";
@@ -126,6 +127,19 @@ export default function Navbar({ dict }: NavbarProps) {
     socialMediaNavSection
   );
 
+  const authNavField = authNavSection(user, navMenu)[0];
+  const authElement = (
+    <div className="relative">
+      <a href={authNavField.link} key={authNavField.id}>
+        <NavIcon
+          navField={authNavField}
+          currentPath={pathname}
+          onClick={() => setIsSideBarOpen(false)}
+        />
+      </a>
+    </div>
+  );
+
   const querySection: NavField = {
     id: "query",
     label: navMenu.search?.toUpperCase(),
@@ -158,12 +172,9 @@ export default function Navbar({ dict }: NavbarProps) {
       <></>
     );
 
-  // const mainElementsWithQuery = [...mainNavElements, ...[queryElement]];
-
   const mainNavElementsGlobal = isMobile
-    ? // ? mainElementsWithQuery
-      queryElement
-    : [...mainNavElements, ...pageNavElements, ...[queryElement]];
+    ? queryElement
+    : [...mainNavElements, ...pageNavElements, authElement, ...[queryElement]];
 
   const [firstLoad, setFirstLoad] = useState(true);
   useEffect(() => setFirstLoad(false), []);
@@ -211,7 +222,7 @@ export default function Navbar({ dict }: NavbarProps) {
                     ...mainNavSection(navMenu, language as Language),
                     ...pageNavSection(navMenu, language as Language),
                   ].map((navElement) => {
-                    const { id, label, link } = navElement;
+                    const { id, label, link, children } = navElement;
 
                     const colorStyleClass = selectColorTextHover(
                       matchPath(link, pathname)
@@ -230,6 +241,23 @@ export default function Navbar({ dict }: NavbarProps) {
                       </Link>
                     );
                   })}
+                  {authNavSection(user, navMenu).map((navElement) => {
+                    const { id, label, link, children } = navElement;
+
+                    const colorStyleClass = selectColorTextHover(
+                      matchPath(link, pathname)
+                    );
+                    return (
+                      <a key={id} href={link}>
+                        <li
+                          className={`${colorStyleClass} py-2 px-10 border border-x-0 border-t-0 border-b-gray-200 last:border-b-0 first:border-t-2 first:border-t-stone-100 hover:bg-slate-300 my-1 [&:not(:last-child)]:hover:my-1 hover:last:mt-1 hover:last:rounded-b-xl`}
+                        >
+                          <span className="font-bold">{label}</span>
+                        </li>
+                      </a>
+                    );
+                  })}
+                  <li className={`py-2 px-10`}></li>
                   <li className={`py-2 px-10`}>
                     <div className="grid grid-cols-4">
                       {socialMediaNavSectionElements.map((element) => {

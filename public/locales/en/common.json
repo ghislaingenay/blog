@@ -14,7 +14,9 @@
     "home": "home",
     "contact": "contact",
     "bio": "bio",
-    "search": "search"
+    "search": "search",
+    "login": "login",
+    "logout": "logout"
   },
   "globalText": {
     "laodingDot": "Loading...",

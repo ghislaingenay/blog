@@ -1,6 +1,13 @@
 import { Dictionary, Language } from "@interfaces/global.interface";
 import { NavField } from "@interfaces/nav.interface";
-import { FaEnvelope, FaGithub, FaHome, FaLinkedin } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaGithub,
+  FaHome,
+  FaLinkedin,
+  FaSignInAlt,
+  FaSignOutAlt,
+} from "react-icons/fa";
 
 const ICON_ANIMATION = "hover:animate-wiggle hover:animate-infinite";
 export const ICON_CLASS_NAV = "text-2xl hover:opacity-70";
@@ -90,3 +97,31 @@ export const socialMediaNavSection: NavField[] = [
     label: "LINKEDIN",
   },
 ];
+
+export const authNavSection = (
+  user: unknown,
+  navMenu: Dictionary["navMenu"]
+): NavField[] => {
+  const authIcon = user ? (
+    <FaSignOutAlt
+      className={`${ICON_CLASS_NAV} ${ICON_ANIMATION} rotate-180`}
+    />
+  ) : (
+    <FaSignInAlt
+      className={`${ICON_CLASS_NAV} ${ICON_ANIMATION} text-green-300`}
+    />
+  );
+  const authTitle = user
+    ? navMenu.logout.toUpperCase()
+    : navMenu.login.toUpperCase();
+  const authRedirection = user ? "api/auth/logout" : "api/auth/login";
+  return [
+    {
+      id: "auth",
+      label: authTitle,
+      link: authRedirection,
+      type: "main",
+      children: authIcon,
+    },
+  ];
+};
