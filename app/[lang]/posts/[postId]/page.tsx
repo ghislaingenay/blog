@@ -20,9 +20,9 @@ export interface PostProps {
 }
 
 // inside fetch('', {next: {revalidate: 60}})
-export async function generateStaticParams() {
+export async function generateStaticParams({ params: { lang } }: PostProps) {
   if (process.env.NODE_ENV === "development") return [];
-  const posts = await getPostsMeta();
+  const posts = await getPostsMeta(lang);
   if (!posts) return [];
   return posts.map((post) => ({ postId: post.id }));
 }

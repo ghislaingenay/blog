@@ -72,7 +72,9 @@ export async function getPostByName(
   return postObj;
 }
 ////////////////////////////////////////////////////////////////////////////
-export async function getPostsMeta(): Promise<PostMeta[] | undefined> {
+export async function getPostsMeta(
+  lang: Language
+): Promise<PostMeta[] | undefined> {
   const res = await fetch(
     "https://api.github.com/repos/ghislaingenay/blog-posts/git/trees/master?recursive=1",
     {
@@ -83,7 +85,7 @@ export async function getPostsMeta(): Promise<PostMeta[] | undefined> {
   const repoFileTree: Filetree = await res.json();
 
   const englishFileTreeUrl = repoFileTree.tree.find(
-    (file) => file.path === "en"
+    (file) => file.path === lang
   )?.url;
   if (!englishFileTreeUrl) throw new Error("Failed to fetch posts metadata");
   const englishRes = await fetch(englishFileTreeUrl, {

@@ -11,7 +11,7 @@ export const revalidate = REVALIDATION_PERIOD;
 export default async function Home({ params: { lang } }: LangProps) {
   const dict = await getDictionary(lang);
   const { alertNoPosts } = dict.appDirectory.homePage;
-  const posts = await getPostsMeta();
+  const posts = await getPostsMeta(lang);
   if (!posts) {
     return (
       <AlertInfo

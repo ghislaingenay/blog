@@ -15,9 +15,9 @@ export interface TagProps {
 
 export const revalidate = REVALIDATION_PERIOD;
 
-export async function generateStaticParams() {
+export async function generateStaticParams({ params: { lang } }: TagProps) {
   if (process.env.NODE_ENV === "development") return [];
-  const posts = await getPostsMeta(); //deduped!
+  const posts = await getPostsMeta(lang); //deduped!
   if (!posts) return [];
   const tags = new Set(posts.map((post) => post.tags).flat());
   return Array.from(tags).map((tag) => ({ tag }));
@@ -32,7 +32,7 @@ export default async function TagList({ params: { tag, lang } }: TagProps) {
   const {
     alertNoPosts: { title, description },
   } = dict.appDirectory.tagPage;
-  const posts = await getPostsMeta(); //deduped!
+  const posts = await getPostsMeta(lang); //deduped!
   if (!posts)
     return <AlertInfo title={title} message={`${description} ${tag}`} />;
 
