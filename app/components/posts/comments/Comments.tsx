@@ -1,12 +1,9 @@
-"use server";
 import { AlertInfo } from "@components/styles/Alert";
-import { Divider } from "@components/styles/Divider";
 import { Language } from "@interfaces/global.interface";
 import { getCommentsByPostId } from "@lib-api/comment-api";
 import { notFound } from "next/navigation";
 import { getDictionary } from "../../../[lang]/dictionaries";
 import { CommentCard } from "./CommentCard";
-import { CommentInput } from "./CommentInput";
 
 type CommentsProps = {
   postId: string;
@@ -28,7 +25,6 @@ export default async function Comments({
         <div className="my-3">
           <AlertInfo title={title} message={description} />
         </div>
-        <CommentInput dict={dict} />
       </>
     );
 
@@ -41,8 +37,6 @@ export default async function Comments({
           </li>
         ))}
       </ul>
-      <Divider />
-      <CommentInput dict={dict} />
     </>
   );
 }

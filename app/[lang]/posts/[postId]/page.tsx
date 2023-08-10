@@ -90,6 +90,7 @@ export default async function Post({ params: { postId, lang } }: PostProps) {
         <h3 className="mt-0">{relatedArticles}</h3>
         <div className="flex flex-row gap-4">{tagList}</div>
       </section>
+      <hr className="my-4" />
       <section>
         <h3 className="mt-0">{commentSection}</h3>
         <Comments {...{ postId, lang }} />

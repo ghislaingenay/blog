@@ -21,11 +21,12 @@ export const NavBarPostId = () => {
       ? " animate-fade animate-once animate-duration-300 animate-ease-in animate-normal"
       : "hidden";
 
-  useEffect(() => {}, []);
-
   useEffect(() => {
-    const titleElement = document.getElementById("title") as HTMLHeadingElement;
-    setTitleText(titleElement.innerText);
+    const titleElement = document?.getElementById(
+      "title"
+    ) as HTMLHeadingElement;
+    if (!titleElement) return;
+    setTitleText(titleElement.innerText || "");
     const titleHeight = titleElement.getBoundingClientRect().height + 64 + 100;
     const titleShouldBeVisible = scrollDeferred > titleHeight;
     if (titleShouldBeVisible === textState) return;
