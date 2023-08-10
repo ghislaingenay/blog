@@ -1,5 +1,5 @@
 import { Language } from "@interfaces/global.interface";
-import { Comment, CommentAttrs, CommentDoc } from "@lib-api/models/comments";
+import { Comment, CommentDoc } from "@lib-api/models/comments";
 import { ReactionComment } from "@lib-api/models/reaction-comments";
 import clientPromise from "@lib-api/pool";
 import { NextRequest, NextResponse } from "next/server";
@@ -37,13 +37,13 @@ export async function GET(req: NextRequest, res: NextResponse) {
 }
 
 export async function POST(req: NextRequest, res: NextResponse) {
-  try {
-    const commentBody = req.body as unknown as CommentAttrs;
-    const comment = await Comment.create(commentBody);
-    return { isSuccess: true, data: comment };
-  } catch (err: any) {
-    return { isSuccess: false, errorMessage: err.message };
-  }
+  const data = req.body as unknown as CommentDoc;
+  clientPromise.connect();
+  const comment = await Comment.create(data);
+  return NextResponse.json({
+    data: comment,
+    isSuccess: true,
+  });
 }
 
 // export async function PUT(req: NextRequest, res: NextResponse) {}

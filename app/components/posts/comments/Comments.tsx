@@ -1,3 +1,5 @@
+"use server";
+
 import { AlertInfo } from "@components/styles/Alert";
 import { Language } from "@interfaces/global.interface";
 import { getCommentsByPostId } from "@lib-api/comment-api";

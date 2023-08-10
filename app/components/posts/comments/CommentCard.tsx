@@ -16,7 +16,7 @@ export const CommentCard = ({ comment, dict }: CommentCardProps) => {
     ? dict.appDirectory.postIdPage.comments.commentCard.edited
     : "";
   const formattedDate = `${edited}${getTodayDateDiffString(
-    selectedDate,
+    new Date(selectedDate as string),
     dict.date
   )}`;
   return (

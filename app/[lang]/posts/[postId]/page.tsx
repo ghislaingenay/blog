@@ -1,4 +1,5 @@
 import { Tag } from "@components/Tag";
+import { CommentInput } from "@components/posts/comments/CommentInput";
 import Comments from "@components/posts/comments/Comments";
 import { REVALIDATION_PERIOD } from "@constants/global.const";
 import { createMetaData } from "@functions";
@@ -7,7 +8,7 @@ import { getPostByName, getPostsMeta } from "@lib-api/post-api";
 import "highlight.js/styles/github.css"; //a11y-light
 import { Metadata } from "next";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { FaCalendarDay, FaClock } from "react-icons/fa";
 import { getDictionary } from "../../dictionaries";
 
@@ -94,6 +95,7 @@ export default async function Post({ params: { postId, lang } }: PostProps) {
       <section>
         <h3 className="mt-0">{commentSection}</h3>
         <Comments {...{ postId, lang }} />
+        <CommentInput {...{ dict }} />
       </section>
     </div>
   );
