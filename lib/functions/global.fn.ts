@@ -115,3 +115,11 @@ export const getTodayDateDiffString = (
   const [_, { value, constant }] = time;
   return displayDate(value, constant);
 };
+
+export const getDataForm = <T extends any>(formData: FormData) => {
+  const object: Record<string, string> = {};
+  formData.forEach((value, key) => {
+    object[key] = value.toString();
+  });
+  return object as T;
+};

@@ -10,8 +10,8 @@ export interface CommentAttrs {
   message: string;
   language: Language;
   isEdited?: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date | string;
+  updatedAt: Date | string;
   userPicture?: string;
   name: string;
 }
@@ -21,8 +21,8 @@ export interface CommentDoc extends mongoose.Document {
   postId: string;
   message: string;
   language: Language;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date | string;
+  updatedAt: Date | string;
   userPicture?: string;
   isEdited?: boolean;
   name: string;
