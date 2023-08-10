@@ -22,6 +22,7 @@ const nextConfig = {
   // Optionally, add any other Next.js config below
   reactStrictMode: true,
   images: {
+    domains: ["images.unsplash.com"],
     remotePatterns: [
       {
         protocol: "https",

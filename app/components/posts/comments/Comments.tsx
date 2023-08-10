@@ -1,5 +1,4 @@
 "use server";
-
 import { AlertInfo } from "@components/styles/Alert";
 import { Divider } from "@components/styles/Divider";
 import { Language } from "@interfaces/global.interface";
@@ -14,12 +13,15 @@ type CommentsProps = {
   lang: Language;
 };
 
-export default async function Comments({ postId, lang }: CommentsProps) {
+export default async function Comments({
+  postId,
+  lang,
+}: CommentsProps): Promise<JSX.Element> {
   const dict = await getDictionary(lang);
   const { title, description } =
     dict.appDirectory.postIdPage.comments.alertNoComments;
   const comments = await getCommentsByPostId(postId, lang);
-  if (!comments) return notFound;
+  if (!comments) notFound;
   if (comments!.length === 0)
     return (
       <>
@@ -32,9 +34,9 @@ export default async function Comments({ postId, lang }: CommentsProps) {
 
   return (
     <>
-      <ul className="list-none list-inside">
+      <ul className="list-none list-inside p-0">
         {comments?.map((comment) => (
-          <li key={comment._id}>
+          <li key={comment._id} className="mb-5 p-0">
             <CommentCard comment={comment} dict={dict} />
           </li>
         ))}

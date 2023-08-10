@@ -13,6 +13,7 @@ export interface CommentAttrs {
   createdAt: Date;
   updatedAt: Date;
   userPicture?: string;
+  name: string;
 }
 
 export interface CommentDoc extends mongoose.Document {
@@ -24,6 +25,7 @@ export interface CommentDoc extends mongoose.Document {
   updatedAt: Date;
   userPicture?: string;
   isEdited?: boolean;
+  name: string;
 }
 
 interface CommentModel extends mongoose.Model<CommentDoc> {
@@ -69,6 +71,10 @@ const commentSchema = new mongoose.Schema(
       type: Boolean,
       required: false,
       default: false,
+    },
+    name: {
+      type: String,
+      required: true,
     },
   },
   {

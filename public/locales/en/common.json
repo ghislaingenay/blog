@@ -4,6 +4,54 @@
     "title": "Ghislain Genay - Software Engineer",
     "description": "This blog explores the world of software engineering. From frontend (NextJS, ReactJS, HTML, CSS, Javascript, UI Framework) to backend and database 5SQL and NoSQL, from design to deployment, from code to production. Everything is covered. The main goal is to share my knowledge and experience with the community."
   },
+  "date": {
+    "dateLanguage": "en",
+    "dateFormat": "MMMM d, yyyy",
+    "dateFormatWithHour": "MMMM d, yyyy, h:mm a",
+    "dateFormatWithHourAndMinutes": "MMMM d, yyyy, h:mm:ss a",
+    "days": "days",
+    "since": "since",
+    "ago": "ago",
+    "weeeks": "weeks",
+    "week": "week",
+    "months": "months",
+    "month": "month",
+    "years": "years",
+    "minute": "minute",
+    "minutes": "minutes",
+    "hour": "hour",
+    "hours": "hours",
+    "second": "second",
+    "seconds": "seconds",
+    "day": "day",
+    "dayOfTheWeek": {
+      "monday": "monday",
+      "tuesday": "tuesday",
+      "wednesday": "wednesday",
+      "thursday": "thursday",
+      "friday": "friday",
+      "saturday": "saturday",
+      "sunday": "sunday"
+    },
+    "monthOfTheYear": {
+      "january": "january",
+      "february": "february",
+      "march": "march",
+      "april": "april",
+      "may": "may",
+      "june": "june",
+      "july": "july",
+      "august": "august",
+      "september": "september",
+      "october": "october",
+      "november": "november",
+      "december": "december"
+    },
+    "time": {
+      "am": "AM",
+      "pm": "PM"
+    }
+  },
   "postTopics": {
     "DATA_SCIENCE": "DATA SCIENCE",
     "WEB_DEVELOPMENT": "WEB DEVELOPMENT",
@@ -78,6 +126,7 @@
     },
     "postIdPage": {
       "relatedArticles": "Related articles",
+      "commentSection": "Comments",
       "notFoundSection": {
         "title": "Sorry, the requested post does not exist.",
         "message": "Please check the URL or go back to the homepage."
@@ -92,6 +141,9 @@
         "alertNoComments": {
           "title": "",
           "description": "No comments found for this posts"
+        },
+        "commentCard": {
+          "edited": "edited"
         },
         "reactions": {
           "like": "like",

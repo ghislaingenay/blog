@@ -43,7 +43,7 @@ export async function generateMetadata({
 export default async function Post({ params: { postId, lang } }: PostProps) {
   const dict = await getDictionary(lang);
   const {
-    postIdPage: { relatedArticles },
+    postIdPage: { relatedArticles, commentSection },
   } = dict.appDirectory;
   const post = await getPostByName(`${postId}.mdx`); //deduped
   if (!post) notFound();
@@ -91,6 +91,7 @@ export default async function Post({ params: { postId, lang } }: PostProps) {
         <div className="flex flex-row gap-4">{tagList}</div>
       </section>
       <section>
+        <h3 className="mt-0">{commentSection}</h3>
         <Comments {...{ postId, lang }} />
       </section>
     </div>
