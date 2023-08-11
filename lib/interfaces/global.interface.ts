@@ -38,3 +38,6 @@ export interface LayoutProps extends LangProps {
 export type Dictionary = typeof import("@public/locales/en/common.json");
 
 export type AnimationState = true | false | "idle";
+
+export type TokenResponse = { accessToken: string };
+export type AuthToken = string | null;
