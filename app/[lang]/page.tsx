@@ -1,6 +1,7 @@
 import { REVALIDATION_PERIOD } from "@constants/global.const";
 import { LangProps } from "@interfaces/global.interface";
 import { getPostsMeta } from "@lib-api/post-api";
+import { getToken } from "@lib/functions/auth.fn";
 import Searchbar from "../components/navigation/Searchbar";
 import PostItem from "../components/posts/PostItem";
 import { AlertInfo } from "../components/styles/Alert";
@@ -12,6 +13,9 @@ export default async function Home({ params: { lang } }: LangProps) {
   const dict = await getDictionary(lang);
   const { alertNoPosts } = dict.appDirectory.homePage;
   const posts = await getPostsMeta(lang);
+
+  const token = await getToken();
+  console.log("tk", token);
   if (!posts) {
     return (
       <AlertInfo

@@ -3,7 +3,6 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { CommentsLoading } from "@components/loading/components/CommentsLoading";
 import { Dictionary, Language } from "@interfaces/global.interface";
 import { createComment } from "@lib-api/comment-api";
-import { CommentAttrs } from "@lib-api/models/comments";
 import { useParams, useRouter } from "next/navigation";
 import { useDeferredValue, useState } from "react";
 import { FaCommentAlt } from "react-icons/fa";
