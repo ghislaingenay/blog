@@ -41,3 +41,17 @@ export type AnimationState = true | false | "idle";
 
 export type TokenResponse = { accessToken: string };
 export type AuthToken = string | null;
+
+export type APIResponse<T = any> = {
+  data: T;
+  message?: string;
+  isSuccess: boolean;
+  meta?: MetaPage;
+};
+
+export interface MetaPage {
+  pages: number;
+  page: number;
+  results: number;
+  total: number;
+}

@@ -21,7 +21,8 @@ export default async function Comments({
     dict.appDirectory.postIdPage.comments.alertNoComments;
   const comments = await getCommentsByPostId(postId, lang);
   if (!comments) notFound;
-  if (comments!.length === 0)
+  console.log("comments", comments);
+  if (comments?.length === 0)
     return (
       <>
         <div className="my-3">
@@ -34,7 +35,7 @@ export default async function Comments({
     <>
       <ul className="list-none list-inside p-0">
         {comments?.map((comment) => (
-          <li key={comment._id} className="mb-5 p-0">
+          <li key={comment.opinionId} className="mb-5 p-0">
             <CommentCard comment={comment} dict={dict} />
           </li>
         ))}
