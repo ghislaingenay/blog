@@ -8,7 +8,8 @@
     "edit": "edit",
     "delete": "delete",
     "cancel": "cancel",
-    "save": "save"
+    "save": "save",
+    "send": "send"
   },
   "date": {
     "dateLanguage": "en",
@@ -128,7 +129,57 @@
     },
     "contactMePage": {
       "constructionTitle": "On construction ...",
-      "constructionMessage": "This page is in preparation. Please come back later."
+      "constructionMessage": "This page is in preparation. Please come back later.",
+      "contactMe": "Contact me",
+      "form": {
+        "labels": {
+          "firstName": "First Name (max 50 characters)",
+          "lastName": "Last Name (max 50 characters)",
+          "jobPosition": "Occupation (max 50 characters)",
+          "email": "Email",
+          "subject": "Subject (max 200 characters)",
+          "message": "Message (max 1000 characters)",
+          "companyName": "Company Name (max 50 characters)",
+          "send": "Send"
+        },
+        "placeholders": {
+          "firstName": "Enter your first name",
+          "lastName": "Enter your last name",
+          "email": "Enter your email",
+          "message": "Enter your message",
+          "jobPosition": "Enter your occupation",
+          "subject": "Enter your subject",
+          "companyName": "Enter your company name"
+        },
+        "rules": {
+          "firstName": {
+            "required": "First name is required",
+            "length": "First name must be between 2 and 50 characters"
+          },
+          "lastName": {
+            "required": "Last name is required",
+            "length": "Last name must be between 2 and 50 characters"
+          },
+          "jobPosition": {
+            "length": "Occupation must be below 50 characters"
+          },
+          "companyName": {
+            "length": "Company name must be below 100 characters"
+          },
+          "email": {
+            "required": "Email is required",
+            "type": "Email is not valid"
+          },
+          "subject": {
+            "required": "Subject is required",
+            "length": "Subject must be between 2 and 200 characters"
+          },
+          "message": {
+            "required": "Message is required",
+            "length": "Message must be between 2 and 1000 characters"
+          }
+        }
+      }
     },
     "postIdPage": {
       "relatedArticles": "Related articles",
