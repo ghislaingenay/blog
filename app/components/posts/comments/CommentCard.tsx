@@ -37,6 +37,7 @@ export const CommentCard = ({
     isEdited,
     userPicture,
     name,
+    postId,
     message,
     opinionId,
   } = comment;
@@ -90,7 +91,26 @@ export const CommentCard = ({
     setLoading(false);
   };
 
-  const editComment = async () => {};
+  const editComment = async () => {
+    setLoading(true);
+    const editResponse = (await axios.put(
+      `${BACK_END_URL}/comments/${opinionId}`,
+      {
+        language: dict.language,
+        postId,
+        message: deferredComment,
+      },
+      {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+      }
+    )) as AxiosResponse<APIResponse<OpinionAttrs>>;
+    const { isSuccess } = editResponse.data as APIResponse;
+    if (isSuccess) router.refresh();
+    cancelEdit();
+    setLoading(false);
+  };
 
   const cancelDelete = () => {
     setIsDropDown(false);
@@ -100,6 +120,11 @@ export const CommentCard = ({
   const cancelEdit = () => {
     setIsDropDown(false);
     setIsEditing(false);
+  };
+
+  const loadEditMode = () => {
+    setIsEditing(true);
+    setIsDropDown(false);
   };
 
   if (isDeleting) {
@@ -135,7 +160,7 @@ export const CommentCard = ({
             <div className="animate-fade animate-duration-200 absolute z-10 h-10 px-2 pt-1 max-w-max rounded-md border border-gray-200 bg-white top-[3.5rem] right-5 space-x-2">
               <span
                 className="text-xs uppercase mb-0 hover:bg-slate-200 p-1 rounded-lg text-center "
-                onClick={() => setIsEditing(true)}
+                onClick={() => loadEditMode()}
               >
                 {buttonDict.edit}
               </span>
@@ -165,20 +190,22 @@ export const CommentCard = ({
         picture={userPicture as string}
       />
       {isEditing ? (
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap space-x-2">
           <input
+            className="h-10 rounded-lg ps-4 py-2 flex-none"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value || "")}
           />
           <button
-            className="bg-blue-800 text-white p-2 disabled:bg-gray-500 disabled:text-black uppercase"
-            disabled={!haveMessage}
+            className={` bg-blue-800 h-10 text-sm text-white p-2 disabled:bg-gray-500 disabled:text-black uppercase`}
+            disabled={!haveMessage || loading}
+            onClick={editComment}
           >
             {buttonDict.save}
           </button>
           <button
-            className="bg-red-800 text-white p-2 disabled:bg-gray-500 disabled:text-black uppercase"
-            disabled={!haveMessage}
+            className={` bg-red-800 h-10 text-sm text-white p-2 disabled:bg-gray-500 disabled:text-black uppercase`}
+            disabled={!haveMessage || loading}
             onClick={cancelEdit}
           >
             {buttonDict.cancel}
