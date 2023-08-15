@@ -157,7 +157,7 @@ export const CommentCard = ({
       {canEdit && (
         <>
           {isDropDown && (
-            <div className="animate-fade animate-duration-200 absolute z-10 h-10 px-2 pt-1 max-w-max rounded-md border border-gray-200 bg-white top-[3.5rem] right-5 space-x-2">
+            <div className="animate-fade-left animate-duration-200 absolute z-10 h-10 px-2 pt-1 max-w-max rounded-md border border-gray-200 bg-white top-[1rem] right-10 space-x-2">
               <span
                 className="text-xs uppercase mb-0 hover:bg-slate-200 p-1 rounded-lg text-center "
                 onClick={() => loadEditMode()}
