@@ -5,10 +5,11 @@ import { REVALIDATION_PERIOD } from "@constants/global.const";
 import { createMetaData } from "@functions";
 import { Language } from "@interfaces/global.interface";
 import { getPostByName, getPostsMeta } from "@lib-api/post-api";
+import { getToken } from "@lib/functions/auth.fn";
 import "highlight.js/styles/github.css"; //a11y-light
 import { Metadata } from "next";
 import Image from "next/image";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { FaCalendarDay, FaClock } from "react-icons/fa";
 import { getDictionary } from "../../dictionaries";
 
@@ -47,6 +48,7 @@ export default async function Post({ params: { postId, lang } }: PostProps) {
     postIdPage: { relatedArticles, commentSection },
   } = dict.appDirectory;
   const post = await getPostByName(`${postId}.mdx`); //deduped
+  const token = await getToken();
   if (!post) notFound();
   const { meta, content } = post;
   const { title, tags, image, updatedAt, readTime } = meta;
@@ -95,7 +97,7 @@ export default async function Post({ params: { postId, lang } }: PostProps) {
       <section>
         <h3 className="mt-0">{commentSection}</h3>
         <Comments {...{ postId, lang }} />
-        <CommentInput {...{ dict }} />
+        <CommentInput {...{ dict, accessToken: token }} />
       </section>
     </div>
   );

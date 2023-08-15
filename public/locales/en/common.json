@@ -136,6 +136,10 @@
         "description": "No posts available"
       },
       "comments": {
+        "newCommentAlert": {
+          "title": "New comment",
+          "description": "Your comment has been successfully created"
+        },
         "needAuthentication": "You need to be authenticated...",
         "needGoogleAuthentication": "You need to be authenticated with Google...",
         "alertNoComments": {

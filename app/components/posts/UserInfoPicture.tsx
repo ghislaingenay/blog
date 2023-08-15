@@ -21,7 +21,6 @@ export const UserInfoPicture = ({
           src={picture}
           width={50}
           height={50}
-          layout="fixed"
           className="rounded-full w-10 h-10 object-cover align-baseline "
           alt={`${fullName} comment picture`}
         />

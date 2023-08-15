@@ -1,6 +1,6 @@
 import { getTodayDateDiffString } from "@functions";
+import { CommentsWithReactions } from "@interfaces/comments.interface";
 import { Dictionary } from "@interfaces/global.interface";
-import { CommentsWithReactions } from "@lib-api/models/comments";
 import { UserInfoPicture } from "../UserInfoPicture";
 
 type CommentCardProps = {
@@ -15,12 +15,12 @@ export const CommentCard = ({ comment, dict }: CommentCardProps) => {
   const edited = isEdited
     ? dict.appDirectory.postIdPage.comments.commentCard.edited
     : "";
-  const formattedDate = `${edited}${getTodayDateDiffString(
+  const formattedDate = `${edited} ${getTodayDateDiffString(
     new Date(selectedDate as string),
     dict.date
   )}`;
   return (
-    <div className="flex flex-wrap border-gray-500 border rounded-xl shadow-slate-700 p-4">
+    <div className="border-gray-500 border rounded-xl shadow-slate-700 p-4 flex-nowrap min-h-[120px]">
       <UserInfoPicture
         fullName={name}
         date={formattedDate}

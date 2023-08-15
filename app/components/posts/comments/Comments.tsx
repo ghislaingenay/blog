@@ -1,5 +1,3 @@
-"use server";
-
 import { AlertInfo } from "@components/styles/Alert";
 import { Language } from "@interfaces/global.interface";
 import { getCommentsByPostId } from "@lib-api/comment-api";
@@ -21,7 +19,6 @@ export default async function Comments({
     dict.appDirectory.postIdPage.comments.alertNoComments;
   const comments = await getCommentsByPostId(postId, lang);
   if (!comments) notFound;
-  console.log("comments", comments);
   if (comments?.length === 0)
     return (
       <>
