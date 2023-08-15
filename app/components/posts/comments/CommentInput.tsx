@@ -32,6 +32,9 @@ export const CommentInput = ({ dict, accessToken }: CommentInputProps) => {
   const { title, description } =
     dict.appDirectory.postIdPage.comments.newCommentAlert;
 
+  const headerClass =
+    "text-red-600 text-center border border-red-500 py-3 rounded-xl bg-white";
+
   const [firstLoad, setFirstLoad] = useState(true);
   const [comment, setComment] = useState("");
   const deferredComment = useDeferredValue(comment);
@@ -83,8 +86,8 @@ export const CommentInput = ({ dict, accessToken }: CommentInputProps) => {
   if (firstLoad) return <CommentsLoading count={1} />;
   if (isLoading) return <CommentsLoading count={1} />;
   if (!isGoogleOAuth2(user))
-    return <h3 className="text-red-600">{needGoogleAuthentication}</h3>;
-  if (!user) return <h3 className="text-red-600">{needAuthentication}</h3>;
+    return <h3 className={headerClass}>{needGoogleAuthentication}</h3>;
+  if (!user) return <h3 className={headerClass}>{needAuthentication}</h3>;
   return (
     <>
       <div className="px-5 py-2 bg-slate-200 rounded-lg gap-4 flex justify-between">
