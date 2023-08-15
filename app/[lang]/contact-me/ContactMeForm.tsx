@@ -33,12 +33,28 @@ export const ContactMeForm = ({ dict }: ContactMeFormProps) => {
   const [loading, setLoading] = useState(false);
 
   const handleCreateForm = async (values: ContactFormAttrs) => {
-    console.log(values);
+    setLoading(true);
+    const updatedValues = {
+      ...values,
+      companyName: values?.companyName || "",
+      jobPosition: values?.jobPosition || "",
+      language: dict.language,
+    };
+    console.log(updatedValues);
   };
 
   const inputStyle = { padding: "0.5rem" };
+  const buttonClass = loading
+    ? "pointer-events-none bg-green-400"
+    : "pointer-events-auto";
 
-  useEffect(() => setFirstLoad(false), []);
+  useEffect(() => {
+    form.setFieldsValue({
+      companyName: "",
+      jobPosition: "",
+    });
+    setFirstLoad(false);
+  }, [form]);
 
   const personalFormField: FormField[] = [
     {
@@ -194,14 +210,15 @@ export const ContactMeForm = ({ dict }: ContactMeFormProps) => {
         labelWrap={true}
         labelAlign="left"
         labelCol={{ span: 6 }}
+        onFinish={handleCreateForm}
       >
         {createFormItems(personalFormField)}
         <hr className="mt-1 mb-4" />
         {createFormItems(emailFormField)}
       </Form>
       <button
-        className="bg-green-700 flex max-h-max px-5 py-1 text-white uppercase font-bold text-sm hover:bg-green-600"
-        disabled={!loading}
+        className={`${buttonClass} bg-green-700 flex max-h-max px-5 py-1 text-white uppercase font-bold text-sm hover:bg-green-600`}
+        disabled={loading}
         onClick={() => form.submit()}
       >
         {showSpinnerIfLoading}
