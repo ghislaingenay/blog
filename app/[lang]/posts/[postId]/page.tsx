@@ -4,7 +4,7 @@ import Comments from "@components/posts/comments/Comments";
 import { REVALIDATION_PERIOD } from "@constants/global.const";
 import { createMetaData } from "@functions";
 import { Language } from "@interfaces/global.interface";
-import { getPostByName, getPostsMeta } from "@lib-api/post-api";
+import { getPostByName } from "@lib-api/post-api";
 import { getToken } from "@lib/functions/auth.fn";
 import "highlight.js/styles/github.css"; //a11y-light
 import { Metadata } from "next";
@@ -23,12 +23,12 @@ export interface PostProps {
 }
 
 // inside fetch('', {next: {revalidate: 60}})
-export async function generateStaticParams({ params: { lang } }: PostProps) {
-  if (process.env.NODE_ENV === "development") return [];
-  const posts = await getPostsMeta(lang);
-  if (!posts) return [];
-  return posts.map((post) => ({ postId: post.id }));
-}
+// export async function generateStaticParams({ params: { lang } }: PostProps) {
+//   if (process.env.NODE_ENV === "development") return [];
+//   const posts = await getPostsMeta(lang);
+//   if (!posts) return [];
+//   return posts.map((post) => ({ postId: post.id }));
+// }
 
 export async function generateMetadata({
   params: { postId },
