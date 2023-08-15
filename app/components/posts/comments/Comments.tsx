@@ -29,7 +29,7 @@ export default async function Comments({
     );
 
   return (
-    <>
+    <div className="max-h-[600px] overflow-clip overflow-y-auto p-2">
       <ul className="list-none list-inside p-0">
         {comments?.map((comment) => (
           <li key={comment.opinionId} className="mb-5 p-0">
@@ -37,6 +37,6 @@ export default async function Comments({
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
