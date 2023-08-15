@@ -153,7 +153,8 @@
           "description": "No comments found for this posts"
         },
         "commentCard": {
-          "edited": "edited"
+          "edited": "edited",
+          "deleteComment": "Do you want to delete this comment?"
         },
         "reactions": {
           "like": "like",

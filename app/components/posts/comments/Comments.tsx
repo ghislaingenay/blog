@@ -1,6 +1,7 @@
 import { AlertInfo } from "@components/styles/Alert";
 import { Language } from "@interfaces/global.interface";
 import { getCommentsByPostId } from "@lib-api/comment-api";
+import { getToken } from "@lib/functions/auth.fn";
 import { notFound } from "next/navigation";
 import { getDictionary } from "../../../[lang]/dictionaries";
 import { CommentCard } from "./CommentCard";
@@ -18,6 +19,7 @@ export default async function Comments({
   const { title, description } =
     dict.appDirectory.postIdPage.comments.alertNoComments;
   const comments = await getCommentsByPostId(postId, lang);
+  const accessToken = await getToken();
   if (!comments) notFound;
   if (comments?.length === 0)
     return (
@@ -33,7 +35,7 @@ export default async function Comments({
       <ul className="list-none list-inside p-0">
         {comments?.map((comment) => (
           <li key={comment.opinionId} className="mb-5 p-0">
-            <CommentCard comment={comment} dict={dict} />
+            <CommentCard {...{ comment, dict, accessToken }} />
           </li>
         ))}
       </ul>
