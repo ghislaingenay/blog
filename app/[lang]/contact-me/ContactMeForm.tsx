@@ -2,13 +2,21 @@
 
 import ContactFormLoading from "@components/loading/components/ContactFormLoading";
 import { Divider } from "@components/styles/Divider";
+import { BACK_END_URL } from "@constants/global.const";
 import { ContactFormAttrs } from "@interfaces/contact.interface";
-import { Dictionary } from "@interfaces/global.interface";
+import {
+  APIResponse,
+  AuthToken,
+  Dictionary,
+} from "@interfaces/global.interface";
 import { Form, Input } from "antd";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
+import { clearTimeout } from "timers";
 
 type ContactMeFormProps = {
   dict: Dictionary;
+  accessToken: AuthToken;
 };
 
 interface FormField {
@@ -18,7 +26,7 @@ interface FormField {
   children: JSX.Element;
 }
 
-export const ContactMeForm = ({ dict }: ContactMeFormProps) => {
+export const ContactMeForm = ({ dict, accessToken }: ContactMeFormProps) => {
   const [form] = Form.useForm();
 
   const contactDict = dict.appDirectory.contactMePage;
@@ -32,6 +40,7 @@ export const ContactMeForm = ({ dict }: ContactMeFormProps) => {
 
   const [loading, setLoading] = useState(false);
 
+  const [isMessageSent, setIsMessageSent] = useState(false);
   const handleCreateForm = async (values: ContactFormAttrs) => {
     setLoading(true);
     const updatedValues = {
@@ -40,8 +49,29 @@ export const ContactMeForm = ({ dict }: ContactMeFormProps) => {
       jobPosition: values?.jobPosition || "",
       language: dict.language,
     };
-    console.log(updatedValues);
+    const response = (await axios
+      .post(`${BACK_END_URL}/contact`, updatedValues, {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .catch((err: AxiosError) => {
+        console.error((err.response?.data as unknown as any).message);
+      })) as AxiosResponse<APIResponse<any>>;
+    const { isSuccess } = response.data;
+    if (isSuccess) setIsMessageSent(true);
   };
+
+  useEffect(() => {
+    if (!isMessageSent) return;
+    let timeout: NodeJS.Timeout;
+    timeout = setTimeout(() => {
+      setIsMessageSent(false);
+    });
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [isMessageSent]);
 
   const inputStyle = { padding: "0.5rem" };
   const buttonClass = loading
