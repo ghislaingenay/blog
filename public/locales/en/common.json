@@ -132,6 +132,10 @@
       "constructionMessage": "This page is in preparation. Please come back later.",
       "contactMe": "Contact me",
       "form": {
+        "sentForm": {
+          "successMessage": "Your message has been successfully sent",
+          "errorMessage": "An error occurred while sending your message. Please try again later."
+        },
         "labels": {
           "firstName": "First Name (max 50 characters)",
           "lastName": "Last Name (max 50 characters)",

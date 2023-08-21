@@ -1,6 +1,7 @@
 "use client";
 
 import ContactFormLoading from "@components/loading/components/ContactFormLoading";
+import { AlertInfo, AlertSuccess } from "@components/styles/Alert";
 import { Divider } from "@components/styles/Divider";
 import { BACK_END_URL } from "@constants/global.const";
 import { ContactFormAttrs } from "@interfaces/contact.interface";
@@ -39,6 +40,7 @@ export const ContactMeForm = ({ dict, accessToken }: ContactMeFormProps) => {
   const [firstLoad, setFirstLoad] = useState(true);
 
   const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const [isMessageSent, setIsMessageSent] = useState(false);
   const handleCreateForm = async (values: ContactFormAttrs) => {
@@ -56,10 +58,14 @@ export const ContactMeForm = ({ dict, accessToken }: ContactMeFormProps) => {
         },
       })
       .catch((err: AxiosError) => {
+        setIsError(true);
         console.error((err.response?.data as unknown as any).message);
       })) as AxiosResponse<APIResponse<any>>;
     const { isSuccess } = response.data;
-    if (isSuccess) setIsMessageSent(true);
+    if (isSuccess) {
+      setIsError(false);
+      setIsMessageSent(true);
+    }
   };
 
   useEffect(() => {
@@ -246,14 +252,19 @@ export const ContactMeForm = ({ dict, accessToken }: ContactMeFormProps) => {
         <hr className="mt-1 mb-4" />
         {createFormItems(emailFormField)}
       </Form>
-      <button
-        className={`${buttonClass} bg-green-700 flex max-h-max px-5 py-1 text-white uppercase font-bold text-sm hover:bg-green-600`}
-        disabled={loading}
-        onClick={() => form.submit()}
-      >
-        {showSpinnerIfLoading}
-        {dict.buttons.send}
-      </button>
+      {isError && <AlertInfo message={contactForm.sentForm.errorMessage} />}
+      {isMessageSent ? (
+        <AlertSuccess message={contactForm.sentForm.successMessage} />
+      ) : (
+        <button
+          className={`${buttonClass} bg-green-700 flex max-h-max px-5 py-1 text-white uppercase font-bold text-sm hover:bg-green-600`}
+          disabled={loading}
+          onClick={() => form.submit()}
+        >
+          {showSpinnerIfLoading}
+          {dict.buttons.send}
+        </button>
+      )}
     </>
   );
 };
