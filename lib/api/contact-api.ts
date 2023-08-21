@@ -1,6 +1,6 @@
 import { BACK_END_URL } from "@constants/global.const";
 import { ContactFormAttrs } from "@interfaces/contact.interface";
-import { APIResponse } from "@interfaces/global.interface";
+import { APIResponse, AuthToken } from "@interfaces/global.interface";
 import { getToken } from "@lib/functions/auth.fn";
 import axios from "axios";
 
@@ -16,18 +16,24 @@ export const getForms = async (): Promise<APIResponse<ContactFormAttrs[]>> => {
       const data = (await res.json()) as APIResponse<ContactFormAttrs[]>;
       return {
         ...data,
+        statusCode: res.status,
       };
     })
     .catch((err) => {
       console.log(err);
-      return { message: err.message, isSuccess: false, data: [] };
+      return {
+        message: err.message,
+        isSuccess: false,
+        data: [],
+        statusCode: err.statusCode,
+      };
     });
 };
 
 // client side
 export const setReadMessage = async (
   formId: string,
-  accessToken: string
+  accessToken: AuthToken
 ): Promise<{ updated: boolean }> => {
   return await axios
     .post(
@@ -39,10 +45,10 @@ export const setReadMessage = async (
         },
       }
     )
-    .then((res) => {
+    .then(() => {
       return { updated: true };
     })
-    .catch((err) => {
+    .catch(() => {
       return { updated: false };
     });
 };

@@ -10,4 +10,5 @@ export interface ContactFormAttrs {
   subject: string;
   message: string;
   createdAt: Date;
+  isRead: boolean;
 }

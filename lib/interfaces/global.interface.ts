@@ -47,6 +47,7 @@ export type APIResponse<T = any> = {
   message?: string;
   isSuccess: boolean;
   meta?: MetaPage;
+  statusCode?: number;
 };
 
 export interface MetaPage {
