@@ -55,3 +55,5 @@ export interface MetaPage {
   results: number;
   total: number;
 }
+
+export type AuthPermission = "granted" | "unauthorized" | "forbidden";
