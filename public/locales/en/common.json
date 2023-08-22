@@ -90,6 +90,16 @@
         "description": "No posts available"
       }
     },
+    "admin": {
+      "unauthorized": {
+        "banner": "Something went wrong",
+        "title": "You are not authorized to access this page"
+      },
+      "forbidden": {
+        "banner": "Something went wrong",
+        "title": "You are not allowed to access this page"
+      }
+    },
     "bioPage": {
       "jobTitle": "Full Stack Developer",
       "summary": "After working for 2 years as an R&D Engineer, I decided to switch career and become a programmer. I am currently working as a full stack developer where I acquired problem solving skills and clean code philosophy. I am currently working during my free time on my web app (personal blog with NextJS / Markdown) and data science skills.",

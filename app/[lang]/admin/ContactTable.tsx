@@ -5,6 +5,7 @@ import { setReadMessage } from "@lib-api/contact-api";
 import { Table } from "antd";
 import { revalidatePath } from "next/cache";
 import { useEffect, useState } from "react";
+import { FaCheck, FaStackOverflow } from "react-icons/fa";
 
 type FormTableProps = {
   formData: ContactFormAttrs[];
@@ -27,6 +28,9 @@ export const FormTable = ({ formData, accessToken }: FormTableProps) => {
       })
       .finally(() => setLoading(false));
   };
+
+  const readText = (read: boolean) =>
+    read ? <FaCheck /> : <FaStackOverflow />;
 
   const tableColumns = [
     {
@@ -53,13 +57,14 @@ export const FormTable = ({ formData, accessToken }: FormTableProps) => {
     {
       align: "center" as const,
       title: "Read",
-      render: ({ isRead, _id }: Required<ContactFormAttrs>) => (
+      render: (data: Required<ContactFormAttrs>) => (
         <p>
-          {isRead ? (
-            "Yes"
-          ) : (
-            <button onClick={() => changeReadStatus(_id)}></button>
-          )}
+          <button
+            disabled={data.isRead}
+            onClick={() => changeReadStatus(data._id)}
+          >
+            {readText(data.isRead)}{" "}
+          </button>
         </p>
       ),
     },
@@ -67,8 +72,8 @@ export const FormTable = ({ formData, accessToken }: FormTableProps) => {
 
   const expandRowRendered = (record: ContactFormAttrs) => (
     <>
-      <h2>Subject {record.subject}</h2>;
-      <hr className="my-0.5" />
+      <h2>Subject: {record.subject}</h2>
+      <hr className="mt-0.5 mb-3" />
       <p>{record.message}</p>
     </>
   );
@@ -78,6 +83,8 @@ export const FormTable = ({ formData, accessToken }: FormTableProps) => {
       dataSource={formData}
       columns={tableColumns}
       loading={loading}
+      rowKey="_id"
+      pagination={false}
       expandable={{
         expandedRowRender: (record: ContactFormAttrs) =>
           expandRowRendered(record),
