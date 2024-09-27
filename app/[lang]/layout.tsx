@@ -28,6 +28,7 @@ export default async function RootLayout({
   return (
     <html lang={dict.language} className="min-h-full overflow-x-hidden">
       <body className="bg-slate-50 pb-5 bg-gradient-to-b from-zinc-100 to-zinc-50">
+        {/* <Blob /> */}
         <Navbar dict={dict} />
         <main className="container mx-auto sm:w-[600px] md:w-[728px] lg:w-[984px] xl:w-[1240px] 2xl:[1535px] px-5 sm:px-0 prose prose-slate prose-h1:m-0 ">
           {children}

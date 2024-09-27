@@ -53,3 +53,22 @@ h5,
 h6 {
   font-family: "Montserrat", sans-serif !important;
 }
+
+@keyframes rotate {
+  from {
+    rotate: 0deg;
+  }
+  50% {
+    scale: 1 1.5;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes colorHeaderBlob {
+  50% {
+    background-color: rgb(128, 128, 128);
+    opacity: 0.6;
+  }
+}

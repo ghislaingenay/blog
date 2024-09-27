@@ -27,6 +27,46 @@ const OPTIONS_MDX: SerializeOptions = {
   },
 };
 
+export const getPostByFileName = (fileName: string) => {
+  const language = Language.ENGLISH as string;
+  const handleMdx = async (rawMDX: string) => {
+    if (/^404[:]/.test(rawMDX)) return undefined;
+    const { frontmatter, content } = await compileMDX<Omit<PostMeta, "id">>({
+      source: rawMDX,
+      components: COMPONENTS_MDX,
+      options: OPTIONS_MDX,
+    });
+    const id = fileName.replace(/\.mdx$/, "");
+    const postObj: Post = { meta: { ...frontmatter, id }, content };
+    return postObj;
+  };
+
+  return {
+    staging: async () => {
+      const res = await fetch(
+        `https://raw.githubusercontent.com/ghislaingenay/blog-posts/master/staging/${fileName}`,
+        {
+          headers: HEADERS_GITHUB,
+        }
+      );
+      if (!res.ok) return undefined;
+      const rawMDX = await res.text();
+      return handleMdx(rawMDX);
+    },
+    production: async () => {
+      const res = await fetch(
+        `https://raw.githubusercontent.com/ghislaingenay/blog-posts/master/${language}/${fileName}`,
+        {
+          headers: HEADERS_GITHUB,
+        }
+      );
+      if (!res.ok) return undefined;
+      const rawMDX = await res.text();
+      return handleMdx(rawMDX);
+    },
+  };
+};
+
 export async function getStagingPostByName(
   fileName: string
 ): Promise<Post | undefined> {
