@@ -7,17 +7,17 @@ type LineScrollProps = {
 };
 
 export const LineScroll = ({ isTop = false }: LineScrollProps) => {
-  const [articleCompletion, setArticleCompletion] = useState(0);
-  const percentage = useDeferredValue(articleCompletion);
+  const [percentCompletion, setPercentCompletion] = useState(0);
+  const percentage = useDeferredValue(percentCompletion);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
       const { scrollHeight, clientHeight } = document.documentElement;
       const scrollTotal = scrollHeight - clientHeight;
       const userCanScrollPage = (scrollTotal: number) => scrollTotal > 0;
-      if (!userCanScrollPage(scrollTotal)) return setArticleCompletion(0);
+      if (!userCanScrollPage(scrollTotal)) return setPercentCompletion(0);
       const scrollPercentage = (window.scrollY / scrollTotal) * 100;
-      return setArticleCompletion(scrollPercentage);
+      return setPercentCompletion(scrollPercentage);
     });
   }, []);
 
