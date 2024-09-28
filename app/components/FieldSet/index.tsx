@@ -1,33 +1,17 @@
 import { PropsWithChildren } from "react";
-import styled from "styled-components";
 
 type Props = {
   legend: React.ReactNode;
 };
-
-const BaseFieldSet = styled.fieldset`
-  border: 1px solid black;
-  padding: 0.5rem 1rem;
-  margin: 0;
-  height: fit-content;
-  border-radius: 0.25rem;
-`;
-
-const BaseLegend = styled.legend`
-  font-size: 1rem;
-  max-width: max-content;
-  padding: 0.25rem 0.5rem;
-  border: none;
-`;
 
 export default function FieldSet({
   children,
   legend,
 }: PropsWithChildren<Props>) {
   return (
-    <BaseFieldSet>
-      <BaseLegend>{legend}</BaseLegend>
+    <fieldset className="border border-black py-2 px-4 m-0 h-full rounded-[0.25rem]">
+      <legend className="text-md px-1 py-2 border-none">{legend}</legend>
       <div className="mt-4">{children}</div>
-    </BaseFieldSet>
+    </fieldset>
   );
 }
