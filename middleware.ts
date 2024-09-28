@@ -1,4 +1,4 @@
-import { Language } from "@interfaces/global.interface";
+import { Language } from "@interfaces";
 import { NextRequest, NextResponse } from "next/server";
 
 // let locales: Language[] = [Language.ENGLISH, Language.FRENCH];

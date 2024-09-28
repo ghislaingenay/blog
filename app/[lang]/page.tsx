@@ -1,5 +1,5 @@
 import { REVALIDATION_PERIOD } from "@constants/global.const";
-import { LangProps } from "@interfaces/global.interface";
+import { LangProps } from "@interfaces";
 
 export const revalidate = REVALIDATION_PERIOD;
 

@@ -1,5 +1,5 @@
 import NotFoundError from "@components/NotFoundError";
-import { Language } from "@interfaces/global.interface";
+import { Language } from "@interfaces";
 import { getDictionary } from "../../dictionaries";
 
 export default async function NotFound() {

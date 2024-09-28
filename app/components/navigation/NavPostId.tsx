@@ -1,5 +1,5 @@
 "use client";
-import { AnimationState } from "@interfaces/global.interface";
+import { AnimationState } from "@interfaces";
 import useScroll from "@lib/hooks/useScroll";
 import Link from "next/link";
 import { useDeferredValue, useEffect, useState } from "react";

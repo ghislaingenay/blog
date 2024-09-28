@@ -1,6 +1,6 @@
 "use client";
 
-import { Language } from "@interfaces/global.interface";
+import { Language } from "@interfaces";
 import NotFoundImage from "@public/error-page.jpg";
 import Image from "next/image";
 import Link from "next/link";

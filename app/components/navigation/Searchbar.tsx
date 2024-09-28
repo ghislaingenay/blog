@@ -1,9 +1,5 @@
 "use client";
-import {
-  Dictionary,
-  PostTopic,
-  SelectProps,
-} from "@interfaces/global.interface";
+import { Dictionary, PostTopic, SelectProps } from "@interfaces";
 import SearchBarParams from "@interfaces/nav.interface";
 import {
   filterPostsByParams,

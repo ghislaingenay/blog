@@ -1,4 +1,4 @@
-import { Dictionary, Language } from "@interfaces/global.interface";
+import { Dictionary, Language } from "@interfaces";
 import { NavField } from "@interfaces/nav.interface";
 import { FaEnvelope, FaGithub, FaHome, FaLinkedin } from "react-icons/fa";
 

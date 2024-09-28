@@ -1,7 +1,7 @@
 import { Tag } from "@components/Tag";
 import { REVALIDATION_PERIOD } from "@constants/global.const";
 import { createMetaData } from "@functions";
-import { Language } from "@interfaces/global.interface";
+import { Language } from "@interfaces";
 import { getPostByName, getPostsMeta } from "@lib-api/post-api";
 import "highlight.js/styles/github.css"; //a11y-light
 import { Metadata } from "next";

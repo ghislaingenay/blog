@@ -8,8 +8,8 @@ import {
   personalProjectsListing,
 } from "@constants/bio.const";
 import { generateKey } from "@functions";
+import { LangProps, LiProps } from "@interfaces";
 import { Experience } from "@interfaces/bio";
-import { LangProps, LiProps } from "@interfaces/global.interface";
 import { sortCourses, sortProjects } from "@lib/functions/bio.fn";
 import GhislainImage from "@public/ghislain.jpg";
 import Image from "next/image";

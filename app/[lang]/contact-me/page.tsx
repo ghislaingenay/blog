@@ -1,6 +1,6 @@
 import NotFoundError from "@components/NotFoundError";
 import { generateKey } from "@functions";
-import { Language } from "@interfaces/global.interface";
+import { Language } from "@interfaces";
 import { getDictionary } from "../dictionaries";
 
 export default async function ContactMePage() {

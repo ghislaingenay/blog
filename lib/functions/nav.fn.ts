@@ -1,5 +1,4 @@
-import { Language } from "@interfaces/global.interface";
-import { NavField } from "@interfaces/nav.interface";
+import { Language, NavField } from "@interfaces";
 
 export const matchPath = (link: string, currentPath: string) => {
   const languages = Object.values(Language).map((lang) => `/${lang}`);

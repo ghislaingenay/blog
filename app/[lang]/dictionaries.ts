@@ -1,4 +1,4 @@
-import { Dictionary, Language } from "@interfaces/global.interface";
+import { Dictionary, Language } from "@interfaces";
 import "server-only";
 
 const dictionaries = {

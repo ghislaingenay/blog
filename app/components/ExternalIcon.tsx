@@ -1,5 +1,5 @@
 "use client";
-import { ButtonProps } from "@interfaces/global.interface";
+import { ButtonProps } from "@interfaces";
 import { useDeferredValue, useEffect, useState } from "react";
 
 interface ExternalIconProps extends ButtonProps {

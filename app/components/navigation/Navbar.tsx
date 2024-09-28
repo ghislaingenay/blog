@@ -8,11 +8,7 @@ import {
 } from "@constants/nav-menu";
 import { matchPath } from "@functions";
 import { useWindowSize } from "@hooks";
-import {
-  AnimationState,
-  Dictionary,
-  Language,
-} from "@interfaces/global.interface";
+import { AnimationState, Dictionary, Language } from "@interfaces";
 import { NavField } from "@interfaces/nav.interface";
 import $ from "jquery";
 import Link from "next/link";

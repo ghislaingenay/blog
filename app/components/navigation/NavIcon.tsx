@@ -1,7 +1,7 @@
 "use client";
 
 import { checkSocialType, matchPath } from "@functions";
-import { DivProps } from "@interfaces/global.interface";
+import { DivProps } from "@interfaces";
 import { NavField } from "@interfaces/nav.interface";
 import $ from "jquery";
 import { selectColorTextHover } from "./Navbar";

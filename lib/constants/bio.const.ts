@@ -1,10 +1,10 @@
+import { Dictionary } from "@interfaces";
 import {
   CourseTaken,
   ITSkills,
   LanguageDisplay,
   PersonalProject,
 } from "@interfaces/bio";
-import { Dictionary } from "@interfaces/global.interface";
 
 type BioConstants = Dictionary["bioConstants"];
 type ITSkillsDictionary = BioConstants["itSkills"];

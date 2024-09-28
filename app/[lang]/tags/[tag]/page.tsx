@@ -2,7 +2,7 @@ import PostItem from "@components/posts/PostItem";
 import { AlertInfo } from "@components/styles/Alert";
 import { REVALIDATION_PERIOD } from "@constants/global.const";
 import { createMetaData } from "@functions";
-import { Language } from "@interfaces/global.interface";
+import { Language } from "@interfaces";
 import { getPostsMeta } from "@lib-api/post-api";
 import { getDictionary } from "../../dictionaries";
 

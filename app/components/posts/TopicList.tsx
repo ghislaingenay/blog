@@ -1,6 +1,6 @@
 "use client";
 
-import { Dictionary, PostTopic } from "@interfaces/global.interface";
+import { Dictionary, PostTopic } from "@interfaces";
 import $ from "jquery";
 import { useCallback, useEffect, useState } from "react";
 import { FaChartBar, FaCode, FaTags, FaUser } from "react-icons/fa";

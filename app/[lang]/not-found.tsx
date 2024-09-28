@@ -1,4 +1,4 @@
-import { Language } from "@interfaces/global.interface";
+import { Language } from "@interfaces";
 import NotFoundError from "../components/NotFoundError";
 import { getDictionary } from "./dictionaries";
 

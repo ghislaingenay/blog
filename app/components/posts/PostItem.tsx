@@ -1,4 +1,4 @@
-import { Language } from "@interfaces/global.interface";
+import { Language } from "@interfaces";
 import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
