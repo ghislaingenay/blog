@@ -3,7 +3,7 @@ import {
   ITSkills,
   LanguageDisplay,
   PersonalProject,
-} from "@interfaces/bio.interface";
+} from "@interfaces/bio";
 import { Dictionary } from "@interfaces/global.interface";
 
 type BioConstants = Dictionary["bioConstants"];

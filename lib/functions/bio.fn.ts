@@ -1,4 +1,4 @@
-import { CourseTaken, PersonalProject } from "@interfaces/bio.interface";
+import { CourseTaken, PersonalProject } from "@interfaces/bio";
 import dayjs from "dayjs";
 
 const sortCoursesByDate = (courses: CourseTaken[]) => {
