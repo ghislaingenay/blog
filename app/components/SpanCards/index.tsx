@@ -2,8 +2,9 @@
 import { MouseEvent, useEffect } from "react";
 import { styled } from "styled-components";
 
-const CardSpanning = styled.div`
-  background-color: red;
+// main#span-cards
+const CardWrapper = styled.div<{ bgColor?: string }>`
+  background-color: ${({ bgColor }) => bgColor ?? "black"};
   height: 100vh;
   align-items: center;
   overflow: hidden;
@@ -21,60 +22,63 @@ const CardSpanning = styled.div`
       }
     }
   }
+`;
 
-  & > .card {
-    background-color: rgba(255, 255, 255, 0.1);
-    height: 260px;
-    width: 300px;
-    border-radius: 10px;
-    cursor: pointer;
-    position: relative;
-    &:hover {
-      &::before {
-        opacity: 1;
-      }
-    }
-
-    &:before,
-    & > .card-border {
-      content: "";
-      position: absolute;
-      border-radius: inherit;
-      height: 100%;
-      inset: 0;
-      width: 100%;
-      opacity: 0;
-      transition: opacity 0.5s ease-in-out;
-    }
-
-    &:before {
-      background: radial-gradient(
-        800px circle at var(--mouse-x) var(--mouse-y),
-        rgba(255, 255, 255, 0.06),
-        transparent 40%
-      );
-      z-index: 3;
-    }
-
-    & > .card-border {
-      background: radial-gradient(
-        400px circle at var(--mouse-x) var(--mouse-y),
-        rgba(255, 255, 255, 0.3),
-        transparent 40%
-      );
-      z-index: 1;
+// main#span-cards .card
+const Card = styled.div`
+  background-color: rgba(255, 255, 255, 0.1);
+  height: 260px;
+  width: 300px;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  &:hover {
+    &::before {
+      opacity: 1;
     }
   }
 
-  & > .card .card-content {
-    height: calc(100% - 2px);
-    width: calc(100% - 2px);
+  &:before,
+  & > .card-border {
+    content: "";
+    position: absolute;
     border-radius: inherit;
-    margin: 1px;
-    z-index: 2;
-    position: relative;
-    background-color: var(--card-color);
+    height: 100%;
+    inset: 0;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
   }
+
+  &:before {
+    background: radial-gradient(
+      800px circle at var(--mouse-x) var(--mouse-y),
+      rgba(0, 0, 0, 0.06),
+      transparent 40%
+    );
+    z-index: 3;
+  }
+
+  & > .card-border {
+    background: radial-gradient(
+      400px circle at var(--mouse-x) var(--mouse-y),
+      rgba(255, 255, 255, 0.3),
+      transparent 40%
+    );
+    z-index: 1;
+  }
+`;
+
+// // Fake the border
+// main#span-cards .card .card-content
+const CardContent = styled.div`
+  height: calc(100% - 2px);
+  width: calc(100% - 2px);
+  border-radius: inherit;
+  margin: 1px;
+  z-index: 2;
+  position: relative;
+  background-color: transparent;
 `;
 
 export default function SpanCards() {
@@ -108,33 +112,33 @@ export default function SpanCards() {
     );
   }, []);
   return (
-    <CardSpanning>
+    <CardWrapper id="span-cards">
       <div className="cards">
-        <div className="card">
+        <Card className="card">
           <div className="card-border"></div>
-          <div className="card-content"></div>
-        </div>
-        <div className="card">
+          <CardContent className="card-content"></CardContent>
+        </Card>
+        <Card className="card">
           <div className="card-border"></div>
-          <div className="card-content"></div>
-        </div>
-        <div className="card">
+          <CardContent className="card-content"></CardContent>
+        </Card>
+        <Card className="card">
           <div className="card-border"></div>
-          <div className="card-content"></div>
-        </div>
-        <div className="card">
+          <CardContent className="card-content"></CardContent>
+        </Card>
+        <Card className="card">
           <div className="card-border"></div>
-          <div className="card-content"></div>
-        </div>
-        <div className="card">
+          <CardContent className="card-content"></CardContent>
+        </Card>
+        <Card className="card">
           <div className="card-border"></div>
-          <div className="card-content"></div>
-        </div>
-        <div className="card">
+          <CardContent className="card-content"></CardContent>
+        </Card>
+        <Card className="card">
           <div className="card-border"></div>
-          <div className="card-content"></div>
-        </div>
+          <CardContent className="card-content"></CardContent>
+        </Card>
       </div>
-    </CardSpanning>
+    </CardWrapper>
   );
 }
