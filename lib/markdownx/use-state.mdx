@@ -1,0 +1,171 @@
+---
+title: "What is useState in React? A simple guide"
+description: "useState: React hook for managing state in functional components efficiently."
+createdAt: "2023-07-28"
+topic: "WEB_DEVELOPMENT"
+subTopic: "React.js"
+updatedAt: "2023-07-28"
+readTime: "2 min read"
+keywords:
+  [
+    "React useState",
+    "React hooks",
+    "how to use useState in React",
+    "useState tutorial",
+    "useState hook example",
+  ]
+tags: ["reactjs", "react-hooks"]
+language: "en"
+image: "https://raw.githubusercontent.com/ghislaingenay/blog-posts/master/images/use-state.jpg"
+level: "BEGINNER"
+series: "TUTORIAL"
+---
+
+## What is useState in React?
+
+useState is a React hook that allows you to store and manage efficiently a piece of information (called "state") in functional components.
+It enables to store stateful values, such as variables, and re-render the component when those values change.
+
+This hook can be directly imported from the React framework and used in any functional component.
+
+<ClipboardCode>
+
+```jsx
+import { useState } from "react";
+```
+
+</ClipboardCode>
+
+##### To start using "useState," you need to tell React what you want to store which information. For example, if you want to keep track of a number, you can set it up like this:
+
+We can in initialize a state and set the default value to 5. Then, from this state, you can read this **"number"** value by simply using the **"number"** variable
+
+```jsx
+const [number, setNumber] = useState(5);
+console.log(number); // This will give you 5
+```
+
+You can also update the value of "number" by using the **"setNumber"** function
+
+```jsx
+setNumber(10);
+```
+
+By doing this, you are telling React to update the value of "number" to 10. React will then re-render the component and display the new value of "number" on the screen.
+If you decide to log the value once again, you will see that it has been updated to 10.
+
+```jsx
+console.log(number); // This will give you 10
+```
+
+## Counter example
+
+Let's take a look at a more practical example. We will create a simple counter that will increment or decrement by 1 or 5 every time we click on a button.
+You also have the possibility to reset the counter to 0 by clicking on another button.
+
+<CounterState />
+
+Now, let's see how we can implement this counter system see above with code.
+
+<strong>
+  <ins>Disclamer</ins>: The styling was not implemented in the example below.
+  FYI, I use simple [Tailwind CSS](https://tailwindcss.com/) classes to style
+  the counter.
+</strong>
+
+#### Step 1. Create a functional component called Counter
+
+```jsx
+// import useState to manage states
+import { useState } from "react";
+
+// This is the functional component
+export const Counter = () => {
+
+  // Initialize the state with a default value of 0
+  const [count, setCount] = useState(0);
+
+  // Show UI with the different buttons
+  return (
+     <div>
+      <div>
+        <button>- 5</button>
+        <button>- 1</button>
+        {*/ Display the piece of information from count */}
+        <p>{count}</p>
+        <button>+ 1</button>
+        <button>+ 5</button>
+      </div>
+      <button>RESET</button>
+    </div>
+  )
+};
+```
+
+<ins>Main key points</ins>
+
+- This counter component contains a state called "count" and a function called "setCount" that will allow us to update the value of "count".
+- The "count" state is initialized with a default value of 0.
+- The "count" state is displayed on the screen inside the <ins><em>paragraph tag **p**</em></ins> by using the **"count"** variable.
+
+#### Step 2. Add the logic to increment or decrement the count state
+
+For this step, we will need to add a onClick event on each button in order to interact with the counter by using **"setCount"**.
+Here we are telling React to update the value of "count" by adding 1 to the current value of "count" every time we click on the button.
+
+```jsx
+import { useState } from "react";
+
+export const Counter = () => {
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <div>
+        <button  onClick={() => setCount(() => count - 5)}>- 5</button>
+        <button  onClick={() => setCount(() => count - 1)}>- 1</button>
+        {*/ Display the piece of information from count */}
+        <p>{count}</p>
+        <button onClick={() => setCount(() => count + 1)}>+ 1</button>
+        <button onClick={() => setCount(() => count + 5)}>+ 5</button>
+      </div>
+      <button onClick={() => setCount(0)}>RESET</button>
+    </div>
+  )
+};
+```
+
+Now, each time a button is clicked, the value of "count" will be updated and displayed on the screen according to the outcome of the onClick event function.
+
+Now you know exactly, how to use useState in React. Now, let's try to change the code to avoid repeating ourselves (DRY principle).
+
+<small>
+  DRY principle stands for Don't Repeat Yourself. An important principle in web
+  development
+</small>
+
+#### Step 3. DRY principle in Counter example
+
+```jsx
+import { useState } from "react";
+
+export const Counter = () => {
+  const [count, setCount] = useState(0);
+  const addValueToCount = (value) => setCount((prevValue) => prevValue + value); // prevValue is the previous value of count
+  const reinitializeCount = () => setCount(0);
+  return (
+    <div>
+      <div>
+        <button  onClick={() => addValueToCount(-5)}>- 5</button>
+        <button  onClick={() => addValueToCount(-1)}>- 1</button>
+        {*/ Display the piece of information from count */}
+        <p>{count}</p>
+        <button onClick={() => addValueToCount(1)}>+ 1</button>
+        <button onClick={() => addValueToCount(5)}>+ 5</button>
+      </div>
+      <button onClick={reinitializeCount}>RESET</button>
+    </div>
+  )
+};
+```
+
+Hopefully, this article helped you understand how to use useState in React. If you have any questions, feel free to reach out to me on Github or LinkedIn via the links in my navbar.
