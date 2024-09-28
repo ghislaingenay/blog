@@ -1,8 +1,7 @@
 import { CustomImage, Video } from "@components/mdx";
 import { ClipboardCode } from "@components/mdx/ClipboardCode";
 import { CounterState } from "@components/mdx/CounterState";
-import { Language, PostTopicKeys } from "@interfaces/global.interface";
-import SearchBarParams from "@interfaces/nav.interface";
+import { Language, PostTopicKeys } from "@interfaces";
 import dayjs from "dayjs";
 import { SerializeOptions } from "next-mdx-remote/dist/types";
 import { compileMDX } from "next-mdx-remote/rsc";
@@ -133,19 +132,19 @@ export function sortPostsByTopic(
 
 export const havePosts = (posts: PostMeta[]) => posts.length > 0;
 
-export const filterPostsByParams = (
-  params: SearchBarParams,
-  posts: PostMeta[]
-) => {
-  const { query, topic } = params || {};
-  let filteredPosts = [...posts];
+// export const filterPostsByParams = (
+//   params: SearchBarParams,
+//   posts: PostMeta[]
+// ) => {
+//   const { query, topic } = params || {};
+//   let filteredPosts = [...posts];
 
-  if (topic) filteredPosts = sortPostsByTopic(posts)[topic];
-  if (query && havePosts(filteredPosts)) {
-    const regex = new RegExp(query, "gi");
-    filteredPosts = filteredPosts.filter(({ title, description }) => {
-      return regex.test(title) || regex.test(description);
-    });
-  }
-  return filteredPosts;
-};
+//   if (topic) filteredPosts = sortPostsByTopic(posts)[topic];
+//   if (query && havePosts(filteredPosts)) {
+//     const regex = new RegExp(query, "gi");
+//     filteredPosts = filteredPosts.filter(({ title, description }) => {
+//       return regex.test(title) || regex.test(description);
+//     });
+//   }
+//   return filteredPosts;
+// };
