@@ -20,5 +20,9 @@ const FormButton = styled.button`
 `;
 
 export default function ContactForm() {
-  return <FieldSet legend="Contact me"></FieldSet>;
+  return (
+    <FieldSet legend="Contact me">
+      <p>Interested to work with me, do not hesitate</p>
+    </FieldSet>
+  );
 }

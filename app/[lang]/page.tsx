@@ -1,3 +1,4 @@
+import ContactForm from "@components/routes/homepage/ContactForm";
 import HeroBanner from "@components/routes/homepage/HeroBanner";
 import HomePosts from "@components/routes/homepage/HomePosts";
 import { REVALIDATION_PERIOD } from "@constants/global.const";
@@ -10,6 +11,8 @@ export default async function Home({ params: { lang } }: LangProps) {
     <>
       <HeroBanner />
       <HomePosts />
+
+      <ContactForm />
     </>
   );
 }
