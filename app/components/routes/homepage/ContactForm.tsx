@@ -1,9 +1,6 @@
+"use client";
 import FieldSet from "@components/FieldSet";
 import { styled } from "styled-components";
-
-type Props = {
-  formDict: any;
-};
 
 const FormButton = styled.button`
   .button {
@@ -22,6 +19,6 @@ const FormButton = styled.button`
   }
 `;
 
-export default function ContactForm({ formDict }: Props) {
+export default function ContactForm() {
   return <FieldSet legend="Contact me"></FieldSet>;
 }
