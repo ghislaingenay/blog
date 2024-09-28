@@ -1,3 +1,4 @@
+import Grid from "@components/Grid";
 import { Tag } from "@components/Tag";
 import MyPicture from "@public/ghislain.jpg";
 import Image from "next/image";
@@ -21,20 +22,50 @@ export default function HeroBanner() {
           Full Stack Engineer specializing in scalable web applications, ready
           to transform your ideas into innovative solutions.
         </p>
-        <span className="flex gap-2">
-          <Tag className="h-[40px]" color="blue">
-            React
-          </Tag>
-          <Tag className="h-[40px]" color="blue">
-            React
-          </Tag>
-          <Tag className="h-[40px]" color="blue">
-            React
-          </Tag>
-          <Tag className="h-[40px]" color="blue">
-            React
-          </Tag>
-        </span>
+        <Grid>
+          <span className="flex gap-2">
+            <Tag className="h-[40px]" color="blue">
+              React
+            </Tag>
+            <Tag className="h-[40px]" color="blue">
+              React
+            </Tag>
+            <Tag className="h-[40px]" color="blue">
+              React
+            </Tag>
+            <Tag className="h-[40px]" color="blue">
+              React
+            </Tag>
+          </span>
+          <span className="flex gap-2">
+            <Tag className="h-[40px]" color="blue">
+              React
+            </Tag>
+            <Tag className="h-[40px]" color="blue">
+              React
+            </Tag>
+            <Tag className="h-[40px]" color="blue">
+              React
+            </Tag>
+            <Tag className="h-[40px]" color="blue">
+              React
+            </Tag>
+          </span>
+          <span className="flex gap-2">
+            <Tag className="h-[40px]" color="blue">
+              React
+            </Tag>
+            <Tag className="h-[40px]" color="blue">
+              React
+            </Tag>
+            <Tag className="h-[40px]" color="blue">
+              React
+            </Tag>
+            <Tag className="h-[40px]" color="blue">
+              React
+            </Tag>
+          </span>
+        </Grid>
       </div>
     </section>
   );
