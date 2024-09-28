@@ -1,10 +1,6 @@
 import { ExternalIcon } from "@components/ExternalIcon";
 import { Tag } from "@components/Tag";
-import {
-  CourseTaken,
-  Experience,
-  PersonalProject,
-} from "@interfaces/bio.interface";
+import { CourseTaken, Experience, PersonalProject } from "@interfaces/bio";
 import { Dictionary } from "@interfaces/global.interface";
 import { getFormattedPeriodDate } from "@lib/functions/bio.fn";
 import dayjs from "dayjs";
