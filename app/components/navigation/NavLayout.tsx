@@ -4,7 +4,7 @@ type NavProps = {
   children: ReactNode;
 };
 
-export const Nav = ({ children }: NavProps) => {
+export const NavLayout = ({ children }: NavProps) => {
   return (
     <>
       <nav className="fixed z-10 flex bg-stone-100 top-0 items-center h-16 w-full drop-shadow-lg">

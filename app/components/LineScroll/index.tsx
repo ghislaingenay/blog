@@ -6,7 +6,7 @@ type LineScrollProps = {
   isTop?: boolean;
 };
 
-export const LineScroll = ({ isTop = false }: LineScrollProps) => {
+export default function LineScroll({ isTop = false }: LineScrollProps) {
   const [percentCompletion, setPercentCompletion] = useState(0);
   const percentage = useDeferredValue(percentCompletion);
 
@@ -33,4 +33,4 @@ export const LineScroll = ({ isTop = false }: LineScrollProps) => {
       />
     </div>
   );
-};
+}

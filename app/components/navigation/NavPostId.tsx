@@ -1,10 +1,10 @@
 "use client";
+import LineScroll from "@components/LineScroll";
 import { AnimationState } from "@interfaces";
 import useScroll from "@lib/hooks/useScroll";
 import Link from "next/link";
 import { useDeferredValue, useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
-import { LineScroll } from "./LineScroll";
 
 export const NavBarPostId = () => {
   const [hasReachedText, setHasReachedText] = useState<AnimationState>(false);
