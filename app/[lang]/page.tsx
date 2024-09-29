@@ -11,6 +11,7 @@ export default async function Home({ params: { lang } }: LangProps) {
   return (
     <>
       <HomeNavbar />
+      <div className="h-16" />
       <HeroBanner />
       <HomePosts />
 
